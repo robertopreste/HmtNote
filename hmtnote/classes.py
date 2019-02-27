@@ -4,6 +4,41 @@
 import requests
 from typing import Union
 from vcf.model import _Record
+from pysam import VariantFile
+
+
+class HmtVarField:
+    def __init__(self, element, api_slug):
+        self.element = element
+        self.api_slug = api_slug
+        self._field_value = []
+
+    @staticmethod
+    def replace_null(element: Union[str, int, float, None]) -> Union[str, int, float]:
+        """
+        Replace null values returned by HmtVar's API (None) with a '.' character.
+        :param Union[str, int, float, None] element: value returned by HmtVar
+        :return: Union[str, int, float]
+        """
+        if element is None:
+            return "."
+        return element
+
+    @property
+    def field_value(self):
+        return self._field_value
+
+    @field_value.setter
+    def field_value(self, value):
+        self._field_value.append(self.replace_null(value))
+        
+        
+class HmtVarHeader: 
+    def __init__(self, element, vcf_number, vcf_type, vcf_description):
+        self.element = element
+        self.vcf_number = vcf_number
+        self.vcf_type = vcf_type
+        self.vcf_description = vcf_description
 
 
 class Variant:
@@ -28,43 +63,61 @@ class Variant:
         return resp
 
 
-class Annotator:
+class RecordAnnotator:
     def __init__(self, record):
         self.record = record
-
-        self.basics = [("Locus", "locus", []), ("AaChange", "aa_change", []),
-                  ("Pathogenicity", "pathogenicity", []), ("DiseaseScore", "disease_score", []),
-                  ("Haplogroups", "haplogroups", [])]
-        self.crossrefs = [("Clinvar", "clinvar", []), ("dbSNP", "dbSNP", []), ("OMIM", "omim", []),
-                     ("MitomapAssociatedDiseases", "mitomap_associated_disease", []),
-                     ("MitomapSomaticMutations", "somatic_mutations", [])]
-        self.variabs = [("NtVarH", "nt_var", []), ("NtVarP", "nt_var_patients", []),
-                   ("AaVarH", "aa_var", []), ("AaVarP", "aa_var_patients", []),
-                   ("AlleleFreqH", "all_freq_h", []), ("AlleleFreqP", "all_freq_p", []),
-                   ("AlleleFreqH_AF", "all_freq_h_AF", []), ("AlleleFreqP_AF", "all_freq_p_AF", []),
-                   ("AlleleFreqH_AM", "all_freq_h_AM", []), ("AlleleFreqP_AM", "all_freq_p_AM", []),
-                   ("AlleleFreqH_AS", "all_freq_h_AS", []), ("AlleleFreqP_AS", "all_freq_p_AS", []),
-                   ("AlleleFreqH_EU", "all_freq_h_EU", []), ("AlleleFreqP_EU", "all_freq_p_EU", []),
-                   ("AlleleFreqH_OC", "all_freq_h_OC", []), ("AlleleFreqP_OC", "all_freq_p_OC", [])]
-        self.predicts = [("MutPred_Prediction", "mutPred_pred", []),
-                    ("MutPred_Probability", "mutPred_prob", []),
-                    ("Panther_Prediction", "panther_pred", []),
-                    ("Panther_Probability", "panther_prob", []),
-                    ("PhDSNP_Prediction", "phD_snp_pred", []),
-                    ("PhDSNP_Probability", "phD_snp_prob", []),
-                    ("SNPsGO_Prediction", "snp_go_pred", []),
-                    ("SNPsGO_Probability", "snp_go_prob", []),
-                    ("Polyphen2HumDiv_Prediction", "polyphen2_humDiv_pred", []),
-                    ("Polyphen2HumDiv_Probability", "polyphen2_humDiv_prob", []),
-                    ("Polyphen2HumVar_Prediction", "polyphen2_humVar_pred", []),
-                    ("Polyphen2HumVar_Probability", "polyphen2_humVar_prob", [])]
+        self.basics = (
+            HmtVarField("Locus", "locus"),
+            HmtVarField("AaChange", "aa_change"),
+            HmtVarField("Pathogenicity", "pathogenicity"),
+            HmtVarField("Haplogroups", "haplogroups")
+        )
+        self.crossrefs = (
+            HmtVarField("Clinvar", "clinvar"),
+            HmtVarField("dbSNP", "dbSNP"),
+            HmtVarField("OMIM", "omim"),
+            HmtVarField("MitomapAssociatedDiseases", "mitomap_associated_disease"),
+            HmtVarField("MitomapSomaticMutations", "mitomap_somatic_mutations")
+        )
+        self.variabs = (
+            HmtVarField("NtVarH", "nt_var"),
+            HmtVarField("NtVarP", "nt_var_patients"),
+            HmtVarField("AaVarH", "aa_var"),
+            HmtVarField("AaVarP", "aa_var_patients"),
+            HmtVarField("AlleleFreqH", "all_freq_h"),
+            HmtVarField("AlleleFreqP", "all_freq_p"),
+            HmtVarField("AlleleFreqH_AF", "all_freq_h_AF"),
+            HmtVarField("AlleleFreqP_AF", "all_freq_p_AF"),
+            HmtVarField("AlleleFreqH_AM", "all_freq_h_AM"),
+            HmtVarField("AlleleFreqP_AM", "all_freq_p_AM"),
+            HmtVarField("AlleleFreqH_AS", "all_freq_h_AS"),
+            HmtVarField("AlleleFreqP_AS", "all_freq_p_AS"),
+            HmtVarField("AlleleFreqH_EU", "all_freq_h_EU"),
+            HmtVarField("AlleleFreqP_EU", "all_freq_p_EU"),
+            HmtVarField("AlleleFreqH_OC", "all_freq_h_OC"),
+            HmtVarField("AlleleFreqP_OC", "all_freq_p_OC")
+        )
+        self.predicts = (
+            HmtVarField("MutPred_Prediction", "mutPred_pred"),
+            HmtVarField("MutPred_Probability", "mutPred_prob"),
+            HmtVarField("Panther_Prediction", "panther_pred"),
+            HmtVarField("Panther_Probability", "panther_prob"),
+            HmtVarField("PhDSNP_Prediction", "phD_snp_pred"),
+            HmtVarField("PhDSNP_Probability", "phD_snp_prob"),
+            HmtVarField("SNPsGO_Prediction", "snp_go_pred"),
+            HmtVarField("SNPsGO_Probability", "snp_go_prob"),
+            HmtVarField("Polyphen2HumDiv_Prediction", "polyphen2_humDiv_pred"),
+            HmtVarField("Polyphen2HumDiv_Probability", "polyphen2_humDiv_prob"),
+            HmtVarField("Polyphen2HumVar_Prediction", "polyphen2_humVar_pred"),
+            HmtVarField("Polyphen2HumVar_Probability", "polyphen2_humVar_prob")
+        )
 
     def is_variation(self) -> bool:
         """
         Check whether or not the current record refers to an actual variant.
         :return: bool
         """
-        if self.record.ALT != [None]:
+        if self.record.alts is not None:
             return True
         return False
 
@@ -73,96 +126,174 @@ class Annotator:
         Check whether or not the current record has multiple alternate alleles.
         :return: bool
         """
-        if len(self.record.ALT) > 1:
+        if len(self.record.alts) > 1:
             return True
         return False
 
-    @staticmethod
-    def replace_null(element: Union[str, int, float, None]) -> Union[str, int, float]:
-        """
-        Replace null values returned by HmtVar (None) with a '.' character.
-        :param Union[str, int, float, None] element: value returned by HmtVar
-        :return: Union[str, int, float]
-        """
-        if element is None:
-            return "."
-        return element
-
-    def annotate_basic(self, response: dict):
-        """
-        Update self.basics and self.crossrefs using values found in the input variant's response.
-        :param dict response: response returned by HmtVar's API
-        :return:
-        """
-        for el in self.basics:
-            el[2].append(self.replace_null(response.get(el[1], ".")))
-        for el in self.crossrefs:
-            el[2].append(self.replace_null(response.get("CrossRef").get(el[1], ".")))
-
-    def annotate_variab(self, response: dict):
-        """
-        Update self.variabs using values found in the input variant's response.
-        :param dict response: response returned by HmtVar's API.
-        :return:
-        """
-        for el in self.variabs:
-            el[2].append(self.replace_null(response.get("Variab").get(el[1], ".")))
-
-    def annotate_predict(self, response: dict):
-        """
-        Update self.predicts using values found in the input variant's response.
-        :param dict response: response returned by HmtVar's API.
-        :return:
-        """
-        for el in self.predicts:
-            el[2].append(self.replace_null(response.get("Predict").get(el[1], ".")))
-
-    def annotate(self, basic: bool = True,
-                 variab: bool = True,
-                 predict: bool = True):
+    def parse_annotations(self):
         """
         Update annotations about the given record using the above-defined functions.
-        :param bool basic: update basic annotations
-        :param bool variab: update variability annotations
-        :param bool predict: update predictions annotations
         :return:
         """
-        variants = [Variant(self.record.REF, self.record.POS, alt) for alt in self.record.ALT]
+        variants = [Variant(self.record.ref, self.record.pos, alt) for alt in self.record.alts]
         for variant in variants:
-            if basic:
-                self.annotate_basic(variant.response)
-            if variab:
-                self.annotate_variab(variant.response)
-            if predict:
-                self.annotate_predict(variant.response)
+            response = variant.response
+            for field in self.basics:
+                field.field_value = response.get(field.api_slug, ".")
+            for field in self.crossrefs:
+                field.field_value = response.get("CrossRef").get(field.api_slug, ".")
+            for field in self.variabs:
+                field.field_value = response.get("Variab").get(field.api_slug, ".")
+            for field in self.predicts:
+                field.field_value = response.get("Predict").get(field.api_slug, ".")
 
-    def update_record(self, basic: bool = True,
-                      variab: bool = True,
-                      predict: bool = True) -> _Record:
+    def annotate(self, basic: bool = True, variab: bool = True, predict: bool = True):
         """
         Add new updated annotations to the input record, which is then ready to be written out.
-        If the record's ALT attribute contains more than one alternate allele, resulting values
-        will be merged with a comma, as is common in VCF files.
         :param bool basic: update record with basic annotations
         :param bool variab: update record with variability annotations
         :param bool predict: update record with prediction annotations
-        :return: _Record original record with added fields in the INFO column
+        :return:
         """
         if basic:
-            for el in self.basics:
-                self.record.add_info(el[0], ",".join(map(str, el[2])))
-            for el in self.crossrefs:
-                self.record.add_info(el[0], ",".join(map(str, el[2])))
+            for field in self.basics:
+                self.record.info[field.element] = ",".join(map(str, field.field_value))
+            for field in self.crossrefs:
+                self.record.info[field.element] = ",".join(map(str, field.field_value))
         if variab:
-            for el in self.variabs:
-                self.record.add_info(el[0], ",".join(map(str, el[2])))
+            for field in self.variabs:
+                self.record.info[field.element] = ",".join(map(str, field.field_value))
         if predict:
-            for el in self.predicts:
-                self.record.add_info(el[0], ",".join(map(str, el[2])))
+            for field in self.predicts:
+                self.record.info[field.element] = ",".join(map(str, field.field_value))
 
         return self.record
 
 
+class Updater:
+    # TODO: this will embrace the RecordAnnotator class, so I can reference the straight record
+    def __init__(self, vcf_in, vcf_out, basic, variab, predict):
+        self.vcf_in = vcf_in
+        self.vcf_out = vcf_out
+        self.basic = basic
+        self.variab = variab
+        self.predict = predict
+        self.reader = VariantFile(vcf_in, "r")
+        self.basics = (
+            HmtVarHeader("Locus", "A", "String",
+                         "Locus to which the variant belongs"),
+            HmtVarHeader("AaChange", "A", "String",
+                         "Aminoacidic change determined"),
+            HmtVarHeader("Pathogenicity", "A", "String",
+                         "Pathogenicity predicted by HmtVar"),
+            HmtVarHeader("Haplogroups", "A", "String",
+                         "Haplogroups defined by the variant")
+        )
+        self.crossrefs = (
+            HmtVarHeader("Clinvar", "A", "String",
+                         "Clinvar ID of the variant"),
+            HmtVarHeader("dbSNP", "A", "String",
+                         "dbSNP ID of the variant"),
+            HmtVarHeader("OMIM", "A", "String",
+                         "OMIM ID of the variant"),
+            HmtVarHeader("MitomapAssociatedDiseases", "A", "String",
+                         "Diseases associated to the variant according to Mitomap Associated Diseases"),
+            HmtVarHeader("MitomapSomaticMutations", "A", "String",
+                         "Diseases associated to the variant according to Mitomap Somatic Mutations")
+        )
+        self.variabs = (
+            HmtVarHeader("NtVarH", "A", "String",
+                         "Nucleotide variability of the position in healthy individuals"),
+            HmtVarHeader("NtVarP", "A", "String",
+                         "Nucleotide variability of the position in patient individuals"),
+            HmtVarHeader("AaVarH", "A", "String",
+                         "Aminoacid variability of the position in healthy individuals"),
+            HmtVarHeader("AaVarP", "A", "String",
+                         "Aminoacid variability of the position in patient individuals"),
+            HmtVarHeader("AlleleFreqH", "A", "String",
+                         "Allele frequency of the variant in healthy individuals overall"),
+            HmtVarHeader("AlleleFreqP", "A", "String",
+                         "Allele frequency of the variant in patient individuals overall"),
+            HmtVarHeader("AlleleFreqH_AF", "A", "String",
+                         "Allele frequency of the variant in healthy individuals from Africa"),
+            HmtVarHeader("AlleleFreqP_AF", "A", "String",
+                         "Allele frequency of the variant in patient individuals from Africa"),
+            HmtVarHeader("AlleleFreqH_AM", "A", "String",
+                         "Allele frequency of the variant in healthy individuals from America"),
+            HmtVarHeader("AlleleFreqP_AM", "A", "String",
+                         "Allele frequency of the variant in patient individuals from America"),
+            HmtVarHeader("AlleleFreqH_AS", "A", "String",
+                         "Allele frequency of the variant in healthy individuals from Asia"),
+            HmtVarHeader("AlleleFreqP_AS", "A", "String",
+                         "Allele frequency of the variant in patient individuals from Asia"),
+            HmtVarHeader("AlleleFreqH_EU", "A", "String",
+                         "Allele frequency of the variant in healthy individuals from Europe"),
+            HmtVarHeader("AlleleFreqP_EU", "A", "String",
+                         "Allele frequency of the variant in patient individuals from Europe"),
+            HmtVarHeader("AlleleFreqH_OC", "A", "String",
+                         "Allele frequency of the variant in healthy individuals from Oceania"),
+            HmtVarHeader("AlleleFreqP_OC", "A", "String",
+                         "Allele frequency of the variant in patient individuals from Oceania")
+        )
+        self.predicts = (
+            HmtVarHeader("MutPred_Prediction", "A", "String",
+                         "Pathogenicity prediction offered by MutPred"),
+            HmtVarHeader("MutPred_Probability", "A", "String",
+                         "Confidence of the pathogenicity prediction offered by MutPred"),
+            HmtVarHeader("Panther_Prediction", "A", "String",
+                         "Pathogenicity prediction offered by Panther"),
+            HmtVarHeader("Panther_Probability", "A", "String",
+                         "Confidence of the pathogenicity prediction offered by Panther"),
+            HmtVarHeader("PhDSNP_Prediction", "A", "String",
+                         "Pathogenicity prediction offered by PhD SNP"),
+            HmtVarHeader("PhDSNP_Probability", "A", "String",
+                         "Confidence of the pathogenicity prediction offered by PhD SNP"),
+            HmtVarHeader("SNPsGO_Prediction", "A", "String",
+                         "Pathogenicity prediction offered by SNPs & GO"),
+            HmtVarHeader("SNPsGO_Probability", "A", "String",
+                         "Confidence of the pathogenicity prediction offered by SNPs & GO"),
+            HmtVarHeader("Polyphen2HumDiv_Prediction", "A", "String",
+                         "Pathogenicity prediction offered by Polyphen2 HumDiv"),
+            HmtVarHeader("Polyphen2HumDiv_Probability", "A", "String",
+                         "Confidence of the pathogenicity prediction offered by Polyphen2 HumDiv"),
+            HmtVarHeader("Polyphen2HumVar_Prediction", "A", "String",
+                         "Pathogenicity prediction offered by Polyphen2 HumVar"),
+            HmtVarHeader("Polyphen2HumVar_Probability", "A", "String",
+                         "Confidence of the pathogenicity prediction offered by Polyphen2 HumVar")
+        )
+        self.update_header()
+        self.writer = VariantFile(vcf_out, "w", header=self.reader.header)
+        self.update_variants()
+
+    def update_header(self):
+        if self.basic:
+            for field in self.basics:
+                self.reader.header.info.add(field.element, field.vcf_number, field.vcf_type,
+                                            field.vcf_description)
+            for field in self.crossrefs:
+                self.reader.header.info.add(field.element, field.vcf_number, field.vcf_type,
+                                            field.vcf_description)
+        if self.variab:
+            for field in self.variabs:
+                self.reader.header.info.add(field.element, field.vcf_number, field.vcf_type,
+                                            field.vcf_description)
+        if self.predict:
+            for field in self.predicts:
+                self.reader.header.info.add(field.element, field.vcf_number, field.vcf_type,
+                                            field.vcf_description)
+
+    def update_variants(self):
+        for element in self.reader:
+            # print(element)
+            record = RecordAnnotator(element)
+            # print(record.is_variation())
+            if record.is_variation():
+                record.parse_annotations()
+                # print(record.info["Locus"])
+                # print(record.basics)
+                self.writer.write(record.annotate(self.basic, self.variab, self.predict))
+        self.reader.close()
+        self.writer.close()
 
 
 
