@@ -12,14 +12,19 @@ class Variant:
         self.position = position
         self.alternate = alternate
         self.variant = f"{self.reference}{self.position}{self.alternate}"
-        # TODO: we should return a comma-separated list of values for each alt, when returning vals
 
     @property
     def response(self) -> dict:
+        """
+        Call HmtVar's API to retrieve data related to self.variant.
+        :return: dict
+        """
         url = f"https://www.hmtvar.uniba.it/api/main/mutation/{self.variant}"
         call = requests.get(url)
         # TODO variants not present in HmtVar actually return an empty dictionary
         resp = call.json()
+        if resp == {}:
+            resp = {"CrossRef": ".", "Variab": ".", "Predict": "."}
         return resp
 
 
@@ -73,53 +78,85 @@ class Annotator:
         return False
 
     @staticmethod
-    def replace_null(element: str) -> Union[str, int, float]:
+    def replace_null(element: Union[str, int, float, None]) -> Union[str, int, float]:
+        """
+        Replace null values returned by HmtVar (None) with a '.' character.
+        :param Union[str, int, float, None] element: value returned by HmtVar
+        :return: Union[str, int, float]
+        """
         if element is None:
             return "."
         return element
 
-    def annotate_basic(self, variant: Variant):
-        # for el in self.annotations.get("basics"):
+    def annotate_basic(self, response: dict):
+        """
+        Update self.basics and self.crossrefs using values found in the input variant's response.
+        :param dict response: response returned by HmtVar's API
+        :return:
+        """
         for el in self.basics:
-            el[2].append(self.replace_null(variant.response.get(el[1], ".")))
-        # for el in self.annotations.get("crossrefs"):
+            el[2].append(self.replace_null(response.get(el[1], ".")))
         for el in self.crossrefs:
-            el[2].append(self.replace_null(variant.response.get("CrossRef").get(el[1], ".")))
+            el[2].append(self.replace_null(response.get("CrossRef").get(el[1], ".")))
 
-    def annotate_variab(self, variant: Variant):
-        # for el in self.annotations.get("variabs"):
+    def annotate_variab(self, response: dict):
+        """
+        Update self.variabs using values found in the input variant's response.
+        :param dict response: response returned by HmtVar's API.
+        :return:
+        """
         for el in self.variabs:
-            el[2].append(self.replace_null(variant.response.get("Variab").get(el[1], ".")))
+            el[2].append(self.replace_null(response.get("Variab").get(el[1], ".")))
 
-    def annotate_predict(self, variant: Variant):
-        # for el in self.annotations.get("predicts"):
+    def annotate_predict(self, response: dict):
+        """
+        Update self.predicts using values found in the input variant's response.
+        :param dict response: response returned by HmtVar's API.
+        :return:
+        """
         for el in self.predicts:
-            el[2].append(self.replace_null(variant.response.get("Predict").get(el[1], ".")))
+            el[2].append(self.replace_null(response.get("Predict").get(el[1], ".")))
 
-    def annotate(self, basic: bool = True, variab: bool = True, predict: bool = True):
+    def annotate(self, basic: bool = True,
+                 variab: bool = True,
+                 predict: bool = True):
+        """
+        Update annotations about the given record using the above-defined functions.
+        :param bool basic: update basic annotations
+        :param bool variab: update variability annotations
+        :param bool predict: update predictions annotations
+        :return:
+        """
         variants = [Variant(self.record.REF, self.record.POS, alt) for alt in self.record.ALT]
         for variant in variants:
             if basic:
-                self.annotate_basic(variant)
+                self.annotate_basic(variant.response)
             if variab:
-                self.annotate_variab(variant)
+                self.annotate_variab(variant.response)
             if predict:
-                self.annotate_predict(variant)
+                self.annotate_predict(variant.response)
 
-    def update_record(self, basic: bool = True, variab: bool = True, predict: bool = True):
+    def update_record(self, basic: bool = True,
+                      variab: bool = True,
+                      predict: bool = True) -> _Record:
+        """
+        Add new updated annotations to the input record, which is then ready to be written out.
+        If the record's ALT attribute contains more than one alternate allele, resulting values
+        will be merged with a comma, as is common in VCF files.
+        :param bool basic: update record with basic annotations
+        :param bool variab: update record with variability annotations
+        :param bool predict: update record with prediction annotations
+        :return: _Record original record with added fields in the INFO column
+        """
         if basic:
-            # for el in self.annotations.get("basics"):
             for el in self.basics:
                 self.record.add_info(el[0], ",".join(map(str, el[2])))
-            # for el in self.annotations.get("crossrefs"):
             for el in self.crossrefs:
                 self.record.add_info(el[0], ",".join(map(str, el[2])))
         if variab:
-            # for el in self.annotations.get("variabs"):
             for el in self.variabs:
                 self.record.add_info(el[0], ",".join(map(str, el[2])))
         if predict:
-            # for el in self.annotations.get("predicts"):
             for el in self.predicts:
                 self.record.add_info(el[0], ",".join(map(str, el[2])))
 
