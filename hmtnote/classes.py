@@ -3,8 +3,9 @@
 # Created by Roberto Preste
 import requests
 from typing import Union
-from vcf.model import _Record
-from pysam import VariantFile
+# from vcf.model import _Record
+# from pysam import VariantFile, VariantRecord
+from cyvcf2 import VCF, Writer
 
 
 class HmtVarField:
@@ -41,7 +42,7 @@ class HmtVarHeader:
         self.vcf_description = vcf_description
 
 
-class Variant:
+class HmtVarVariant:
     def __init__(self, reference, position, alternate):
         self.reference = reference
         self.position = position
@@ -63,7 +64,7 @@ class Variant:
         return resp
 
 
-class RecordAnnotator:
+class HmtVarParser:
     def __init__(self, record):
         self.record = record
         self.basics = (
@@ -112,30 +113,12 @@ class RecordAnnotator:
             HmtVarField("Polyphen2HumVar_Probability", "polyphen2_humVar_prob")
         )
 
-    def is_variation(self) -> bool:
-        """
-        Check whether or not the current record refers to an actual variant.
-        :return: bool
-        """
-        if self.record.alts is not None:
-            return True
-        return False
-
-    def has_multiple_alts(self) -> bool:
-        """
-        Check whether or not the current record has multiple alternate alleles.
-        :return: bool
-        """
-        if len(self.record.alts) > 1:
-            return True
-        return False
-
-    def parse_annotations(self):
+    def parse(self):
         """
         Update annotations about the given record using the above-defined functions.
         :return:
         """
-        variants = [Variant(self.record.ref, self.record.pos, alt) for alt in self.record.alts]
+        variants = [HmtVarVariant(self.record.REF, self.record.POS, alt) for alt in self.record.ALT]
         for variant in variants:
             response = variant.response
             for field in self.basics:
@@ -147,39 +130,16 @@ class RecordAnnotator:
             for field in self.predicts:
                 field.field_value = response.get("Predict").get(field.api_slug, ".")
 
-    def annotate(self, basic: bool = True, variab: bool = True, predict: bool = True):
-        """
-        Add new updated annotations to the input record, which is then ready to be written out.
-        :param bool basic: update record with basic annotations
-        :param bool variab: update record with variability annotations
-        :param bool predict: update record with prediction annotations
-        :return:
-        """
-        if basic:
-            for field in self.basics:
-                self.record.info[field.element] = ",".join(map(str, field.field_value))
-            for field in self.crossrefs:
-                self.record.info[field.element] = ",".join(map(str, field.field_value))
-        if variab:
-            for field in self.variabs:
-                self.record.info[field.element] = ",".join(map(str, field.field_value))
-        if predict:
-            for field in self.predicts:
-                self.record.info[field.element] = ",".join(map(str, field.field_value))
 
-        return self.record
-
-
-class Updater:
-    # TODO: this will embrace the RecordAnnotator class, so I can reference the straight record
+class Annotator:
     def __init__(self, vcf_in, vcf_out, basic, variab, predict):
         self.vcf_in = vcf_in
         self.vcf_out = vcf_out
         self.basic = basic
         self.variab = variab
         self.predict = predict
-        self.reader = VariantFile(vcf_in, "r")
-        self.basics = (
+        self.reader = VCF(vcf_in)
+        self.basic_heads = (
             HmtVarHeader("Locus", "A", "String",
                          "Locus to which the variant belongs"),
             HmtVarHeader("AaChange", "A", "String",
@@ -189,7 +149,7 @@ class Updater:
             HmtVarHeader("Haplogroups", "A", "String",
                          "Haplogroups defined by the variant")
         )
-        self.crossrefs = (
+        self.crossref_heads = (
             HmtVarHeader("Clinvar", "A", "String",
                          "Clinvar ID of the variant"),
             HmtVarHeader("dbSNP", "A", "String",
@@ -201,7 +161,7 @@ class Updater:
             HmtVarHeader("MitomapSomaticMutations", "A", "String",
                          "Diseases associated to the variant according to Mitomap Somatic Mutations")
         )
-        self.variabs = (
+        self.variab_heads = (
             HmtVarHeader("NtVarH", "A", "String",
                          "Nucleotide variability of the position in healthy individuals"),
             HmtVarHeader("NtVarP", "A", "String",
@@ -235,7 +195,7 @@ class Updater:
             HmtVarHeader("AlleleFreqP_OC", "A", "String",
                          "Allele frequency of the variant in patient individuals from Oceania")
         )
-        self.predicts = (
+        self.predict_heads = (
             HmtVarHeader("MutPred_Prediction", "A", "String",
                          "Pathogenicity prediction offered by MutPred"),
             HmtVarHeader("MutPred_Probability", "A", "String",
@@ -262,36 +222,61 @@ class Updater:
                          "Confidence of the pathogenicity prediction offered by Polyphen2 HumVar")
         )
         self.update_header()
-        self.writer = VariantFile(vcf_out, "w", header=self.reader.header)
+        self.writer = Writer(vcf_out, self.reader)
         self.update_variants()
+
+    @staticmethod
+    def is_variation(record) -> bool:
+        """
+        Check whether or not the current record refers to an actual variant.
+        :return: bool
+        """
+        if len(record.ALT) > 0:
+            return True
+        return False
 
     def update_header(self):
         if self.basic:
-            for field in self.basics:
-                self.reader.header.info.add(field.element, field.vcf_number, field.vcf_type,
-                                            field.vcf_description)
-            for field in self.crossrefs:
-                self.reader.header.info.add(field.element, field.vcf_number, field.vcf_type,
-                                            field.vcf_description)
+            for field in self.basic_heads:
+                self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
+                                                "Type": field.vcf_type,
+                                                "Description": field.vcf_description})
+            for field in self.crossref_heads:
+                self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
+                                                "Type": field.vcf_type,
+                                                "Description": field.vcf_description})
         if self.variab:
-            for field in self.variabs:
-                self.reader.header.info.add(field.element, field.vcf_number, field.vcf_type,
-                                            field.vcf_description)
+            for field in self.variab_heads:
+                self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
+                                                "Type": field.vcf_type,
+                                                "Description": field.vcf_description})
         if self.predict:
-            for field in self.predicts:
-                self.reader.header.info.add(field.element, field.vcf_number, field.vcf_type,
-                                            field.vcf_description)
+            for field in self.predict_heads:
+                self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
+                                                "Type": field.vcf_type,
+                                                "Description": field.vcf_description})
 
     def update_variants(self):
-        for element in self.reader:
-            # print(element)
-            record = RecordAnnotator(element)
-            # print(record.is_variation())
-            if record.is_variation():
-                record.parse_annotations()
-                # print(record.info["Locus"])
-                # print(record.basics)
-                self.writer.write(record.annotate(self.basic, self.variab, self.predict))
+        for record in self.reader:
+
+            if self.is_variation(record):
+                annots = HmtVarParser(record)
+                annots.parse()
+
+                if self.basic:
+                    for field in annots.basics:
+                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                    for field in annots.crossrefs:
+                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                if self.variab:
+                    for field in annots.variabs:
+                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                if self.predict:
+                    for field in annots.predicts:
+                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+
+            self.writer.write_record(record)
+
         self.reader.close()
         self.writer.close()
 
