@@ -9,6 +9,14 @@ from cyvcf2 import VCF, Writer
 
 
 class HmtVarField:
+    """
+    This class is used to collect data from HmtVar's API for each field returned.
+    self.element: name of the field to be used in the VCF file
+    self.api_slug: name of the field used in HmtVar's API
+    self._field_value: value of the given field; automatically instantiated as an empty list, is
+    then populated with a single value for each alternate allele found in the variant
+    """
+
     def __init__(self, element, api_slug):
         self.element = element
         self.api_slug = api_slug
@@ -27,14 +35,31 @@ class HmtVarField:
 
     @property
     def field_value(self):
+        """
+        List of values parsed from HmtVar's API for each alternate allele of the given variant.
+        :return:
+        """
         return self._field_value
 
     @field_value.setter
     def field_value(self, value):
+        """
+        Update the list of values with a new value.
+        :param value: new value to be appended to the list of values
+        :return:
+        """
         self._field_value.append(self.replace_null(value))
         
         
-class HmtVarHeader: 
+class HmtVarHeader:
+    """
+    This class is used to create a new header that will be added to the annotated VCF file.
+    self.element: name of the field to be used in the VCF file
+    self.vcf_number: value used in the 'number' attribute of the header line
+    self.vcf_type: type of value for this information
+    self.vcf_description: description of this information
+    """
+
     def __init__(self, element, vcf_number, vcf_type, vcf_description):
         self.element = element
         self.vcf_number = vcf_number
@@ -43,6 +68,14 @@ class HmtVarHeader:
 
 
 class HmtVarVariant:
+    """
+    This class is used to store a given variant and retrieve the related information from HmtVar.
+    self.reference: reference allele of the variant
+    self.position: position of the variant
+    self.alternate: alternate allele of the variant
+    self.variant: string-formatted variant, used for the API call
+    """
+
     def __init__(self, reference, position, alternate):
         self.reference = reference
         self.position = position
@@ -65,6 +98,16 @@ class HmtVarVariant:
 
 
 class HmtVarParser:
+    """
+    This class is used to parse information collected from HmtVar's API and store them in the right
+    format, ready for VCF annotation.
+    self.record: variant record as returned by cyvcf2.VCF
+    self.basics: basic information from HmtVar
+    self.crossrefs: cross-reference information from HmtVar
+    self.variabs: variability information from HmtVar
+    self.predicts: predictions information from HmtVar
+    """
+
     def __init__(self, record):
         self.record = record
         self.basics = (
@@ -115,7 +158,7 @@ class HmtVarParser:
 
     def parse(self):
         """
-        Update annotations about the given record using the above-defined functions.
+        Update annotations about the given record.
         :return:
         """
         variants = [HmtVarVariant(self.record.REF, self.record.POS, alt) for alt in self.record.ALT]
@@ -132,6 +175,23 @@ class HmtVarParser:
 
 
 class Annotator:
+    """
+    This class is the main entry point for VCF annotation. It will traverse a given input VCF and
+    annotate each variant found, then save the annotated VCF.
+    self.vcf_in: input VCF filename
+    self.vcf_out: output VCF filename
+    self.basic: bool flag to enable annotation of basic information
+    self.variab: bool flag to enable annotation of variability information
+    self.predict: bool flag to enable annotation of predictions information
+    self.reader: input VCF reader (provided by cyvcf2.VCF)
+    self.basic_heads: header to be used for basic information
+    self.crossref_heads: header to be used for cross-reference information
+    self.variab_heads: header to be used for variability information
+    self.predict_heads: header to be used for predictions information
+    self.writer: output VCF writer (provided by cyvcf2.Writer), instantiated after the header has
+    been updated according to new header to be used
+    """
+
     def __init__(self, vcf_in, vcf_out, basic, variab, predict):
         self.vcf_in = vcf_in
         self.vcf_out = vcf_out
@@ -236,6 +296,11 @@ class Annotator:
         return False
 
     def update_header(self):
+        """
+        Update the header present in the input VCF file according to the flags provided (basic,
+        variability, predictions information).
+        :return:
+        """
         if self.basic:
             for field in self.basic_heads:
                 self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
@@ -257,6 +322,11 @@ class Annotator:
                                                 "Description": field.vcf_description})
 
     def update_variants(self):
+        """
+        Annotate variants according to the flags provided (basic, variability, predictions
+        information), and write the output VCF file.
+        :return:
+        """
         for record in self.reader:
 
             if self.is_variation(record):
