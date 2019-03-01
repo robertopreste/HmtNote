@@ -3,7 +3,7 @@
 # Created by Roberto Preste
 import sys
 import click
-from .classes import Annotator
+from hmtnote.classes import Annotator
 
 
 @click.command()
