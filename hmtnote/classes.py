@@ -80,7 +80,7 @@ class HmtVarVariant:
         self.alternate = alternate
         # self.variant = f"{self.reference}{self.position}{self.alternate}"
         # TODO: will need to fix ref for deletions (and insertions?)
-        self.variant = f"{self.position}{self.alternate}"
+        self.variant = "{}{}".format(self.position, self.alternate)
 
     @property
     def response(self) -> dict:
@@ -88,7 +88,7 @@ class HmtVarVariant:
         Call HmtVar's API to retrieve data related to self.variant.
         :return: dict
         """
-        url = f"https://www.hmtvar.uniba.it/api/main/mutation/{self.variant}"
+        url = "https://www.hmtvar.uniba.it/api/main/mutation/{}".format(self.variant)
         call = requests.get(url)
         # TODO variants not present in HmtVar actually return an empty dictionary
         resp = call.json()
