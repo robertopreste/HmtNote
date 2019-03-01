@@ -3,8 +3,6 @@
 # Created by Roberto Preste
 import requests
 from typing import Union
-# from vcf.model import _Record
-# from pysam import VariantFile, VariantRecord
 from cyvcf2 import VCF, Writer
 
 
@@ -283,7 +281,6 @@ class Annotator:
         )
         self.update_header()
         self.writer = Writer(vcf_out, self.reader)
-        self.update_variants()
 
     @staticmethod
     def is_variation(record) -> bool:
@@ -321,7 +318,7 @@ class Annotator:
                                                 "Type": field.vcf_type,
                                                 "Description": field.vcf_description})
 
-    def update_variants(self):
+    def annotate(self):
         """
         Annotate variants according to the flags provided (basic, variability, predictions
         information), and write the output VCF file.
