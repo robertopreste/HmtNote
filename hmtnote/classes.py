@@ -291,9 +291,22 @@ class Annotator:
     def is_variation(record) -> bool:
         """
         Check whether or not the current record refers to an actual variant.
+        :param record: current VCF record
         :return: bool
         """
         if len(record.ALT) > 0:
+            return True
+        return False
+
+    @staticmethod
+    def is_mitochondrial(record) -> bool:
+        """
+        Check whether or not the current record is a mitochondrial variant; if not will avoid
+        sending useless requests to HmtVar.
+        :param record: current VCF record
+        :return: bool
+        """
+        if record.CHROM in ["M", "MT", "chrM", "chrMT"]:
             return True
         return False
 
@@ -331,7 +344,7 @@ class Annotator:
         """
         for record in self.reader:
 
-            if self.is_variation(record):
+            if self.is_variation(record) and self.is_mitochondrial(record):
                 annots = HmtVarParser(record)
                 annots.parse()
 
