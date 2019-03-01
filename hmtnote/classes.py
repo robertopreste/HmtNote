@@ -78,7 +78,9 @@ class HmtVarVariant:
         self.reference = reference
         self.position = position
         self.alternate = alternate
-        self.variant = f"{self.reference}{self.position}{self.alternate}"
+        # self.variant = f"{self.reference}{self.position}{self.alternate}"
+        # TODO: will need to fix ref for deletions (and insertions?)
+        self.variant = f"{self.position}{self.alternate}"
 
     @property
     def response(self) -> dict:
@@ -91,7 +93,10 @@ class HmtVarVariant:
         # TODO variants not present in HmtVar actually return an empty dictionary
         resp = call.json()
         if resp == {}:
-            resp = {"CrossRef": ".", "Variab": ".", "Predict": "."}
+            # TODO: fix this, it's quite ugly
+            resp = {"CrossRef": {"none": "."},
+                    "Variab": {"none": "."},
+                    "Predict": {"none": "."}}
         return resp
 
 
