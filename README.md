@@ -15,6 +15,24 @@ Human mitochondrial variants annotation using HmtVar.
 * Documentation: [https://hmtnote.readthedocs.io](https://hmtnote.readthedocs.io).  
 
 
+## Installation  
+
+HmtNote can be installed using `conda` (only supports python 3.5 and above):  
+
+```bash
+conda install -c conda-forge HmtNote
+```
+
+`export CXX=clang`  
+```
+For compilers to find openssl you may need to set:
+  export LDFLAGS="-L/usr/local/opt/openssl/lib"
+  export CPPFLAGS="-I/usr/local/opt/openssl/include"
+
+For pkg-config to find openssl you may need to set:
+  export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+```
+
 ## Features  
 
 TODO  
