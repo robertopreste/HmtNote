@@ -4,7 +4,6 @@ language: python
 python:
   - 3.6
   - 3.5
-  - 2.7
 
 
 #install:
@@ -25,8 +24,8 @@ before_install:
     - LDFLAGS="-L/usr/local/opt/openssl/lib"
     - CPPFLAGS="-I/usr/local/opt/openssl/include"
     - PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
-    - LC_ALL"="en_US.UTF-8
-    - LANG"="en_US.UTF-8
+    - LC_ALL="en_US.UTF-8"
+    - LANG="en_US.UTF-8"
 
 install: pip install -U tox-travis
 
