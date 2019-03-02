@@ -54,4 +54,3 @@ if __name__ == '__main__':
 
     annotate_vcf(args.input_vcf, args.output_vcf,
                  args.annot_basic, args.annot_variab, args.annot_predict)
-
