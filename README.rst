@@ -18,6 +18,8 @@ HmtNote
      :target: https://pyup.io/repos/github/robertopreste/hmtnote/
      :alt: Updates
 
+.. image:: https://circleci.com/gh/robertopreste/HmtNote.svg?style=svg&circle-token=b910c3491e8df21fee34293ace05a35a116759c7
+    :target: https://circleci.com/gh/robertopreste/HmtNote
 
 
 Human mitochondrial variants annotation using HmtVar. 

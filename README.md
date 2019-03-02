@@ -8,6 +8,9 @@
 [![Updates](https://pyup.io/repos/github/robertopreste/hmtnote/shield.svg)](https://pyup.io/repos/github/robertopreste/hmtnote/) [![Python 3](https://pyup.io/repos/github/robertopreste/hmtnote/python-3-shield.svg)](https://pyup.io/repos/github/robertopreste/hmtnote/)
 
 
+[![CircleCI](https://circleci.com/gh/robertopreste/HmtNote.svg?style=svg&circle-token=b910c3491e8df21fee34293ace05a35a116759c7)](https://circleci.com/gh/robertopreste/HmtNote)
+
+
 Human mitochondrial variants annotation using HmtVar.   
 
  
