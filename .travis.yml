@@ -22,11 +22,11 @@ python:
 #  - pip install -U tox-travis
 
 before_install:
-    - export LDFLAGS="-L/usr/local/opt/openssl/lib"
-    - export CPPFLAGS="-I/usr/local/opt/openssl/include"
-    - export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
-    - export LC_ALL"="en_US.UTF-8
-    - export LANG"="en_US.UTF-8
+    - LDFLAGS="-L/usr/local/opt/openssl/lib"
+    - CPPFLAGS="-I/usr/local/opt/openssl/include"
+    - PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
+    - LC_ALL"="en_US.UTF-8
+    - LANG"="en_US.UTF-8
 
 install: pip install -U tox-travis
 
