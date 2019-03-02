@@ -24,8 +24,8 @@ before_install:
     - export LDFLAGS="-L/usr/local/opt/openssl/lib"
     - export CPPFLAGS="-I/usr/local/opt/openssl/include"
     - export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
-    - export LC_ALL = en_US.UTF-8
-    - export LANG = en_US.UTF-8
+    - export LC_ALL"="en_US.UTF-8
+    - export LANG"="en_US.UTF-8
 
 install: pip install -U tox-travis
 
