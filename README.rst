@@ -16,8 +16,8 @@ HmtNote
         :target: https://hmtnote.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://pyup.io/repos/github/robertopreste/hmtnote/shield.svg
-     :target: https://pyup.io/repos/github/robertopreste/hmtnote/
+.. image:: https://pyup.io/repos/github/robertopreste/HmtNote/shield.svg
+     :target: https://pyup.io/repos/github/robertopreste/HmtNote/
      :alt: Updates
 
 
