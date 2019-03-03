@@ -42,6 +42,7 @@ dependencies:
   - pyopenssl=19.0.0=py36_0
   - pysocks=1.6.8=py36_0
   - pytest=4.3.0=py36_0
+  - python=3.6.8=haf84260_0
   - readline=7.0=h1de35cc_5
   - requests=2.21.0=py36_0
   - setuptools=40.8.0=py36_0

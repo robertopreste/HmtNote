@@ -117,7 +117,8 @@ class HmtVarParser:
             HmtVarField("Locus", "locus"),
             HmtVarField("AaChange", "aa_change"),
             HmtVarField("Pathogenicity", "pathogenicity"),
-            HmtVarField("Haplogroups", "haplogroups")
+            HmtVarField("Disease Score", "disease_score")
+            # HmtVarField("Haplogroups", "haplogroups")
         )
         self.crossrefs = (
             HmtVarField("Clinvar", "clinvar"),
@@ -209,8 +210,10 @@ class Annotator:
                          "Aminoacidic change determined"),
             HmtVarHeader("Pathogenicity", "A", "String",
                          "Pathogenicity predicted by HmtVar"),
-            HmtVarHeader("Haplogroups", "A", "String",
-                         "Haplogroups defined by the variant")
+            HmtVarHeader("Disease Score", "A", "String",
+                         "Disease score calculated by HmtVar")
+            # HmtVarHeader("Haplogroups", "A", "String",
+            #              "Haplogroups defined by the variant")
         )
         self.crossref_heads = (
             HmtVarHeader("Clinvar", "A", "String",
