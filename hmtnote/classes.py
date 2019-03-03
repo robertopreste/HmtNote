@@ -225,7 +225,7 @@ class Annotator:
             HmtVarHeader("OMIM", "A", "String",
                          "OMIM ID of the variant"),
             HmtVarHeader("MitomapAssociatedDiseases", "A", "String",
-                         "Diseases associated to the variant according to Mitomap Associated Diseases"),
+                         "Diseases associated to the variant according to Mitomap"),
             HmtVarHeader("MitomapSomaticMutations", "A", "String",
                          "Diseases associated to the variant according to Mitomap Somatic Mutations")
         )

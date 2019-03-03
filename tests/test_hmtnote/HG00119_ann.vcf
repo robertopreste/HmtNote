@@ -16,7 +16,7 @@
 ##INFO=<ID=Clinvar,Number=A,Type=String,Description="Clinvar ID of the variant">
 ##INFO=<ID=dbSNP,Number=A,Type=String,Description="dbSNP ID of the variant">
 ##INFO=<ID=OMIM,Number=A,Type=String,Description="OMIM ID of the variant">
-##INFO=<ID=MitomapAssociatedDiseases,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap Associated Diseases">
+##INFO=<ID=MitomapAssociatedDiseases,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap">
 ##INFO=<ID=MitomapSomaticMutations,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap Somatic Mutations">
 ##INFO=<ID=NtVarH,Number=A,Type=String,Description="Nucleotide variability of the position in healthy individuals">
 ##INFO=<ID=NtVarP,Number=A,Type=String,Description="Nucleotide variability of the position in patient individuals">

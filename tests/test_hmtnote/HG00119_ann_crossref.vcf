@@ -12,7 +12,7 @@
 ##INFO=<ID=Clinvar,Number=A,Type=String,Description="Clinvar ID of the variant">
 ##INFO=<ID=dbSNP,Number=A,Type=String,Description="dbSNP ID of the variant">
 ##INFO=<ID=OMIM,Number=A,Type=String,Description="OMIM ID of the variant">
-##INFO=<ID=MitomapAssociatedDiseases,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap Associated Diseases">
+##INFO=<ID=MitomapAssociatedDiseases,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap">
 ##INFO=<ID=MitomapSomaticMutations,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap Somatic Mutations">
 #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SRR043366
 chrMT	73	.	A	G	.	PASS	AC=2,.;Clinvar=.;dbSNP=rs869183622;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	1/1

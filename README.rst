@@ -21,7 +21,7 @@ HmtNote
      :alt: Updates
 
 
-Human mitochondrial variants annotation using HmtVar. 
+Human mitochondrial variants annotation using HmtVar.
 
 
 * Free software: MIT license
@@ -31,54 +31,76 @@ Human mitochondrial variants annotation using HmtVar.
 Features
 --------
 
-HmtNote is a command line tool that can be used to annotate human mitochondrial variants from a VCF, using data available on HmtVar_.
+HmtNote is a bioinformatics tool that can be used to annotate human mitochondrial variants from a VCF, using data available on HmtVar_.
 
-Annotations are grouped into basic, cross-reference, variability and predictions, and include:
+Annotations are grouped into basic, cross-reference, variability and predictions, depending on the type of information they provide.
 
-* basic: Basic information about the variant
-    - Locus: Locus to which the variant belongs
-    - AaChange: Aminoacidic change determined
-    - Pathogenicity: Pathogenicity predicted by HmtVar
-    - Disease Score: Disease score calculated by HmtVar
-* cross-reference: Cross-reference information
-    - Clinvar: Clinvar ID of the variant
-    - dbSNP: dbSNP ID of the variant
-    - OMIM: OMIM ID of the variant
-    - MitomapAssociatedDiseases: Diseases associated to the variant according to Mitomap Associated Diseases
-    - MitomapSomaticMutations: Diseases associated to the variant according to Mitomap Somatic Mutations
-* variability: Variability and allele frequency data
-    - NtVarH: Nucleotide variability of the position in healthy individuals
-    - NtVarP: Nucleotide variability of the position in patient individuals
-    - AaVarH: Aminoacid variability of the position in healthy individuals
-    - AaVarP: Aminoacid variability of the position in patient individuals
-    - AlleleFreqH: Allele frequency of the variant in healthy individuals overall
-    - AlleleFreqP: Allele frequency of the variant in patient individuals overall
-    - AlleleFreqH_AF: Allele frequency of the variant in healthy individuals from Africa
-    - AlleleFreqP_AF: Allele frequency of the variant in patient individuals from Africa
-    - AlleleFreqH_AM: Allele frequency of the variant in healthy individuals from America
-    - AlleleFreqP_AM: Allele frequency of the variant in patient individuals from America
-    - AlleleFreqH_AS: Allele frequency of the variant in healthy individuals from Asia
-    - AlleleFreqP_AS: Allele frequency of the variant in patient individuals from Asia
-    - AlleleFreqH_EU: Allele frequency of the variant in healthy individuals from Europe
-    - AlleleFreqP_EU: Allele frequency of the variant in patient individuals from Europe
-    - AlleleFreqH_OC: Allele frequency of the variant in healthy individuals from Oceania
-    - AlleleFreqP_OC: Allele frequency of the variant in patient individuals from Oceania
-* predictions: Prediction information from external resources
-    - MutPred_Prediction: Pathogenicity prediction offered by MutPred
-    - MutPred_Probability: Confidence of the pathogenicity prediction offered by MutPred
-    - Panther_Prediction: Pathogenicity prediction offered by Panther
-    - Panther_Probability: Confidence of the pathogenicity prediction offered by Panther
-    - PhDSNP_Prediction: Pathogenicity prediction offered by PhD SNP
-    - PhDSNP_Probability: Confidence of the pathogenicity prediction offered by PhD SNP
-    - SNPsGO_Prediction: Pathogenicity prediction offered by SNPs & GO
-    - SNPsGO_Probability: Confidence of the pathogenicity prediction offered by SNPs & GO
-    - Polyphen2HumDiv_Prediction: Pathogenicity prediction offered by Polyphen2 HumDiv
-    - Polyphen2HumDiv_Probability: Confidence of the pathogenicity prediction offered by Polyphen2 HumDiv
-    - Polyphen2HumVar_Prediction: Pathogenicity prediction offered by Polyphen2 HumVar
-    - Polyphen2HumVar_Probability: Confidence of the pathogenicity prediction offered by Polyphen2 HumVar
+Basic
+=====
+
+Basic information about the variant; they include:
+
+* Locus: Locus to which the variant belongs
+* AaChange: Aminoacidic change determined
+* Pathogenicity: Pathogenicity predicted by HmtVar
+* Disease Score: Disease score calculated by HmtVar
+
+Cross-reference
+===============
+
+Cross-reference information about the variant; they include:
+
+* Clinvar: Clinvar_ ID of the variant
+* dbSNP: dbSNP_ ID of the variant
+* OMIM: OMIM_ ID of the variant
+* MitomapAssociatedDiseases: Diseases associated to the variant according to Mitomap_
+* MitomapSomaticMutations: Diseases associated to the variant according to `Mitomap Somatic Mutations`_
+
+Variability
+===========
+
+Variability and allele frequency data about the variant; they include:
+
+* NtVarH: Nucleotide variability of the position in healthy individuals
+* NtVarP: Nucleotide variability of the position in patient individuals
+* AaVarH: Aminoacid variability of the position in healthy individuals
+* AaVarP: Aminoacid variability of the position in patient individuals
+* AlleleFreqH: Allele frequency of the variant in healthy individuals overall
+* AlleleFreqP: Allele frequency of the variant in patient individuals overall
+* AlleleFreqH_AF: Allele frequency of the variant in healthy individuals from Africa
+* AlleleFreqP_AF: Allele frequency of the variant in patient individuals from Africa
+* AlleleFreqH_AM: Allele frequency of the variant in healthy individuals from America
+* AlleleFreqP_AM: Allele frequency of the variant in patient individuals from America
+* AlleleFreqH_AS: Allele frequency of the variant in healthy individuals from Asia
+* AlleleFreqP_AS: Allele frequency of the variant in patient individuals from Asia
+* AlleleFreqH_EU: Allele frequency of the variant in healthy individuals from Europe
+* AlleleFreqP_EU: Allele frequency of the variant in patient individuals from Europe
+* AlleleFreqH_OC: Allele frequency of the variant in healthy individuals from Oceania
+* AlleleFreqP_OC: Allele frequency of the variant in patient individuals from Oceania
+
+Predictions
+===========
+
+Pathogenicity prediction information of the variant from external resources; they include:
+
+* MutPred_Prediction: Pathogenicity prediction offered by MutPred_
+* MutPred_Probability: Confidence of the pathogenicity prediction offered by MutPred_
+* Panther_Prediction: Pathogenicity prediction offered by Panther_
+* Panther_Probability: Confidence of the pathogenicity prediction offered by Panther_
+* PhDSNP_Prediction: Pathogenicity prediction offered by `PhD SNP`_
+* PhDSNP_Probability: Confidence of the pathogenicity prediction offered by `PhD SNP`_
+* SNPsGO_Prediction: Pathogenicity prediction offered by `SNPs & GO`_
+* SNPsGO_Probability: Confidence of the pathogenicity prediction offered by `SNPs & GO`_
+* Polyphen2HumDiv_Prediction: Pathogenicity prediction offered by Polyphen2_ HumDiv
+* Polyphen2HumDiv_Probability: Confidence of the pathogenicity prediction offered by Polyphen2_ HumDiv
+* Polyphen2HumVar_Prediction: Pathogenicity prediction offered by Polyphen2_ HumVar
+* Polyphen2HumVar_Probability: Confidence of the pathogenicity prediction offered by Polyphen2_ HumVar
 
 Usage
 -----
+
+Command Line Interface
+======================
 
 HmtNote can be used as a command line tool, by simply providing the original VCF and the filename where the annotated VCF will be saved::
 
@@ -91,6 +113,33 @@ By default, HmtNote will annotate the VCF using all four groups of annotations (
     hmtnote input_vcf.vcf annotated_variability_vcf.vcf --variability
     hmtnote input_vcf.vcf annotated_predictions_vcf.vcf --predict
 
+Python Module
+=============
+
+HmtNote can also be imported in a Python script and its function ``annotate_vcf()`` can be used to annotated a given VCF::
+
+    from hmtnote import annotate_vcf
+    annotate_vcf("input_vcf.vcf", "annotated_vcf.vcf")
+
+By default, ``annotate_vcf()`` will annotate the VCF using all four groups of annotations (basic, cross-reference, variability and predictions). If desired, you can specify which kind of annotation you want, using respectively the ``basic=True``, ``crossref=True``, ``variab=True``, ``predict=True`` arguments::
+
+    annotate_vcf("input_vcf.vcf", "annotated_basic_vcf.vcf", basic=True)
+    annotate_vcf("input_vcf.vcf", "annotated_crossreferences_vcf.vcf", crossref=True)
+    annotate_vcf("input_vcf.vcf", "annotated_variability_vcf.vcf", variab=True)
+    annotate_vcf("input_vcf.vcf", "annotated_predictions_vcf.vcf", predict=True)
+
+Installation
+------------
+
+HmtNote can be installed using ``pip``:
+
+.. code-block:: console
+
+    $ pip install hmtnote
+
+If you have issues, please refer to the Installation section of the Documentation_.
+
+
 Credits
 -------
 
@@ -99,3 +148,14 @@ This package was created with Cookiecutter_ and the `cc-pypackage`_ project temp
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`cc-pypackage`: https://github.com/robertopreste/cc-pypackage
 .. _HmtVar: https://www.hmtvar.uniba.it
+.. _Clinvar: https://www.ncbi.nlm.nih.gov/clinvar/
+.. _OMIM: https://www.omim.org
+.. _dbSNP: https://www.ncbi.nlm.nih.gov/snp
+.. _`Mitomap Somatic Mutations`: https://www.mitomap.org/foswiki/bin/view/MITOMAP/MutationsSomatic
+.. _Mitomap: https://www.mitomap.org/MITOMAP/MutationsCodingControl
+.. _MutPred: http://mutpred.mutdb.org
+.. _Panther: http://pantherdb.org
+.. _`PhD SNP`: http://snps.biofold.org/phd-snp/phd-snp.html
+.. _`SNPs & GO`: https://snps-and-go.biocomp.unibo.it/snps-and-go/
+.. _Polyphen2: http://genetics.bwh.harvard.edu/pph2/
+.. _Documentation: https://hmtnote.readthedocs.io
