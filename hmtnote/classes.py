@@ -185,6 +185,7 @@ class Annotator:
     self.vcf_in: input VCF filename
     self.vcf_out: output VCF filename
     self.basic: bool flag to enable annotation of basic information
+    self.crossref bool flag to enable annotation of cross-reference information
     self.variab: bool flag to enable annotation of variability information
     self.predict: bool flag to enable annotation of predictions information
     self.reader: input VCF reader (provided by cyvcf2.VCF)
