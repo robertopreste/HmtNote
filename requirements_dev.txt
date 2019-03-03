@@ -9,6 +9,6 @@ Sphinx==1.8.4
 twine==1.13.0
 click==7.0
 pytest==4.3.0
-pytest-runner==4.2
+pytest-runner==4.4
 pyOpenSSL==19.0.0
 cyvcf2==0.10.0
