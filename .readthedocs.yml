@@ -4,11 +4,11 @@ build:
     image: latest
 
 python:
-    version: 3.6
+    version: 3.7
     install:
         - method: pip
           path: .
-        - requirements: requirements_dev.txt
+        - requirements: docs/requirements_docs.txt
     system_packages: true
 
 
