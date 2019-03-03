@@ -32,6 +32,14 @@ def sample_ann_basic_vcf():
 
 
 @pytest.fixture
+def sample_ann_crossref_vcf():
+    """Open the sample VCF file with crossref annotation."""
+    vcf = os.path.join(TESTDIR, "HG00119_ann_crossref.vcf")
+    with open(vcf) as f:
+        yield f
+
+
+@pytest.fixture
 def sample_ann_variab_vcf():
     """Open the sample VCF file with variability annotation."""
     vcf = os.path.join(TESTDIR, "HG00119_ann_variab.vcf")

@@ -196,10 +196,11 @@ class Annotator:
     been updated according to new header to be used
     """
 
-    def __init__(self, vcf_in, vcf_out, basic, variab, predict):
+    def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
         self.vcf_in = vcf_in
         self.vcf_out = vcf_out
         self.basic = basic
+        self.crossref = crossref
         self.variab = variab
         self.predict = predict
         self.reader = VCF(vcf_in)
@@ -324,6 +325,7 @@ class Annotator:
                 self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
                                                 "Type": field.vcf_type,
                                                 "Description": field.vcf_description})
+        if self.crossref:
             for field in self.crossref_heads:
                 self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
                                                 "Type": field.vcf_type,
@@ -354,6 +356,7 @@ class Annotator:
                 if self.basic:
                     for field in annots.basics:
                         record.INFO[field.element] = ",".join(map(str, field.field_value))
+                if self.crossref:
                     for field in annots.crossrefs:
                         record.INFO[field.element] = ",".join(map(str, field.field_value))
                 if self.variab:

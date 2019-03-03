@@ -4,7 +4,7 @@
 import os
 import pytest
 from click.testing import CliRunner
-from hmtnote.hmtnote import annotate_vcf
+# from hmtnote.hmtnote import annotate_vcf
 from hmtnote import cli
 
 
@@ -46,6 +46,17 @@ def test_cli_annotation_basic(sample_ann_basic_vcf):
     assert result.exit_code == 0
     with open(os.path.join(TESTDIR, "HG00119_test.vcf")) as out:
         assert sample_ann_basic_vcf.read() == out.read()
+
+
+def test_cli_annotation_crossref(sample_ann_crossref_vcf):
+    """Test the crossref annotation of the sample VCF file."""
+    runner = CliRunner()
+    result = runner.invoke(cli.main, [os.path.join(TESTDIR, "HG00119_filt.vcf"),
+                                      os.path.join(TESTDIR, "HG00119_test.vcf"),
+                                      "--crossref"])
+    assert result.exit_code == 0
+    with open(os.path.join(TESTDIR, "HG00119_test.vcf")) as out:
+        assert sample_ann_crossref_vcf.read() == out.read()
 
 
 def test_cli_annotation_variab(sample_ann_variab_vcf):

@@ -10,8 +10,11 @@ from hmtnote.classes import Annotator
 @click.argument("input_vcf")
 @click.argument("output_vcf")
 @click.option("--basic", "-b", is_flag=True, default=False,
-              help="""Annotate VCF using basic information (locus, pathogenicity, Clinvar and dbSNP 
-              IDs, etc.) (default: False)""")
+              help="""Annotate VCF using basic information (locus, pathogenicity, etc.) 
+              (default: False)""")
+@click.option("--crossref", "-c", is_flag=True, default=False,
+              help="""Annotate VCF using cross-reference information (Clinvar and dbSNP IDs, etc.) 
+              (default: False)""")
 @click.option("--variab", "-v", is_flag=True, default=False,
               help="""Annotate VCF using variability information (nucleotide and aminoacid 
               variability, allele frequencies) (default: False)""")
@@ -19,19 +22,19 @@ from hmtnote.classes import Annotator
               help="""Annotate VCF using predictions information (from MutPred, Panther, Polyphen 
               and other resources) (default: False)""")
 @click.version_option()
-def main(input_vcf, output_vcf, basic, variab, predict):
+def main(input_vcf, output_vcf, basic, crossref, variab, predict):
     """
     Annotate a VCF file using data from HmtVar.
 
-    If neither --basic, --variab nor --predict are
+    If neither --basic, --crossref, --variab nor --predict are
     provided, they will all default to True, and the VCF will be annotated using all the available
     information.
     """
 
-    if not basic and not variab and not predict:
-        basic, variab, predict = True, True, True
+    if not basic and not crossref and not variab and not predict:
+        basic, crossref, variab, predict = True, True, True, True
 
-    vcf = Annotator(input_vcf, output_vcf, basic, variab, predict)
+    vcf = Annotator(input_vcf, output_vcf, basic, crossref, variab, predict)
     vcf.annotate()
 
     return 0
