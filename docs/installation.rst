@@ -17,7 +17,7 @@ This is the preferred method to install HmtNote, as it will always install the m
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
 
-Should you have issues with the installation process, you should first make sure you have pyOpenSSL_ and Cython installed (otherwise you can ``pip install pyOpenSSL Cython``, and then you should export the following environment variables in your shell, before launching the ``pip install hmtnote`` command::
+Should you have issues with the installation process, you should first make sure you have pyOpenSSL_ installed (otherwise you can ``pip install pyOpenSSL``, and then you should export the following environment variables in your shell, before launching the ``pip install hmtnote`` command::
 
     LDFLAGS = "-L/usr/local/opt/openssl/lib"
     CPPFLAGS = "-I/usr/local/opt/openssl/include"

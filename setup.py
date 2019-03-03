@@ -9,7 +9,7 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', 'pyOpenSSL>=19.0.0', 'Cython>=0.29.6', 'cyvcf2>=0.10.0']
+requirements = ['Click>=6.0', 'pyOpenSSL>=19.0.0', 'cyvcf2>=0.10.0']
 
 setup_requirements = ['pytest-runner', ]
 
