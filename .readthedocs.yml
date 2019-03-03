@@ -5,6 +5,10 @@ build:
 
 python:
     version: 3.7
+    install:
+        - method: pip
+          path: .
+        - requirements: requirements_dev.txt
+    system_packages: true
 
-conda:
-  environment: environment.yml
+
