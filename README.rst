@@ -135,6 +135,8 @@ By default, ``annotate_vcf()`` will annotate the VCF using all four groups of an
 Installation
 ------------
 
+**PLEASE NOTE: HmtNote only supports Python 3!**
+
 The preferred installation method for HmtNote is using ``pip`` in a conda environment:
 
 .. code-block:: console
