@@ -35,7 +35,7 @@ install:
   - conda update -q conda
   - conda info -a
   - "conda create -q -n HmtNote python=%PYTHON_VERSION%"
-  - source activate HmtNote
+  - activate HmtNote
   - conda install pytest click requests
   - conda install -c bioconda cyvcf2
   - "%PYTHON%/Scripts/easy_install -U pip"
