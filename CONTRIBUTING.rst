@@ -1,5 +1,3 @@
-.. highlight:: shell
-
 ============
 Contributing
 ============
@@ -9,13 +7,14 @@ helps, and credit will always be given.
 
 You can contribute in many ways:
 
+
 Types of Contributions
 ----------------------
 
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/robertopreste/hmtnote/issues.
+Report bugs at https://github.com/robertopreste/HmtNote/issues.
 
 If you are reporting a bug, please include:
 
@@ -45,7 +44,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/robertopreste/hmtnote/issues.
+The best way to send feedback is to file an issue at https://github.com/robertopreste/HmtNote/issues.
 
 If you are proposing a feature:
 
@@ -54,44 +53,59 @@ If you are proposing a feature:
 * Remember that this is a volunteer-driven project, and that contributions
   are welcome :)
 
+
 Get Started!
 ------------
 
 Ready to contribute? Here's how to set up `hmtnote` for local development.
 
 1. Fork the `hmtnote` repo on GitHub.
-2. Clone your fork locally::
+2. Clone your fork locally:
 
-    $ git clone git@github.com:your_name_here/hmtnote.git
+.. code-block:: console
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+    $ git clone git@github.com:your_name_here/HmtNote.git
 
-    $ mkvirtualenv hmtnote
-    $ cd hmtnote/
-    $ python setup.py develop
+3. Install your local copy into a virtualenv. You can use Python's `virtualenv` to create a Python 3
+virtual environment and then install the requirements:
 
-4. Create a branch for local development::
+.. code-block:: console
+
+    $ virtualenv -p python3.6 venv
+    $ source venv/bin/activate
+    $ pip install -r requirements_dev.txt
+    $ python setup.py develop  # or pip install -e .
+
+4. Create a branch for local development:
+
+.. code-block:: console
 
     $ git checkout -b name-of-your-bugfix-or-feature
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the
-   tests, including testing other Python versions with tox::
+5. When you're done making changes, check that your changes pass `flake8` and the
+   tests, including testing other Python versions with `tox`:
+
+.. code-block:: console
 
     $ flake8 hmtnote tests
-    $ python setup.py test or py.test
+    $ python setup.py test  # or py.test or pytest
     $ tox
 
-   To get flake8 and tox, just pip install them into your virtualenv.
+   Your virtualenv should already have `flake8` and `tox` installed if you followed step 3,
+   otherwise just `pip install` them into your virtualenv.
 
-6. Commit your changes and push your branch to GitHub::
+6. Commit your changes and push your branch to GitHub:
+
+.. code-block:: console
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
 7. Submit a pull request through the GitHub website.
+
 
 Pull Request Guidelines
 -----------------------
@@ -102,16 +116,19 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 2.7, 3.4, 3.5 and 3.6, and for PyPy. Check
+3. The pull request should work for Python 3.5 and 3.6, and for PyPy. Check
    https://travis-ci.org/robertopreste/HmtNote/pull_requests
    and make sure that the tests pass for all supported Python versions.
+
 
 Tips
 ----
 
-To run a subset of tests::
+To run a subset of tests:
 
-$ py.test tests.test_hmtnote
+.. code-block:: console
+
+    $ pytest tests.test_hmtnote
 
 
 Deploying
@@ -119,10 +136,12 @@ Deploying
 
 A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run::
+Then run:
 
-$ bumpversion patch # possible: major / minor / patch
-$ git push
-$ git push --tags
+.. code-block:: console
+
+    $ bumpversion patch  # possible: major / minor / patch
+    $ git push
+    $ git push --tags
 
 Travis will then deploy to PyPI if tests pass.

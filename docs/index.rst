@@ -14,7 +14,7 @@ Welcome to HmtNote's documentation!
    history
 
 Indices and tables
-==================
+------------------
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
