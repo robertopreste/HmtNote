@@ -37,7 +37,8 @@ install:
   - "conda create -q -n HmtNote python=%PYTHON_VERSION%"
   - activate HmtNote
   - conda install pytest click requests
-  - conda install -c bioconda cyvcf2
+#  - conda install -c bioconda cyvcf2
+  - "%PYTHON%/Scripts/pip install cyvcf2"
   - "%PYTHON%/Scripts/easy_install -U pip"
   - "%PYTHON%/Scripts/pip install tox"
   - "%PYTHON%/Scripts/pip install wheel"
