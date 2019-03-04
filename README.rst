@@ -12,6 +12,10 @@ HmtNote
 .. image:: https://circleci.com/gh/robertopreste/HmtNote.svg?style=svg&circle-token=b910c3491e8df21fee34293ace05a35a116759c7
     :target: https://circleci.com/gh/robertopreste/HmtNote
 
+.. image:: https://ci.appveyor.com/api/projects/status/jl0v0ebsp379gv8t?svg=true
+        :target: https://ci.appveyor.com/project/robertopreste/hmtnote
+        :alt: Build status
+
 .. image:: https://readthedocs.org/projects/hmtnote/badge/?version=latest
         :target: https://hmtnote.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
@@ -131,10 +135,12 @@ By default, ``annotate_vcf()`` will annotate the VCF using all four groups of an
 Installation
 ------------
 
-HmtNote can be installed using ``pip``:
+The preferred installation method for HmtNote is using ``pip`` in a conda environment:
 
 .. code-block:: console
 
+    $ conda install requests
+    $ conda install -c bioconda cyvcf2
     $ pip install hmtnote
 
 If you have issues, please refer to the Installation section of the Documentation_.

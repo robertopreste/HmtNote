@@ -8,3 +8,8 @@ History
 * First release on PyPI.
 
 
+0.1.1 (2019-03-04)
+==================
+
+* Clean installation requirements for conda;
+* Update documentation.
