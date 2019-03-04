@@ -28,15 +28,11 @@ release.
 
 Should you have issues with the installation process, there are a few tricks you can try.
 
-* If the error message mentions a `gcc` issue, you can install it using ``apt install gcc`` (this
-command works on Ubuntu, please check your distribution's documentation for details); then retry
-``pip install hmtnote``.
+* If the error message mentions a `gcc` issue, you can install it using ``apt install gcc`` (this command works on Ubuntu, please check your distribution's documentation for details); then retry ``pip install hmtnote``.
 
 * If still failing, try ``apt install zlib1g-dev`` and then ``pip install hmtnote``.
 
-* If the installations still fails, you should first make sure you have pyOpenSSL_ installed
-(otherwise you can ``pip install pyOpenSSL``), and then you should export the following environment
-variables in your shell, before launching the ``pip install hmtnote`` command again::
+* If the installations still fails, you should first make sure you have pyOpenSSL_ installed (otherwise you can ``pip install pyOpenSSL``), and then you should export the following environment variables in your shell, before launching the ``pip install hmtnote`` command again::
 
     LDFLAGS = "-L/usr/local/opt/openssl/lib"
     CPPFLAGS = "-I/usr/local/opt/openssl/include"
