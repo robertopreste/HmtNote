@@ -15,7 +15,7 @@ install:
   - conda update -q conda
   - conda info -a
   - conda create -q -n HmtNote python=$TRAVIS_PYTHON_VERSION
-  - conda activate HmtNote
+  - source activate HmtNote
   - conda install pytest click requests
   - conda install -c bioconda cyvcf2
   - pip install -U tox-travis
