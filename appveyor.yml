@@ -30,7 +30,7 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - "conda create -q -n HmtNote python=%TOX_ENV%"
+  - "conda create -q -n HmtNote python=%PYTHON%"
   - conda activate HmtNote
   - conda install pytest click requests
   - conda install -c bioconda cyvcf2
