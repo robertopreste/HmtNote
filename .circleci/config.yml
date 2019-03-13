@@ -57,7 +57,7 @@ jobs:
       - run:
           name: upload coverage report
           command: |
-            coverage xml
+            pip install --user codecov
             codecov -f coverage.xml
 
       - store_artifacts:
