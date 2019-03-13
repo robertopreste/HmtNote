@@ -2,7 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
     docker:
@@ -33,6 +35,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements_dev.txt
+            pip install codecov
             pip install -e .
 
       - save_cache:
@@ -49,10 +52,18 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest
+            pytest --cov=./ --cov-report xml:coverage.xml
 #            python manage.py test
 #            pytest
+      - run:
+          name: upload coverage report
+          command: |
+            . venv/bin/activate
+            codecov -f coverage.xml -t 182cfad5-26fa-4790-9a9e-35ee42ea5555
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
+      - codecov/upload:
+          file: coverage.xml

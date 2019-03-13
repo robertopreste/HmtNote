@@ -6,7 +6,7 @@ from typing import Union
 from cyvcf2 import VCF, Writer
 
 
-class HmtVarField:
+class _HmtVarField:
     """
     This class is used to collect data from HmtVar's API for each field returned.
     self.element: name of the field to be used in the VCF file
@@ -21,7 +21,7 @@ class HmtVarField:
         self._field_value = []
 
     @staticmethod
-    def replace_null(element: Union[str, int, float, None]) -> Union[str, int, float]:
+    def _replace_null(element: Union[str, int, float, None]) -> Union[str, int, float]:
         """
         Replace null values returned by HmtVar's API (None) with a '.' character.
         :param Union[str, int, float, None] element: value returned by HmtVar
@@ -46,10 +46,10 @@ class HmtVarField:
         :param value: new value to be appended to the list of values
         :return:
         """
-        self._field_value.append(self.replace_null(value))
+        self._field_value.append(self._replace_null(value))
         
         
-class HmtVarHeader:
+class _HmtVarHeader:
     """
     This class is used to create a new header that will be added to the annotated VCF file.
     self.element: name of the field to be used in the VCF file
@@ -65,7 +65,7 @@ class HmtVarHeader:
         self.vcf_description = vcf_description
 
 
-class HmtVarVariant:
+class _HmtVarVariant:
     """
     This class is used to store a given variant and retrieve the related information from HmtVar.
     self.reference: reference allele of the variant
@@ -80,7 +80,7 @@ class HmtVarVariant:
         self.alternate = alternate
         # self.variant = f"{self.reference}{self.position}{self.alternate}"
         # TODO: will need to fix ref for deletions (and insertions?)
-        self.variant = "{}{}".format(self.position, self.alternate)
+        self._variant = "{}{}".format(self.position, self.alternate)
 
     @property
     def response(self) -> dict:
@@ -88,7 +88,7 @@ class HmtVarVariant:
         Call HmtVar's API to retrieve data related to self.variant.
         :return: dict
         """
-        url = "https://www.hmtvar.uniba.it/api/main/mutation/{}".format(self.variant)
+        url = "https://www.hmtvar.uniba.it/api/main/mutation/{}".format(self._variant)
         call = requests.get(url)
         # TODO variants not present in HmtVar actually return an empty dictionary
         resp = call.json()
@@ -100,7 +100,7 @@ class HmtVarVariant:
         return resp
 
 
-class HmtVarParser:
+class _HmtVarParser:
     """
     This class is used to parse information collected from HmtVar's API and store them in the right
     format, ready for VCF annotation.
@@ -114,50 +114,50 @@ class HmtVarParser:
     def __init__(self, record):
         self.record = record
         self.basics = (
-            HmtVarField("Locus", "locus"),
-            HmtVarField("AaChange", "aa_change"),
-            HmtVarField("Pathogenicity", "pathogenicity"),
-            HmtVarField("Disease Score", "disease_score")
-            # HmtVarField("Haplogroups", "haplogroups")
+            _HmtVarField("Locus", "locus"),
+            _HmtVarField("AaChange", "aa_change"),
+            _HmtVarField("Pathogenicity", "pathogenicity"),
+            _HmtVarField("Disease Score", "disease_score")
+            # _HmtVarField("Haplogroups", "haplogroups")
         )
         self.crossrefs = (
-            HmtVarField("Clinvar", "clinvar"),
-            HmtVarField("dbSNP", "dbSNP"),
-            HmtVarField("OMIM", "omim"),
-            HmtVarField("MitomapAssociatedDiseases", "mitomap_associated_disease"),
-            HmtVarField("MitomapSomaticMutations", "mitomap_somatic_mutations")
+            _HmtVarField("Clinvar", "clinvar"),
+            _HmtVarField("dbSNP", "dbSNP"),
+            _HmtVarField("OMIM", "omim"),
+            _HmtVarField("MitomapAssociatedDiseases", "mitomap_associated_disease"),
+            _HmtVarField("MitomapSomaticMutations", "mitomap_somatic_mutations")
         )
         self.variabs = (
-            HmtVarField("NtVarH", "nt_var"),
-            HmtVarField("NtVarP", "nt_var_patients"),
-            HmtVarField("AaVarH", "aa_var"),
-            HmtVarField("AaVarP", "aa_var_patients"),
-            HmtVarField("AlleleFreqH", "all_freq_h"),
-            HmtVarField("AlleleFreqP", "all_freq_p"),
-            HmtVarField("AlleleFreqH_AF", "all_freq_h_AF"),
-            HmtVarField("AlleleFreqP_AF", "all_freq_p_AF"),
-            HmtVarField("AlleleFreqH_AM", "all_freq_h_AM"),
-            HmtVarField("AlleleFreqP_AM", "all_freq_p_AM"),
-            HmtVarField("AlleleFreqH_AS", "all_freq_h_AS"),
-            HmtVarField("AlleleFreqP_AS", "all_freq_p_AS"),
-            HmtVarField("AlleleFreqH_EU", "all_freq_h_EU"),
-            HmtVarField("AlleleFreqP_EU", "all_freq_p_EU"),
-            HmtVarField("AlleleFreqH_OC", "all_freq_h_OC"),
-            HmtVarField("AlleleFreqP_OC", "all_freq_p_OC")
+            _HmtVarField("NtVarH", "nt_var"),
+            _HmtVarField("NtVarP", "nt_var_patients"),
+            _HmtVarField("AaVarH", "aa_var"),
+            _HmtVarField("AaVarP", "aa_var_patients"),
+            _HmtVarField("AlleleFreqH", "all_freq_h"),
+            _HmtVarField("AlleleFreqP", "all_freq_p"),
+            _HmtVarField("AlleleFreqH_AF", "all_freq_h_AF"),
+            _HmtVarField("AlleleFreqP_AF", "all_freq_p_AF"),
+            _HmtVarField("AlleleFreqH_AM", "all_freq_h_AM"),
+            _HmtVarField("AlleleFreqP_AM", "all_freq_p_AM"),
+            _HmtVarField("AlleleFreqH_AS", "all_freq_h_AS"),
+            _HmtVarField("AlleleFreqP_AS", "all_freq_p_AS"),
+            _HmtVarField("AlleleFreqH_EU", "all_freq_h_EU"),
+            _HmtVarField("AlleleFreqP_EU", "all_freq_p_EU"),
+            _HmtVarField("AlleleFreqH_OC", "all_freq_h_OC"),
+            _HmtVarField("AlleleFreqP_OC", "all_freq_p_OC")
         )
         self.predicts = (
-            HmtVarField("MutPred_Prediction", "mutPred_pred"),
-            HmtVarField("MutPred_Probability", "mutPred_prob"),
-            HmtVarField("Panther_Prediction", "panther_pred"),
-            HmtVarField("Panther_Probability", "panther_prob"),
-            HmtVarField("PhDSNP_Prediction", "phD_snp_pred"),
-            HmtVarField("PhDSNP_Probability", "phD_snp_prob"),
-            HmtVarField("SNPsGO_Prediction", "snp_go_pred"),
-            HmtVarField("SNPsGO_Probability", "snp_go_prob"),
-            HmtVarField("Polyphen2HumDiv_Prediction", "polyphen2_humDiv_pred"),
-            HmtVarField("Polyphen2HumDiv_Probability", "polyphen2_humDiv_prob"),
-            HmtVarField("Polyphen2HumVar_Prediction", "polyphen2_humVar_pred"),
-            HmtVarField("Polyphen2HumVar_Probability", "polyphen2_humVar_prob")
+            _HmtVarField("MutPred_Prediction", "mutPred_pred"),
+            _HmtVarField("MutPred_Probability", "mutPred_prob"),
+            _HmtVarField("Panther_Prediction", "panther_pred"),
+            _HmtVarField("Panther_Probability", "panther_prob"),
+            _HmtVarField("PhDSNP_Prediction", "phD_snp_pred"),
+            _HmtVarField("PhDSNP_Probability", "phD_snp_prob"),
+            _HmtVarField("SNPsGO_Prediction", "snp_go_pred"),
+            _HmtVarField("SNPsGO_Probability", "snp_go_prob"),
+            _HmtVarField("Polyphen2HumDiv_Prediction", "polyphen2_humDiv_pred"),
+            _HmtVarField("Polyphen2HumDiv_Probability", "polyphen2_humDiv_prob"),
+            _HmtVarField("Polyphen2HumVar_Prediction", "polyphen2_humVar_pred"),
+            _HmtVarField("Polyphen2HumVar_Probability", "polyphen2_humVar_prob")
         )
 
     def parse(self):
@@ -165,7 +165,7 @@ class HmtVarParser:
         Update annotations about the given record.
         :return:
         """
-        variants = [HmtVarVariant(self.record.REF, self.record.POS, alt) for alt in self.record.ALT]
+        variants = [_HmtVarVariant(self.record.REF, self.record.POS, alt) for alt in self.record.ALT]
         for variant in variants:
             response = variant.response
             for field in self.basics:
@@ -206,94 +206,94 @@ class Annotator:
         self.predict = predict
         self.reader = VCF(vcf_in)
         self.basic_heads = (
-            HmtVarHeader("Locus", "A", "String",
-                         "Locus to which the variant belongs"),
-            HmtVarHeader("AaChange", "A", "String",
-                         "Aminoacidic change determined"),
-            HmtVarHeader("Pathogenicity", "A", "String",
-                         "Pathogenicity predicted by HmtVar"),
-            HmtVarHeader("Disease Score", "A", "String",
-                         "Disease score calculated by HmtVar")
-            # HmtVarHeader("Haplogroups", "A", "String",
+            _HmtVarHeader("Locus", "A", "String",
+                          "Locus to which the variant belongs"),
+            _HmtVarHeader("AaChange", "A", "String",
+                          "Aminoacidic change determined"),
+            _HmtVarHeader("Pathogenicity", "A", "String",
+                          "Pathogenicity predicted by HmtVar"),
+            _HmtVarHeader("Disease Score", "A", "String",
+                          "Disease score calculated by HmtVar")
+            # _HmtVarHeader("Haplogroups", "A", "String",
             #              "Haplogroups defined by the variant")
         )
         self.crossref_heads = (
-            HmtVarHeader("Clinvar", "A", "String",
-                         "Clinvar ID of the variant"),
-            HmtVarHeader("dbSNP", "A", "String",
-                         "dbSNP ID of the variant"),
-            HmtVarHeader("OMIM", "A", "String",
-                         "OMIM ID of the variant"),
-            HmtVarHeader("MitomapAssociatedDiseases", "A", "String",
-                         "Diseases associated to the variant according to Mitomap"),
-            HmtVarHeader("MitomapSomaticMutations", "A", "String",
-                         "Diseases associated to the variant according to Mitomap Somatic Mutations")
+            _HmtVarHeader("Clinvar", "A", "String",
+                          "Clinvar ID of the variant"),
+            _HmtVarHeader("dbSNP", "A", "String",
+                          "dbSNP ID of the variant"),
+            _HmtVarHeader("OMIM", "A", "String",
+                          "OMIM ID of the variant"),
+            _HmtVarHeader("MitomapAssociatedDiseases", "A", "String",
+                          "Diseases associated to the variant according to Mitomap"),
+            _HmtVarHeader("MitomapSomaticMutations", "A", "String",
+                          "Diseases associated to the variant according to Mitomap Somatic Mutations")
         )
         self.variab_heads = (
-            HmtVarHeader("NtVarH", "A", "String",
-                         "Nucleotide variability of the position in healthy individuals"),
-            HmtVarHeader("NtVarP", "A", "String",
-                         "Nucleotide variability of the position in patient individuals"),
-            HmtVarHeader("AaVarH", "A", "String",
-                         "Aminoacid variability of the position in healthy individuals"),
-            HmtVarHeader("AaVarP", "A", "String",
-                         "Aminoacid variability of the position in patient individuals"),
-            HmtVarHeader("AlleleFreqH", "A", "String",
-                         "Allele frequency of the variant in healthy individuals overall"),
-            HmtVarHeader("AlleleFreqP", "A", "String",
-                         "Allele frequency of the variant in patient individuals overall"),
-            HmtVarHeader("AlleleFreqH_AF", "A", "String",
-                         "Allele frequency of the variant in healthy individuals from Africa"),
-            HmtVarHeader("AlleleFreqP_AF", "A", "String",
-                         "Allele frequency of the variant in patient individuals from Africa"),
-            HmtVarHeader("AlleleFreqH_AM", "A", "String",
-                         "Allele frequency of the variant in healthy individuals from America"),
-            HmtVarHeader("AlleleFreqP_AM", "A", "String",
-                         "Allele frequency of the variant in patient individuals from America"),
-            HmtVarHeader("AlleleFreqH_AS", "A", "String",
-                         "Allele frequency of the variant in healthy individuals from Asia"),
-            HmtVarHeader("AlleleFreqP_AS", "A", "String",
-                         "Allele frequency of the variant in patient individuals from Asia"),
-            HmtVarHeader("AlleleFreqH_EU", "A", "String",
-                         "Allele frequency of the variant in healthy individuals from Europe"),
-            HmtVarHeader("AlleleFreqP_EU", "A", "String",
-                         "Allele frequency of the variant in patient individuals from Europe"),
-            HmtVarHeader("AlleleFreqH_OC", "A", "String",
-                         "Allele frequency of the variant in healthy individuals from Oceania"),
-            HmtVarHeader("AlleleFreqP_OC", "A", "String",
-                         "Allele frequency of the variant in patient individuals from Oceania")
+            _HmtVarHeader("NtVarH", "A", "String",
+                          "Nucleotide variability of the position in healthy individuals"),
+            _HmtVarHeader("NtVarP", "A", "String",
+                          "Nucleotide variability of the position in patient individuals"),
+            _HmtVarHeader("AaVarH", "A", "String",
+                          "Aminoacid variability of the position in healthy individuals"),
+            _HmtVarHeader("AaVarP", "A", "String",
+                          "Aminoacid variability of the position in patient individuals"),
+            _HmtVarHeader("AlleleFreqH", "A", "String",
+                          "Allele frequency of the variant in healthy individuals overall"),
+            _HmtVarHeader("AlleleFreqP", "A", "String",
+                          "Allele frequency of the variant in patient individuals overall"),
+            _HmtVarHeader("AlleleFreqH_AF", "A", "String",
+                          "Allele frequency of the variant in healthy individuals from Africa"),
+            _HmtVarHeader("AlleleFreqP_AF", "A", "String",
+                          "Allele frequency of the variant in patient individuals from Africa"),
+            _HmtVarHeader("AlleleFreqH_AM", "A", "String",
+                          "Allele frequency of the variant in healthy individuals from America"),
+            _HmtVarHeader("AlleleFreqP_AM", "A", "String",
+                          "Allele frequency of the variant in patient individuals from America"),
+            _HmtVarHeader("AlleleFreqH_AS", "A", "String",
+                          "Allele frequency of the variant in healthy individuals from Asia"),
+            _HmtVarHeader("AlleleFreqP_AS", "A", "String",
+                          "Allele frequency of the variant in patient individuals from Asia"),
+            _HmtVarHeader("AlleleFreqH_EU", "A", "String",
+                          "Allele frequency of the variant in healthy individuals from Europe"),
+            _HmtVarHeader("AlleleFreqP_EU", "A", "String",
+                          "Allele frequency of the variant in patient individuals from Europe"),
+            _HmtVarHeader("AlleleFreqH_OC", "A", "String",
+                          "Allele frequency of the variant in healthy individuals from Oceania"),
+            _HmtVarHeader("AlleleFreqP_OC", "A", "String",
+                          "Allele frequency of the variant in patient individuals from Oceania")
         )
         self.predict_heads = (
-            HmtVarHeader("MutPred_Prediction", "A", "String",
-                         "Pathogenicity prediction offered by MutPred"),
-            HmtVarHeader("MutPred_Probability", "A", "String",
-                         "Confidence of the pathogenicity prediction offered by MutPred"),
-            HmtVarHeader("Panther_Prediction", "A", "String",
-                         "Pathogenicity prediction offered by Panther"),
-            HmtVarHeader("Panther_Probability", "A", "String",
-                         "Confidence of the pathogenicity prediction offered by Panther"),
-            HmtVarHeader("PhDSNP_Prediction", "A", "String",
-                         "Pathogenicity prediction offered by PhD SNP"),
-            HmtVarHeader("PhDSNP_Probability", "A", "String",
-                         "Confidence of the pathogenicity prediction offered by PhD SNP"),
-            HmtVarHeader("SNPsGO_Prediction", "A", "String",
-                         "Pathogenicity prediction offered by SNPs & GO"),
-            HmtVarHeader("SNPsGO_Probability", "A", "String",
-                         "Confidence of the pathogenicity prediction offered by SNPs & GO"),
-            HmtVarHeader("Polyphen2HumDiv_Prediction", "A", "String",
-                         "Pathogenicity prediction offered by Polyphen2 HumDiv"),
-            HmtVarHeader("Polyphen2HumDiv_Probability", "A", "String",
-                         "Confidence of the pathogenicity prediction offered by Polyphen2 HumDiv"),
-            HmtVarHeader("Polyphen2HumVar_Prediction", "A", "String",
-                         "Pathogenicity prediction offered by Polyphen2 HumVar"),
-            HmtVarHeader("Polyphen2HumVar_Probability", "A", "String",
-                         "Confidence of the pathogenicity prediction offered by Polyphen2 HumVar")
+            _HmtVarHeader("MutPred_Prediction", "A", "String",
+                          "Pathogenicity prediction offered by MutPred"),
+            _HmtVarHeader("MutPred_Probability", "A", "String",
+                          "Confidence of the pathogenicity prediction offered by MutPred"),
+            _HmtVarHeader("Panther_Prediction", "A", "String",
+                          "Pathogenicity prediction offered by Panther"),
+            _HmtVarHeader("Panther_Probability", "A", "String",
+                          "Confidence of the pathogenicity prediction offered by Panther"),
+            _HmtVarHeader("PhDSNP_Prediction", "A", "String",
+                          "Pathogenicity prediction offered by PhD SNP"),
+            _HmtVarHeader("PhDSNP_Probability", "A", "String",
+                          "Confidence of the pathogenicity prediction offered by PhD SNP"),
+            _HmtVarHeader("SNPsGO_Prediction", "A", "String",
+                          "Pathogenicity prediction offered by SNPs & GO"),
+            _HmtVarHeader("SNPsGO_Probability", "A", "String",
+                          "Confidence of the pathogenicity prediction offered by SNPs & GO"),
+            _HmtVarHeader("Polyphen2HumDiv_Prediction", "A", "String",
+                          "Pathogenicity prediction offered by Polyphen2 HumDiv"),
+            _HmtVarHeader("Polyphen2HumDiv_Probability", "A", "String",
+                          "Confidence of the pathogenicity prediction offered by Polyphen2 HumDiv"),
+            _HmtVarHeader("Polyphen2HumVar_Prediction", "A", "String",
+                          "Pathogenicity prediction offered by Polyphen2 HumVar"),
+            _HmtVarHeader("Polyphen2HumVar_Probability", "A", "String",
+                          "Confidence of the pathogenicity prediction offered by Polyphen2 HumVar")
         )
-        self.update_header()
+        self._update_header()
         self.writer = Writer(vcf_out, self.reader)
 
     @staticmethod
-    def is_variation(record) -> bool:
+    def _is_variation(record) -> bool:
         """
         Check whether or not the current record refers to an actual variant.
         :param record: current VCF record
@@ -304,7 +304,7 @@ class Annotator:
         return False
 
     @staticmethod
-    def is_mitochondrial(record) -> bool:
+    def _is_mitochondrial(record) -> bool:
         """
         Check whether or not the current record is a mitochondrial variant; if not will avoid
         sending useless requests to HmtVar.
@@ -315,7 +315,7 @@ class Annotator:
             return True
         return False
 
-    def update_header(self):
+    def _update_header(self):
         """
         Update the header present in the input VCF file according to the flags provided (basic,
         variability, predictions information).
@@ -350,8 +350,8 @@ class Annotator:
         """
         for record in self.reader:
 
-            if self.is_variation(record) and self.is_mitochondrial(record):
-                annots = HmtVarParser(record)
+            if self._is_variation(record) and self._is_mitochondrial(record):
+                annots = _HmtVarParser(record)
                 annots.parse()
 
                 if self.basic:
