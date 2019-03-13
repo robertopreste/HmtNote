@@ -51,18 +51,13 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest --cov=./
+            pytest --cov=./ --cov-report xml:cov.xml
 #            python manage.py test
 #            pytest
-      - run:
-          name: upload coverage report
-          command: |
-            pip install --user codecov
-            codecov -f coverage.xml
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
 
       - codecov/upload:
-          file: coverage.xml
+          file: cov.xml
