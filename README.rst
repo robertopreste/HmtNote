@@ -12,6 +12,9 @@ HmtNote
 .. image:: https://circleci.com/gh/robertopreste/HmtNote.svg?style=svg&circle-token=b910c3491e8df21fee34293ace05a35a116759c7
     :target: https://circleci.com/gh/robertopreste/HmtNote
 
+.. image:: https://codecov.io/gh/robertopreste/HmtNote/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/robertopreste/HmtNote
+
 .. image:: https://readthedocs.org/projects/hmtnote/badge/?version=latest
         :target: https://hmtnote.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
