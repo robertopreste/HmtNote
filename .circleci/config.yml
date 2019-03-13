@@ -55,13 +55,14 @@ jobs:
 #            python manage.py test
 #            pytest
       - run:
-          name: codecov
+          name: upload coverage report
           command: |
-            codecov
+            coverage xml
+            codecov -f coverage.xml
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
 
       - codecov/upload:
-          file: ~/tmp/results.xml
+          file: coverage.xml
