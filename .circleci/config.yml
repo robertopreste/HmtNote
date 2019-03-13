@@ -51,7 +51,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            pytest --cov=./ --cov-report xml:cov.xml
+            pytest --cov=./ --cov-report xml:cov.xml -t 182cfad5-26fa-4790-9a9e-35ee42ea5555
 #            python manage.py test
 #            pytest
 
