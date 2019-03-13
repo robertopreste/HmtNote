@@ -8,7 +8,7 @@ coverage==4.5.3
 Sphinx==1.8.5
 twine==1.13.0
 click==7.0
-pytest==4.3.0
+pytest==4.3.1
 pytest-runner==4.4
 pyOpenSSL==19.0.0
 Cython==0.29.6
