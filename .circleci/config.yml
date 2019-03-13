@@ -54,6 +54,10 @@ jobs:
             pytest --cov=./
 #            python manage.py test
 #            pytest
+      - run:
+          name: codecov
+          command: |
+            codecov
 
       - store_artifacts:
           path: test-reports
