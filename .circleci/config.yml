@@ -54,9 +54,10 @@ jobs:
             pytest
 #            python manage.py test
 #            pytest
-      - codecov/upload:
-          file: ~/tmp/results.xml
 
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
+      - codecov/upload:
+          file: ~/tmp/results.xml
