@@ -2,7 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
-version: 2
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 jobs:
   build:
     docker:
@@ -52,6 +54,8 @@ jobs:
             pytest
 #            python manage.py test
 #            pytest
+      - codecov/upload:
+          file: ~/tmp/results.xml
 
       - store_artifacts:
           path: test-reports

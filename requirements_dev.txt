@@ -10,6 +10,7 @@ twine==1.13.0
 click==7.0
 pytest==4.3.1
 pytest-runner==4.4
+pytest-cov==2.6.1
 pyOpenSSL==19.0.0
 Cython==0.29.6
 cyvcf2==0.10.8
