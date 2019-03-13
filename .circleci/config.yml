@@ -58,6 +58,7 @@ jobs:
       - run:
           name: upload coverage report
           command: |
+            . venv/bin/activate
             codecov -f coverage.xml -t 182cfad5-26fa-4790-9a9e-35ee42ea5555
 
       - store_artifacts:
