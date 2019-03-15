@@ -13,3 +13,10 @@ History
 
 * Clean installation requirements for conda;
 * Update documentation.
+
+
+0.1.2 (2019-03-15)
+==================
+
+* Classes and methods are protected where needed;
+* Code style is clean.
