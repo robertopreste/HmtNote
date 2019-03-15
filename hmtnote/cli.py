@@ -27,8 +27,8 @@ def main(input_vcf, output_vcf, basic, crossref, variab, predict):
     Annotate a VCF file using data from HmtVar.
 
     If neither --basic, --crossref, --variab nor --predict are
-    provided, they will all default to True, and the VCF will be annotated using all the available
-    information.
+    provided, they will all default to True, and the VCF will be annotated
+    using all the available information.
     """
 
     if not basic and not crossref and not variab and not predict:

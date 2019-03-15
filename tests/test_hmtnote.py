@@ -11,6 +11,7 @@ from hmtnote import cli
 TESTDIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "test_hmtnote")
 SAMPLE_VCF = os.path.join(TESTDIR, "HG00119_filt.vcf")
 TEST_VCF = os.path.join(TESTDIR, "HG00119_test.vcf")
+# HMTNOTE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "hmtnote")
 
 
 def test_cli():
@@ -108,3 +109,12 @@ def test_module_annotation_predict(sample_ann_predict_vcf):
     with open(TEST_VCF) as out:
         assert sample_ann_predict_vcf.read() == out.read()
 
+
+# def test_direct_call_annotation(sample_ann_vcf):
+#     """Test the full annotation of the sample VCF file through a direct call of hmtnote.py."""
+#     os.system("python {} {} {}".format(os.path.join(HMTNOTE_DIR, "hmtnote.py"),
+#                                        SAMPLE_VCF, TEST_VCF))
+#     with open(TEST_VCF) as out:
+#         assert sample_ann_vcf.read() == out.read()
+#
+#

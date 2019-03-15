@@ -8,11 +8,13 @@ from cyvcf2 import VCF, Writer
 
 class _HmtVarField:
     """
-    This class is used to collect data from HmtVar's API for each field returned.
+    This class is used to collect data from HmtVar's API for each field
+    returned.
     self.element: name of the field to be used in the VCF file
     self.api_slug: name of the field used in HmtVar's API
-    self._field_value: value of the given field; automatically instantiated as an empty list, is
-    then populated with a single value for each alternate allele found in the variant
+    self._field_value: value of the given field; automatically instantiated as
+    an empty list, is then populated with a single value for each alternate
+    allele found in the variant
     """
 
     def __init__(self, element, api_slug):
@@ -21,9 +23,11 @@ class _HmtVarField:
         self._field_value = []
 
     @staticmethod
-    def _replace_null(element: Union[str, int, float, None]) -> Union[str, int, float]:
+    def _replace_null(element: Union[str, int, float, None]) -> Union[str, int,
+                                                                      float]:
         """
-        Replace null values returned by HmtVar's API (None) with a '.' character.
+        Replace null values returned by HmtVar's API (None) with a '.'
+        character.
         :param Union[str, int, float, None] element: value returned by HmtVar
         :return: Union[str, int, float]
         """
@@ -34,7 +38,8 @@ class _HmtVarField:
     @property
     def field_value(self):
         """
-        List of values parsed from HmtVar's API for each alternate allele of the given variant.
+        List of values parsed from HmtVar's API for each alternate allele of
+        the given variant.
         :return:
         """
         return self._field_value
@@ -47,11 +52,12 @@ class _HmtVarField:
         :return:
         """
         self._field_value.append(self._replace_null(value))
-        
-        
+
+
 class _HmtVarHeader:
     """
-    This class is used to create a new header that will be added to the annotated VCF file.
+    This class is used to create a new header that will be added to the
+    annotated VCF file.
     self.element: name of the field to be used in the VCF file
     self.vcf_number: value used in the 'number' attribute of the header line
     self.vcf_type: type of value for this information
@@ -67,7 +73,8 @@ class _HmtVarHeader:
 
 class _HmtVarVariant:
     """
-    This class is used to store a given variant and retrieve the related information from HmtVar.
+    This class is used to store a given variant and retrieve the related
+    information from HmtVar.
     self.reference: reference allele of the variant
     self.position: position of the variant
     self.alternate: alternate allele of the variant
@@ -102,7 +109,8 @@ class _HmtVarVariant:
 
 class _HmtVarParser:
     """
-    This class is used to parse information collected from HmtVar's API and store them in the right
+    This class is used to parse information collected from HmtVar's API and
+    store them in the right
     format, ready for VCF annotation.
     self.record: variant record as returned by cyvcf2.VCF
     self.basics: basic information from HmtVar
@@ -124,8 +132,10 @@ class _HmtVarParser:
             _HmtVarField("Clinvar", "clinvar"),
             _HmtVarField("dbSNP", "dbSNP"),
             _HmtVarField("OMIM", "omim"),
-            _HmtVarField("MitomapAssociatedDiseases", "mitomap_associated_disease"),
-            _HmtVarField("MitomapSomaticMutations", "mitomap_somatic_mutations")
+            _HmtVarField("MitomapAssociatedDiseases",
+                         "mitomap_associated_disease"),
+            _HmtVarField("MitomapSomaticMutations",
+                         "mitomap_somatic_mutations")
         )
         self.variabs = (
             _HmtVarField("NtVarH", "nt_var"),
@@ -154,10 +164,14 @@ class _HmtVarParser:
             _HmtVarField("PhDSNP_Probability", "phD_snp_prob"),
             _HmtVarField("SNPsGO_Prediction", "snp_go_pred"),
             _HmtVarField("SNPsGO_Probability", "snp_go_prob"),
-            _HmtVarField("Polyphen2HumDiv_Prediction", "polyphen2_humDiv_pred"),
-            _HmtVarField("Polyphen2HumDiv_Probability", "polyphen2_humDiv_prob"),
-            _HmtVarField("Polyphen2HumVar_Prediction", "polyphen2_humVar_pred"),
-            _HmtVarField("Polyphen2HumVar_Probability", "polyphen2_humVar_prob")
+            _HmtVarField("Polyphen2HumDiv_Prediction",
+                         "polyphen2_humDiv_pred"),
+            _HmtVarField("Polyphen2HumDiv_Probability",
+                         "polyphen2_humDiv_prob"),
+            _HmtVarField("Polyphen2HumVar_Prediction",
+                         "polyphen2_humVar_pred"),
+            _HmtVarField("Polyphen2HumVar_Probability",
+                         "polyphen2_humVar_prob")
         )
 
     def parse(self):
@@ -165,22 +179,28 @@ class _HmtVarParser:
         Update annotations about the given record.
         :return:
         """
-        variants = [_HmtVarVariant(self.record.REF, self.record.POS, alt) for alt in self.record.ALT]
+        variants = [_HmtVarVariant(self.record.REF,
+                                   self.record.POS, alt) for alt in self.record.ALT]
         for variant in variants:
             response = variant.response
             for field in self.basics:
-                field.field_value = response.get(field.api_slug, ".")
+                field.field_value = response.get(field.api_slug,
+                                                 ".")
             for field in self.crossrefs:
-                field.field_value = response.get("CrossRef").get(field.api_slug, ".")
+                field.field_value = response.get("CrossRef").get(field.api_slug,
+                                                                 ".")
             for field in self.variabs:
-                field.field_value = response.get("Variab").get(field.api_slug, ".")
+                field.field_value = response.get("Variab").get(field.api_slug,
+                                                               ".")
             for field in self.predicts:
-                field.field_value = response.get("Predict").get(field.api_slug, ".")
+                field.field_value = response.get("Predict").get(field.api_slug,
+                                                                ".")
 
 
 class Annotator:
     """
-    This class is the main entry point for VCF annotation. It will traverse a given input VCF and
+    This class is the main entry point for VCF annotation. It will traverse a
+    given input VCF and
     annotate each variant found, then save the annotated VCF.
     self.vcf_in: input VCF filename
     self.vcf_out: output VCF filename
@@ -193,7 +213,8 @@ class Annotator:
     self.crossref_heads: header to be used for cross-reference information
     self.variab_heads: header to be used for variability information
     self.predict_heads: header to be used for predictions information
-    self.writer: output VCF writer (provided by cyvcf2.Writer), instantiated after the header has
+    self.writer: output VCF writer (provided by cyvcf2.Writer), instantiated
+    after the header has
     been updated according to new header to be used
     """
 
@@ -306,8 +327,8 @@ class Annotator:
     @staticmethod
     def _is_mitochondrial(record) -> bool:
         """
-        Check whether or not the current record is a mitochondrial variant; if not will avoid
-        sending useless requests to HmtVar.
+        Check whether or not the current record is a mitochondrial variant; if
+        not will avoid sending useless requests to HmtVar.
         :param record: current VCF record
         :return: bool
         """
@@ -317,35 +338,39 @@ class Annotator:
 
     def _update_header(self):
         """
-        Update the header present in the input VCF file according to the flags provided (basic,
-        variability, predictions information).
+        Update the header present in the input VCF file according to the flags
+        provided (basic, variability, predictions information).
         :return:
         """
         if self.basic:
             for field in self.basic_heads:
-                self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
+                self.reader.add_info_to_header({"ID": field.element,
+                                                "Number": field.vcf_number,
                                                 "Type": field.vcf_type,
                                                 "Description": field.vcf_description})
         if self.crossref:
             for field in self.crossref_heads:
-                self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
+                self.reader.add_info_to_header({"ID": field.element,
+                                                "Number": field.vcf_number,
                                                 "Type": field.vcf_type,
                                                 "Description": field.vcf_description})
         if self.variab:
             for field in self.variab_heads:
-                self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
+                self.reader.add_info_to_header({"ID": field.element,
+                                                "Number": field.vcf_number,
                                                 "Type": field.vcf_type,
                                                 "Description": field.vcf_description})
         if self.predict:
             for field in self.predict_heads:
-                self.reader.add_info_to_header({"ID": field.element, "Number": field.vcf_number,
+                self.reader.add_info_to_header({"ID": field.element,
+                                                "Number": field.vcf_number,
                                                 "Type": field.vcf_type,
                                                 "Description": field.vcf_description})
 
     def annotate(self):
         """
-        Annotate variants according to the flags provided (basic, variability, predictions
-        information), and write the output VCF file.
+        Annotate variants according to the flags provided (basic, variability,
+        predictions information), and write the output VCF file.
         :return:
         """
         for record in self.reader:
@@ -371,6 +396,3 @@ class Annotator:
 
         self.reader.close()
         self.writer.close()
-
-
-
