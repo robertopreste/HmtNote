@@ -20,3 +20,11 @@ History
 
 * Classes and methods are protected where needed;
 * Code style is clean.
+
+
+0.1.3 (WIP)
+===========
+
+* Add options to download the required databases locally;
+* Use local databases to annotate variants (instead of calling HmtVar's API);
+* Fallback to using local databases when web connection is not available?
