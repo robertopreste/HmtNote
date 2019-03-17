@@ -135,7 +135,7 @@ class _HmtVarParser:
             _HmtVarField("MitomapAssociatedDiseases",
                          "mitomap_associated_disease"),
             _HmtVarField("MitomapSomaticMutations",
-                         "mitomap_somatic_mutations")
+                         "somatic_mutations")
         )
         self.variabs = (
             _HmtVarField("NtVarH", "nt_var"),
