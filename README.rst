@@ -109,7 +109,7 @@ HmtNote can be used as a command line tool, by simply providing the original VCF
 
     hmtnote input_vcf.vcf annotated_vcf.vcf
 
-By default, HmtNote will annotate the VCF using all four groups of annotations (basic, cross-reference, variability and predictions). If desired, you can specify which kind of annotation you want, using respectively ``--basic``, ``--crossref``, ``--variab`` and ``--predict``::
+By default, HmtNote will annotate the VCF using all four groups of annotations (basic, cross-reference, variability and predictions). If desired, you can specify which kind of annotation you want, using respectively ``--basic``, ``--crossref``, ``--variab`` and ``--predict`` (or ``-b``, ``-c``, ``-v``, ``-p``)::
 
     hmtnote input_vcf.vcf annotated_basic_vcf.vcf --basic
     hmtnote input_vcf.vcf annotated_crossreferences_vcf.vcf --crossref
@@ -144,7 +144,7 @@ The preferred installation method for HmtNote is using ``pip`` in a conda enviro
     $ conda install -c bioconda cyvcf2
     $ pip install hmtnote
 
-If you have issues, please refer to the Installation section of the Documentation_.
+If you have issues, please refer to the Installation_ section of the Documentation_.
 
 
 Credits
@@ -166,3 +166,4 @@ This package was created with Cookiecutter_ and the `cc-pypackage`_ project temp
 .. _`SNPs & GO`: https://snps-and-go.biocomp.unibo.it/snps-and-go/
 .. _Polyphen2: http://genetics.bwh.harvard.edu/pph2/
 .. _Documentation: https://hmtnote.readthedocs.io
+.. _Installation: https://hmtnote.readthedocs.io/en/latest/installation.html

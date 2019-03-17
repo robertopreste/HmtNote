@@ -86,5 +86,8 @@ You can then activate this environment and install HmtNote:
     $ conda activate HmtNote
     $ pip install HmtNote
 
+If none of these methods works for you, please feel free to open an issue_ on GitHub, and I'll be happy to help.
+
 .. _Github repo: https://github.com/robertopreste/HmtNote
 .. _tarball: https://github.com/robertopreste/HmtNote/tarball/master
+.. _issue: https://github.com/robertopreste/HmtNote/issues
