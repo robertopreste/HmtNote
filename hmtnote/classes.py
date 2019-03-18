@@ -123,9 +123,15 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
         """
         call = self.db[(self.db["nt_start"] == self.position) &
                        (self.db["alt"] == self.alternate)]
-        resp = call.to_dict(orient="records")[0]
+        resp = call.to_dict(orient="records")
+        if resp == []:
+            resp = [{"locus": "none", "aa_change": "none",
+                     "pathogenicity": "none", "disease_score": "none",
+                     "CrossRef": {"none": "."},
+                     "Variab": {"none": "."},
+                     "Predict": {"none": "."}}]
 
-        return resp
+        return resp[0]
 
 
 class _HmtVarParser:
@@ -468,9 +474,7 @@ class DataDumper:
         call = requests.get(url)
         resp = call.json()
         df = pd.DataFrame.from_records(resp)
-        # TODO: maybe there's no need for this
-        # df = pd.DataFrame.from_records(pd.io.json.json_normalize(resp))
-        # df.to_pickle("{}.pkl".format(dataset))
+
         return df
 
     def download_data(self):
