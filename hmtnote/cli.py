@@ -4,9 +4,17 @@
 import sys
 import click
 from hmtnote.classes import Annotator
+from .commands.dump import dump
 
 
-@click.command()
+@click.group(invoke_without_command=True)
+@click.pass_context
+def main(ctx):
+    if ctx.invoked_subcommand is None:
+        return annotate()
+
+
+@main.command()
 @click.argument("input_vcf")
 @click.argument("output_vcf")
 @click.option("--basic", "-b", is_flag=True, default=False,
@@ -22,7 +30,7 @@ from hmtnote.classes import Annotator
               help="""Annotate VCF using predictions information (from MutPred, Panther, Polyphen 
               and other resources) (default: False)""")
 @click.version_option()
-def main(input_vcf, output_vcf, basic, crossref, variab, predict):
+def annotate(input_vcf, output_vcf, basic, crossref, variab, predict):
     """
     Annotate a VCF file using data from HmtVar.
 
@@ -38,6 +46,9 @@ def main(input_vcf, output_vcf, basic, crossref, variab, predict):
     vcf.annotate()
 
     return 0
+
+
+main.add_command(dump)
 
 
 if __name__ == "__main__":

@@ -2,6 +2,8 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import requests
+import click
+import pandas as pd
 from typing import Union
 from cyvcf2 import VCF, Writer
 
@@ -396,3 +398,42 @@ class Annotator:
 
         self.reader.close()
         self.writer.close()
+
+
+class DataDumper:
+    def __init__(self, basic, crossref, variab, predict):
+        self.basic = basic
+        self.crossref = crossref
+        self.variab = variab
+        self.predict = predict
+
+    @staticmethod
+    def _dump_and_pickle(dataset: str):
+        """
+        Download the required dataset from HmtVar's API.
+        :param str dataset: name of the dataset to download ('basic',
+        'crossref', 'variab', 'predict')
+        :return:
+        """
+        url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
+        call = requests.get(url)
+        resp = call.json()
+        df = pd.DataFrame.from_records(pd.io.json.json_normalize(resp))
+        df.to_pickle("{}.pkl".format(dataset))
+
+    def download_data(self):
+        """
+        Call the `_dump_and_pickle()` function to download the data and store
+        them for later use.
+        :return:
+        """
+        if self.basic:
+            self._dump_and_pickle("basic")
+        if self.crossref:
+            self._dump_and_pickle("crossref")
+        if self.variab:
+            self._dump_and_pickle("variab")
+        if self.predict:
+            self._dump_and_pickle("predict")
+
+
