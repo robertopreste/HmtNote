@@ -11,6 +11,11 @@ ANN_BASIC_VCF = os.path.join(TESTDIR, "HG00119_ann_basic.vcf")
 ANN_CROSSREF_VCF = os.path.join(TESTDIR, "HG00119_ann_crossref.vcf")
 ANN_VARIAB_VCF = os.path.join(TESTDIR, "HG00119_ann_variab.vcf")
 ANN_PREDICT_VCF = os.path.join(TESTDIR, "HG00119_ann_predict.vcf")
+ANN_OFFLINE_VCF = os.path.join(TESTDIR, "HG00119_ann_offline.vcf")
+ANN_OFFLINE_BASIC_VCF = os.path.join(TESTDIR, "HG00119_ann_offline_basic.vcf")
+ANN_OFFLINE_CROSSREF_VCF = os.path.join(TESTDIR, "HG00119_ann_offline_crossref.vcf")
+ANN_OFFLINE_VARIAB_VCF = os.path.join(TESTDIR, "HG00119_ann_offline_variab.vcf")
+ANN_OFFLINE_PREDICT_VCF = os.path.join(TESTDIR, "HG00119_ann_offline_predict.vcf")
 
 
 @pytest.fixture
@@ -52,4 +57,39 @@ def sample_ann_variab_vcf():
 def sample_ann_predict_vcf():
     """Open the sample VCF file with predictions annotation."""
     with open(ANN_PREDICT_VCF) as f:
+        yield f
+
+
+@pytest.fixture
+def sample_ann_offline_vcf():
+    """Open the sample VCF file with full offline annotation."""
+    with open(ANN_OFFLINE_VCF) as f:
+        yield f
+
+
+@pytest.fixture
+def sample_ann_offline_basic_vcf():
+    """Open the sample VCF file with basic offline annotation."""
+    with open(ANN_OFFLINE_BASIC_VCF) as f:
+        yield f
+
+
+@pytest.fixture
+def sample_ann_offline_crossref_vcf():
+    """Open the sample VCF file with crossref offline annotation."""
+    with open(ANN_OFFLINE_CROSSREF_VCF) as f:
+        yield f
+
+
+@pytest.fixture
+def sample_ann_offline_variab_vcf():
+    """Open the sample VCF file with variability offline annotation."""
+    with open(ANN_OFFLINE_VARIAB_VCF) as f:
+        yield f
+
+
+@pytest.fixture
+def sample_ann_offline_predict_vcf():
+    """Open the sample VCF file with predictions offline annotation."""
+    with open(ANN_OFFLINE_PREDICT_VCF) as f:
         yield f
