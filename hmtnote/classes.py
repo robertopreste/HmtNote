@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
+import json
 import requests
 import click
 import pandas as pd
@@ -471,9 +472,27 @@ class DataDumper:
         :return: pd.DataFrame
         """
         url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
+
+        # TEST
+        # with requests.get(url, stream=True) as r:
+        #     size = int(r.headers.get("content-length", 0)) // 1024
+        #     label = "Downloading {} dataset...".format(dataset)
+        #     r_bytes = 0
+        #     r_data = ""
+        #     with click.progressbar(length=size, label=label) as bar:
+        #         for chunk in r.iter_content(chunk_size=1024):
+        #             r_bytes += len(chunk)
+        #             r_data += str(chunk, "utf-8")
+        #             bar.update(r_bytes)
+        # resp = json.loads(r_data)
+
+        # END TEST
+
+        click.echo("Downloading {} dataset... ".format(dataset), nl=False)
         call = requests.get(url)
         resp = call.json()
         df = pd.DataFrame.from_records(resp)
+        click.echo("Complete!")
 
         return df
 
@@ -505,6 +524,7 @@ class DataDumper:
         final_df.fillna(".", inplace=True)
 
         final_df.to_pickle("hmtnote_dump.pkl")
+        click.echo("Local HmtNote database saved to hmtnote_dump.pkl for offline use.")
 
 
 class OfflineAnnotator(Annotator):

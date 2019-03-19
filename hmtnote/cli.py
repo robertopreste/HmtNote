@@ -62,9 +62,7 @@ def dump():
     Download databases from HmtVar for offline annotation.
     """
     dumper = DataDumper()
-    click.echo("Downloading data...")
     dumper.download_data()
-    click.echo("Complete.")
 
     return 0
 
