@@ -502,6 +502,7 @@ class DataDumper:
                     .join(self._df_crossref.set_index("id"))
                     .join(self._df_variab.set_index("id"))
                     .join(self._df_predict.set_index("id"))).reset_index()
+        final_df.fillna(".", inplace=True)
 
         final_df.to_pickle("hmtnote_dump.pkl")
 
