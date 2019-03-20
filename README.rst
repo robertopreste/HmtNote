@@ -46,7 +46,8 @@ Basic information about the variant; they include:
 * Locus: Locus to which the variant belongs
 * AaChange: Aminoacidic change determined
 * Pathogenicity: Pathogenicity predicted by HmtVar
-* Disease Score: Disease score calculated by HmtVar
+* DiseaseScore: Disease score calculated by HmtVar
+* HmtVar: HmtVar_ ID of the variant (can be used to view the related VariantCard on `https://www.hmtvar.uniba.it/varCard/<HmtVarID>`)
 
 Cross-reference
 ===============
@@ -109,7 +110,7 @@ HmtNote can be used as a command line tool, by simply providing the original VCF
 
     hmtnote input_vcf.vcf annotated_vcf.vcf
 
-By default, HmtNote will annotate the VCF using all four groups of annotations (basic, cross-reference, variability and predictions). If desired, you can specify which kind of annotation you want, using respectively ``--basic``, ``--crossref``, ``--variab`` and ``--predict``::
+By default, HmtNote will annotate the VCF using all four groups of annotations (basic, cross-reference, variability and predictions). If desired, you can specify which kind of annotation you want, using respectively ``--basic``, ``--crossref``, ``--variab`` and ``--predict`` (or ``-b``, ``-c``, ``-v``, ``-p``)::
 
     hmtnote input_vcf.vcf annotated_basic_vcf.vcf --basic
     hmtnote input_vcf.vcf annotated_crossreferences_vcf.vcf --crossref
@@ -144,7 +145,7 @@ The preferred installation method for HmtNote is using ``pip`` in a conda enviro
     $ conda install -c bioconda cyvcf2
     $ pip install hmtnote
 
-If you have issues, please refer to the Installation section of the Documentation_.
+If you have issues, please refer to the Installation_ section of the Documentation_.
 
 
 Credits
@@ -166,3 +167,4 @@ This package was created with Cookiecutter_ and the `cc-pypackage`_ project temp
 .. _`SNPs & GO`: https://snps-and-go.biocomp.unibo.it/snps-and-go/
 .. _Polyphen2: http://genetics.bwh.harvard.edu/pph2/
 .. _Documentation: https://hmtnote.readthedocs.io
+.. _Installation: https://hmtnote.readthedocs.io/en/latest/installation.html

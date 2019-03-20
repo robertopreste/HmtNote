@@ -22,7 +22,26 @@ History
 * Code style is clean.
 
 
-0.1.3 (WIP)
+0.1.3 (2019-03-17)
+==================
+
+* Fix issue with `--predict` annotation, which didn't retrieve the correct field from HmtVar.
+
+
+0.1.4 (2019-03-19)
+==================
+
+* Fix issue that prevented importing `annotate_vcf()` into Python scripts.
+
+
+0.1.5 (2019-03-20)
+==================
+
+* Add HmtVar ID of the variant in basic and full annotation;
+* Change `Disease Score` annotation to `DiseaseScore`.
+
+
+X.X.X (WIP)
 ===========
 
 * Add options to download the required databases locally;

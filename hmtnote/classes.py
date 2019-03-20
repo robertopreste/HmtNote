@@ -153,7 +153,8 @@ class _HmtVarParser:
             _HmtVarField("Locus", "locus"),
             _HmtVarField("AaChange", "aa_change"),
             _HmtVarField("Pathogenicity", "pathogenicity"),
-            _HmtVarField("Disease Score", "disease_score")
+            _HmtVarField("DiseaseScore", "disease_score"),
+            _HmtVarField("HmtVar", "id")
             # _HmtVarField("Haplogroups", "haplogroups")
         )
         self.crossrefs = (
@@ -163,7 +164,7 @@ class _HmtVarParser:
             _HmtVarField("MitomapAssociatedDiseases",
                          "mitomap_associated_disease"),
             _HmtVarField("MitomapSomaticMutations",
-                         "mitomap_somatic_mutations")
+                         "somatic_mutations")
         )
         self.variabs = (
             _HmtVarField("NtVarH", "nt_var"),
@@ -291,8 +292,10 @@ class Annotator:
                           "Aminoacidic change determined"),
             _HmtVarHeader("Pathogenicity", "A", "String",
                           "Pathogenicity predicted by HmtVar"),
-            _HmtVarHeader("Disease Score", "A", "String",
-                          "Disease score calculated by HmtVar")
+            _HmtVarHeader("DiseaseScore", "A", "String",
+                          "Disease score calculated by HmtVar"),
+            _HmtVarHeader("HmtVar", "A", "String",
+                          "HmtVar ID of the variant (can be used to view the related VariantCard on https://www.hmtvar.uniba.it/varCard/<HmtVarID>)")
             # _HmtVarHeader("Haplogroups", "A", "String",
             #              "Haplogroups defined by the variant")
         )
