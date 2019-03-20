@@ -46,7 +46,8 @@ Basic information about the variant; they include:
 * Locus: Locus to which the variant belongs
 * AaChange: Aminoacidic change determined
 * Pathogenicity: Pathogenicity predicted by HmtVar
-* Disease Score: Disease score calculated by HmtVar
+* DiseaseScore: Disease score calculated by HmtVar
+* HmtVar: HmtVar_ ID of the variant (can be used to view the related VariantCard on `https://www.hmtvar.uniba.it/varCard/<HmtVarID>`)
 
 Cross-reference
 ===============

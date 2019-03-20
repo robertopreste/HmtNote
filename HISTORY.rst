@@ -34,10 +34,11 @@ History
 * Fix issue that prevented importing `annotate_vcf()` into Python scripts.
 
 
-0.1.5 (WIP)
+0.1.5 (2019-03-20)
 ==================
 
-* Add link to HmtVar's VariantCard in basic and full annotation.
+* Add HmtVar ID of the variant in basic and full annotation;
+* Change `Disease Score` annotation to `DiseaseScore`.
 
 
 X.X.X (WIP)
