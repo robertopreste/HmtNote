@@ -46,4 +46,5 @@ X.X.X (WIP)
 
 * Add options to download the required databases locally;
 * Use local databases to annotate variants (instead of calling HmtVar's API);
-* Fallback to using local databases when web connection is not available?
+* Fallback to using local databases when web connection is not available; TODO: tests
+* Check if local databases actually exist before performing offline annotation.
