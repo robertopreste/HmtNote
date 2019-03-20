@@ -567,3 +567,12 @@ class OfflineAnnotator(Annotator):
         self.writer.close()
 
 
+def check_connection():
+    url = "https://www.google.com"
+    timeout = 5
+    try:
+        _ = requests.get(url, timeout=timeout)
+        return True
+    except requests.exceptions.RequestException as e:
+        pass
+    return False

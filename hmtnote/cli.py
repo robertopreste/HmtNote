@@ -3,7 +3,7 @@
 # Created by Roberto Preste
 import sys
 import click
-from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper
+from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper, check_connection
 
 
 @click.group()
@@ -47,11 +47,18 @@ def annotate(input_vcf, output_vcf, basic, crossref, variab, predict, offline):
     if offline:
         vcf = OfflineAnnotator(input_vcf, output_vcf,
                                basic, crossref, variab, predict)
-        vcf.annotate()
     else:
-        vcf = Annotator(input_vcf, output_vcf,
-                        basic, crossref, variab, predict)
-        vcf.annotate()
+        if check_connection():
+            vcf = Annotator(input_vcf, output_vcf,
+                            basic, crossref, variab, predict)
+        else:
+            # default to offline annotation if no connection available
+            # or an error occurs
+            click.echo("No connection available!")
+            click.echo("Switching to offline annotation...")
+            vcf = OfflineAnnotator(input_vcf, output_vcf,
+                                   basic, crossref, variab, predict)
+    vcf.annotate()
 
     return 0
 

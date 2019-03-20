@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import argparse
-from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper
+from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper, check_connection
 
 
 def annotate_vcf(input_vcf: str, output_vcf: str,
@@ -39,11 +39,18 @@ def annotate_vcf(input_vcf: str, output_vcf: str,
     if offline:
         vcf = OfflineAnnotator(input_vcf, output_vcf,
                                basic, crossref, variab, predict)
-        vcf.annotate()
     else:
-        vcf = Annotator(input_vcf, output_vcf,
-                        basic, crossref, variab, predict)
-        vcf.annotate()
+        if check_connection():
+            vcf = Annotator(input_vcf, output_vcf,
+                            basic, crossref, variab, predict)
+        else:
+            # default to offline annotation if no connection available
+            # or an error occurs
+            print("No connection available!")
+            print("Switching to offline annotation...")
+            vcf = OfflineAnnotator(input_vcf, output_vcf,
+                                   basic, crossref, variab, predict)
+    vcf.annotate()
 
     return
 
