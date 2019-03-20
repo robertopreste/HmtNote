@@ -34,6 +34,12 @@ History
 * Fix issue that prevented importing `annotate_vcf()` into Python scripts.
 
 
+0.1.5 (WIP)
+==================
+
+* Add link to HmtVar's VariantCard in basic and full annotation.
+
+
 X.X.X (WIP)
 ===========
 
