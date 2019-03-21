@@ -69,6 +69,7 @@ Once you have a copy of the source, you can install it with:
 
 .. code-block:: console
 
+    $ cd HmtNote/
     $ python setup.py install
 
 If you have issues with this installation, try creating a new conda environment from the given
