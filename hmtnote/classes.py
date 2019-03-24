@@ -4,6 +4,10 @@
 import json
 import requests
 import click
+import asyncio
+import aiohttp
+import aiofiles
+import os
 import pandas as pd
 from typing import Union
 from cyvcf2 import VCF, Writer
@@ -467,6 +471,43 @@ class DataDumper:
         self._df_predict = None
 
     @staticmethod
+    def round_dataframe(df):
+        roundings = {"disease_score": 2, "nt_var": 6, "nt_var_patients": 6,
+                     "aa_var": 6, "aa_var_patients": 6,
+                     "mutPred_prob": 3, "panther_prob": 3,
+                     "phD_snp_prob": 3, "snp_go_prob": 3,
+                     "polyphen2_humDiv_prob": 3,
+                     "polyphen2_humVar_prob": 3}
+
+        return df.round(roundings)
+
+    @staticmethod
+    async def _download_json(session, url, dataset):
+        async with session.get(url, ssl=False) as res:
+            filename = "dump_{}.json".format(dataset)
+            async with aiofiles.open(filename, "wb") as f:
+                while True:
+                    chunk = await res.content.read(1024)
+                    if not chunk:
+                        break
+                    await f.write(chunk)
+            click.echo("...{} annotations ready.".format(dataset))
+            return await res.release()
+
+    @staticmethod
+    async def _looper_download_json(dataset):
+        url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
+        click.echo("Downloading {} annotations...".format(dataset))
+        async with aiohttp.ClientSession() as session:
+            await DataDumper._download_json(session, url, dataset)
+
+
+    # @staticmethod
+    # async def _get_json(session, url):
+    #     async with session.get(url, ssl=False) as res:
+    #         return await res.json()
+
+    @staticmethod
     def _dump_dataframe(dataset: str) -> pd.DataFrame:
         """
         Download the required dataset from HmtVar's API.
@@ -505,10 +546,22 @@ class DataDumper:
         them in a single pickled dataframe for later use.
         :return:
         """
-        self._df_basic = self._dump_dataframe("basic")
-        self._df_crossref = self._dump_dataframe("crossref")
-        self._df_variab = self._dump_dataframe("variab")
-        self._df_predict = self._dump_dataframe("predict")
+        # self._df_basic = self._dump_dataframe("basic")
+        # self._df_crossref = self._dump_dataframe("crossref")
+        # self._df_variab = self._dump_dataframe("variab")
+        # self._df_predict = self._dump_dataframe("predict")
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        datasets = ["basic", "crossref", "variab", "predict"]
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(
+            asyncio.gather(*(self._looper_download_json(dataset) for dataset in datasets))
+        )
+
+        click.echo("Building local database...", nl=" ")
+        self._df_basic = pd.read_json("dump_basic.json")
+        self._df_crossref = pd.read_json("dump_crossref.json")
+        self._df_variab = pd.read_json("dump_variab.json")
+        self._df_predict = pd.read_json("dump_predict.json")
 
         self._df_crossref.drop(["aa_change", "alt", "disease_score", "locus",
                                 "nt_start", "pathogenicity", "ref_rCRS"],
@@ -525,15 +578,39 @@ class DataDumper:
                     .join(self._df_variab.set_index("id"))
                     .join(self._df_predict.set_index("id"))).reset_index()
         final_df.fillna(".", inplace=True)
+        final_df = self.round_dataframe(final_df)
+        # final_df.to_pickle("hmtnote_dump.pkl")
+        final_df.to_pickle(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))
+        click.echo("Done.")
 
-        final_df.to_pickle("hmtnote_dump.pkl")
+        click.echo("Removing temporary files...", nl=" ")
+        os.remove("dump_basic.json")
+        os.remove("dump_crossref.json")
+        os.remove("dump_variab.json")
+        os.remove("dump_predict.json")
+        click.echo("Done.")
         click.echo("Local HmtNote database saved to hmtnote_dump.pkl for offline use.")
 
 
 class OfflineAnnotator(Annotator):
     def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
         super().__init__(vcf_in, vcf_out, basic, crossref, variab, predict)
-        self.db = pd.read_pickle("hmtnote_dump.pkl")
+        # self.db = pd.read_pickle("hmtnote_dump.pkl")
+        # self.db = self.round_dataframe(pd.read_pickle("hmtnote_dump.pkl"))
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        self.db = self.round_dataframe(pd.read_pickle(os.path.join(BASE_DIR,
+                                                                   "hmtnote_dump.pkl")))
+
+    @staticmethod
+    def round_dataframe(df):
+        roundings = {"disease_score": 2, "nt_var": 6, "nt_var_patients": 6,
+                     "aa_var": 6, "aa_var_patients": 6,
+                     "mutPred_prob": 3, "panther_prob": 3,
+                     "phD_snp_prob": 3, "snp_go_prob": 3,
+                     "polyphen2_humDiv_prob": 3,
+                     "polyphen2_humVar_prob": 3}
+
+        return df.round(roundings)
 
     def annotate(self):
         """
