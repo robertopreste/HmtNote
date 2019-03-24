@@ -25,7 +25,7 @@ chrMT	750	.	A	G	.	PASS	AC=1,.;Locus=MT-RNR1;AaChange=.;Pathogenicity=.;DiseaseSc
 chrMT	1438	.	A	G	.	PASS	AC=1,.;Locus=MT-RNR1;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=588	GT	0/1
 chrMT	1888	.	G	A	.	PASS	AC=1,.;Locus=MT-RNR2;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=863	GT	0/1
 chrMT	2706	.	A	G	.	PASS	AC=1,.;Locus=MT-RNR2;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=940	GT	0/1
-chrMT	3106	.	CN	C	.	PASS	AC=1,.;Locus=none;AaChange=none;Pathogenicity=none;DiseaseScore=none;HmtVar=.	GT	0/1
+chrMT	3106	.	CN	C	.	PASS	AC=1,.;Locus=.;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=.	GT	0/1
 chrMT	4216	.	T	C	.	PASS	AC=1,.;Locus=MT-ND1;AaChange=Y304H;Pathogenicity=polymorphic;DiseaseScore=0.11;HmtVar=3354	GT	0/1
 chrMT	4769	.	A	G	.	PASS	AC=1,.;Locus=MT-ND2;AaChange=M100M;Pathogenicity=.;DiseaseScore=.;HmtVar=4804	GT	0/1
 chrMT	4917	.	A	G	.	PASS	AC=1,.;Locus=MT-ND2;AaChange=N150D;Pathogenicity=polymorphic;DiseaseScore=0.27;HmtVar=5143	GT	0/1
@@ -49,6 +49,6 @@ chrMT	15928	.	G	A	.	PASS	AC=1,.;Locus=MT-TT;AaChange=.;Pathogenicity=polymorphic
 chrMT	16126	.	T	C	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=32181	GT	0/1
 chrMT	16163	.	A	G	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=32198	GT	0/1
 chrMT	16186	.	C	T	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=39829	GT	0/1
-chrMT	16188	.	CT	C	.	PASS	AC=1,.;Locus=none;AaChange=none;Pathogenicity=none;DiseaseScore=none;HmtVar=.	GT	0/1
+chrMT	16188	.	CT	C	.	PASS	AC=1,.;Locus=.;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=.	GT	0/1
 chrMT	16294	.	C	T	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=32288	GT	0/1
 chrMT	16519	.	T	C	.	PASS	AC=2,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=32334	GT	1/1
