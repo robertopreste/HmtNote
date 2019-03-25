@@ -2,7 +2,8 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import argparse
-from hmtnote.classes import Annotator
+import sys
+from hmtnote.classes import Annotator, check_connection
 
 
 def annotate_vcf(input_vcf: str, output_vcf: str,
@@ -31,8 +32,13 @@ def annotate_vcf(input_vcf: str, output_vcf: str,
     if not basic and not crossref and not variab and not predict:
         basic, crossref, variab, predict = True, True, True, True
 
-    vcf = Annotator(input_vcf, output_vcf, basic, crossref, variab, predict)
-    vcf.annotate()
+    if check_connection():
+        vcf = Annotator(input_vcf, output_vcf, basic, crossref, variab, predict)
+        vcf.annotate()
+    else:
+        print("No internet connection available!")
+        print("Exiting.")
+        sys.exit(1)
 
     return
 

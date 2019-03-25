@@ -3,7 +3,7 @@
 # Created by Roberto Preste
 import sys
 import click
-from hmtnote.classes import Annotator
+from hmtnote.classes import Annotator, check_connection
 
 
 @click.command()
@@ -29,13 +29,22 @@ def main(input_vcf, output_vcf, basic, crossref, variab, predict):
     If neither --basic, --crossref, --variab nor --predict are
     provided, they will all default to True, and the VCF will be annotated
     using all the available information.
+
+    PLEASE NOTE:
+    Using the main `hmtnote` command to annotate VCF files will be deprecated
+    in the next major release of HmtNote, and replaced by `hmtnote annotate`.
     """
 
     if not basic and not crossref and not variab and not predict:
         basic, crossref, variab, predict = True, True, True, True
 
-    vcf = Annotator(input_vcf, output_vcf, basic, crossref, variab, predict)
-    vcf.annotate()
+    if check_connection():
+        vcf = Annotator(input_vcf, output_vcf, basic, crossref, variab, predict)
+        vcf.annotate()
+    else:
+        click.echo("No internet connection available!")
+        click.echo("Exiting.")
+        return 1
 
     return 0
 
