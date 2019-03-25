@@ -42,6 +42,24 @@ HmtNote works by pulling the required data from HmtVar_ on the fly, but if you'r
 
 For more information, please refer to the Usage_ section of the documentation.
 
+
+Installation
+------------
+
+**PLEASE NOTE: HmtNote only supports Python 3!**
+
+The preferred installation method for HmtNote is using ``pip`` in a conda environment:
+
+.. code-block:: console
+
+    $ conda install requests
+    $ conda install -c bioconda cyvcf2
+    $ pip install hmtnote
+
+For more information, please refer to the Installation_ section of the documentation.
+
+
+
 Usage
 -----
 
@@ -93,22 +111,6 @@ It is also possible to download the annotation database using the ``dump()`` fun
     annotate_vcf("input.vcf", "annotated.vcf", offline=True)
 
 For more information, please refer to the Usage_ section of the documentation.
-
-
-Installation
-------------
-
-**PLEASE NOTE: HmtNote only supports Python 3!**
-
-The preferred installation method for HmtNote is using ``pip`` in a conda environment:
-
-.. code-block:: console
-
-    $ conda install requests
-    $ conda install -c bioconda cyvcf2
-    $ pip install hmtnote
-
-For more information, please refer to the Installation_ section of the documentation.
 
 
 Credits
