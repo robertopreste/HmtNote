@@ -1,7 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
+import json
 import requests
+import click
+import asyncio
+import aiohttp
+import aiofiles
+import os
+import pandas as pd
 from typing import Union
 from cyvcf2 import VCF, Writer
 
@@ -107,6 +114,29 @@ class _HmtVarVariant:
         return resp
 
 
+class _OfflineHmtVarVariant(_HmtVarVariant):
+    def __init__(self, reference, position, alternate, database):
+        super().__init__(reference, position, alternate)
+        self.db = database
+
+    @property
+    def response(self) -> dict:
+        """
+        Overwrites the _HmtVarVariant.response() method to retrieve the data
+        from local dumped databases, instead of using HmtVar's API.
+        :return: dict
+        """
+        call = self.db[(self.db["nt_start"] == self.position) &
+                       (self.db["alt"] == self.alternate)]
+        resp = call.to_dict(orient="records")
+        if resp == []:
+            resp = [{"CrossRef": {"none": "."},
+                     "Variab": {"none": "."},
+                     "Predict": {"none": "."}}]
+
+        return resp[0]
+
+
 class _HmtVarParser:
     """
     This class is used to parse information collected from HmtVar's API and
@@ -182,6 +212,36 @@ class _HmtVarParser:
         """
         variants = [_HmtVarVariant(self.record.REF,
                                    self.record.POS, alt) for alt in self.record.ALT]
+        for variant in variants:
+            response = variant.response
+            for field in self.basics:
+                field.field_value = response.get(field.api_slug,
+                                                 ".")
+            for field in self.crossrefs:
+                field.field_value = response.get("CrossRef").get(field.api_slug,
+                                                                 ".")
+            for field in self.variabs:
+                field.field_value = response.get("Variab").get(field.api_slug,
+                                                               ".")
+            for field in self.predicts:
+                field.field_value = response.get("Predict").get(field.api_slug,
+                                                                ".")
+
+
+class _OfflineHmtVarParser(_HmtVarParser):
+    def __init__(self, record, database):
+        super().__init__(record)
+        self.db = database
+
+    def parse(self):
+        """
+        Overwrites the _HmtVarParser.parse() method for offline annotation.
+        :return:
+        """
+        variants = [_OfflineHmtVarVariant(self.record.REF,
+                                          self.record.POS,
+                                          alt,
+                                          self.db) for alt in self.record.ALT]
         for variant in variants:
             response = variant.response
             for field in self.basics:
@@ -401,6 +461,122 @@ class Annotator:
         self.writer.close()
 
 
+class DataDumper:
+    def __init__(self):
+        self._df_basic = None
+        self._df_crossref = None
+        self._df_variab = None
+        self._df_predict = None
+
+    @staticmethod
+    async def _download_json(session, url, dataset):
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        async with session.get(url, ssl=False) as res:
+            filename = "dump_{}.json".format(dataset)
+            async with aiofiles.open(os.path.join(BASE_DIR, filename), "wb") as f:
+                while True:
+                    chunk = await res.content.read(1024)
+                    if not chunk:
+                        break
+                    await f.write(chunk)
+            click.echo("...{} annotations ready.".format(dataset))
+            return await res.release()
+
+    @staticmethod
+    async def _looper_download_json(dataset):
+        url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
+        click.echo("Downloading {} annotations...".format(dataset))
+        async with aiohttp.ClientSession() as session:
+            await DataDumper._download_json(session, url, dataset)
+
+    def download_data(self):
+        """
+        Call the `_dump_dataframe()` function to download the data and store
+        them in a single pickled dataframe for later use.
+        :return:
+        """
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        datasets = ["basic", "crossref", "variab", "predict"]
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(
+            asyncio.gather(*(self._looper_download_json(dataset) for dataset in datasets))
+        )
+
+        click.echo("Building local database...", nl=" ")
+        self._df_basic = pd.read_json(os.path.join(BASE_DIR, "dump_basic.json"),
+                                      precise_float=True)
+        self._df_crossref = pd.read_json(os.path.join(BASE_DIR, "dump_crossref.json"),
+                                         precise_float=True)
+        self._df_variab = pd.read_json(os.path.join(BASE_DIR, "dump_variab.json"),
+                                       precise_float=True)
+        self._df_predict = pd.read_json(os.path.join(BASE_DIR, "dump_predict.json"),
+                                        precise_float=True)
+
+        self._df_crossref.drop(["aa_change", "alt", "disease_score", "locus",
+                                "nt_start", "pathogenicity", "ref_rCRS"],
+                               axis=1, inplace=True)
+        self._df_variab.drop(["aa_change", "alt", "disease_score", "locus",
+                              "nt_start", "pathogenicity", "ref_rCRS"],
+                             axis=1, inplace=True)
+        self._df_predict.drop(["aa_change", "alt", "disease_score", "locus",
+                               "nt_start", "pathogenicity", "ref_rCRS"],
+                              axis=1, inplace=True)
+
+        final_df = (self._df_basic.set_index("id")
+                    .join(self._df_crossref.set_index("id"))
+                    .join(self._df_variab.set_index("id"))
+                    .join(self._df_predict.set_index("id"))).reset_index()
+        final_df.fillna(".", inplace=True)
+        final_df.to_pickle(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))
+        click.echo("Done.")
+
+        click.echo("Removing temporary files...", nl=" ")
+        os.remove(os.path.join(BASE_DIR, "dump_basic.json"))
+        os.remove(os.path.join(BASE_DIR, "dump_crossref.json"))
+        os.remove(os.path.join(BASE_DIR, "dump_variab.json"))
+        os.remove(os.path.join(BASE_DIR, "dump_predict.json"))
+        click.echo("Done.")
+        click.echo("Local HmtNote database saved to hmtnote_dump.pkl for offline use.")
+
+
+class OfflineAnnotator(Annotator):
+    def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
+        super().__init__(vcf_in, vcf_out, basic, crossref, variab, predict)
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        self.db = pd.read_pickle(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))
+
+    def annotate(self):
+        """
+        Overwrites the Annotator.annotate() method to provide offline
+        annotation according to the flags provided (basic, variability,
+        predictions information), and write the output VCF file.
+        :return:
+        """
+        for record in self.reader:
+
+            if self._is_variation(record) and self._is_mitochondrial(record):
+                annots = _OfflineHmtVarParser(record, self.db)
+                annots.parse()
+
+                if self.basic:
+                    for field in annots.basics:
+                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                if self.crossref:
+                    for field in annots.crossrefs:
+                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                if self.variab:
+                    for field in annots.variabs:
+                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                if self.predict:
+                    for field in annots.predicts:
+                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+
+            self.writer.write_record(record)
+
+        self.reader.close()
+        self.writer.close()
+
+
 def check_connection():
     url = "https://www.google.com"
     timeout = 5
@@ -410,3 +586,8 @@ def check_connection():
     except requests.exceptions.RequestException as e:
         pass
     return False
+
+
+def check_dump():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    return os.path.isfile(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))

@@ -1,0 +1,54 @@
+##fileformat=VCFv4.0
+##FILTER=<ID=PASS,Description="All filters passed">
+##reference=chrRCRS
+##FORMAT=<ID=GT,Number=.,Type=String,Description="Genotype">
+##FORMAT=<ID=DP,Number=.,Type=Integer,Description="Reads covering the REF position">
+##FORMAT=<ID=HF,Number=.,Type=Float,Description="Heteroplasmy Frequency of variant allele">
+##FORMAT=<ID=CILOW,Number=.,Type=Float,Description="Value defining the lower limit of the confidence interval of the heteroplasmy fraction">
+##FORMAT=<ID=CIUP,Number=.,Type=Float,Description="Value defining the upper limit of the confidence interval of the heteroplasmy fraction">
+##INFO=<ID=AC,Number=.,Type=Integer,Description="Allele count in genotypes">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##contig=<ID=chrMT,length=16569>
+##INFO=<ID=Clinvar,Number=A,Type=String,Description="Clinvar ID of the variant">
+##INFO=<ID=dbSNP,Number=A,Type=String,Description="dbSNP ID of the variant">
+##INFO=<ID=OMIM,Number=A,Type=String,Description="OMIM ID of the variant">
+##INFO=<ID=MitomapAssociatedDiseases,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap">
+##INFO=<ID=MitomapSomaticMutations,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap Somatic Mutations">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SRR043366
+chrMT	73	.	A	G	.	PASS	AC=2,.;Clinvar=.;dbSNP=rs869183622;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=aging brains, POLG/PEO & control muscle, buccal cell, thyroid & prostate tumors	GT	1/1
+chrMT	152	.	T	C	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs117135796;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=elderly brains, elderly fibroblasts, ovarian carcinoma, breast tumor	GT	0/1
+chrMT	195	.	T	C	.	PASS	AC=2,.;Clinvar=.;dbSNP=rs2857291;OMIM=.;MitomapAssociatedDiseases=BD-associated / melanoma pts;MitomapSomaticMutations=elderly fibroblasts, elderly/AD brains, tumors: lung, thyroid, ovarian, prostate, glioblastoma	GT	1/1
+chrMT	263	.	A	G	.	PASS	AC=1,.;Clinvar=434777;dbSNP=rs2853515;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=POLG/MNGIE muscle	GT	0/1
+chrMT	310	.	T	C	.	PASS	AC=1,.;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=normal buccal swab	GT	0/1
+chrMT	709	.	G	A	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs2853517;OMIM=.;MitomapAssociatedDiseases=Possibly LVNC-associated;MitomapSomaticMutations=.	GT	0/1
+chrMT	750	.	A	G	.	PASS	AC=1,.;Clinvar=434781;dbSNP=rs2853518;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	1438	.	A	G	.	PASS	AC=1,.;Clinvar=51390;dbSNP=rs2001030;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	1888	.	G	A	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs2897260;OMIM=.;MitomapAssociatedDiseases=Combined OXPHOS defects & severe multisystem disorder;MitomapSomaticMutations=.	GT	0/1
+chrMT	2706	.	A	G	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs2854128;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	3106	.	CN	C	.	PASS	AC=1,.;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	4216	.	T	C	.	PASS	AC=1,.;Clinvar=24763;dbSNP=rs1599988;OMIM=516000#0003;MitomapAssociatedDiseases=LHON / Insulin Resistance /possible adaptive high altitude variant;MitomapSomaticMutations=acute leukemia platelets, leukocytes & bone marrow	GT	0/1
+chrMT	4769	.	A	G	.	PASS	AC=1,.;Clinvar=434779;dbSNP=rs3021086;OMIM=.;MitomapAssociatedDiseases=Mitochondrial myopathy;MitomapSomaticMutations=.	GT	0/1
+chrMT	4917	.	A	G	.	PASS	AC=1,.;Clinvar=24755;dbSNP=rs28357980;OMIM=516001#0001;MitomapAssociatedDiseases=LHON / Insulin Resistance / AMD / NRTI-PN;MitomapSomaticMutations=.	GT	0/1
+chrMT	7028	.	C	T	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs2015062;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	8697	.	G	A	.	PASS	AC=1,.;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=thyroid tumor	GT	0/1
+chrMT	8860	.	A	G	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs2001031;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	8935	.	C	T	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs28377547;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	9389	.	A	G	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs28462217;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	9899	.	T	C	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs41345446;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	10463	.	T	C	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs28358279;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=endometrium tumor	GT	0/1
+chrMT	11251	.	A	G	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs869096886;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	11719	.	G	A	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs2853495;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	12633	.	C	A	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs3926883;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	13368	.	G	A	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs3899498;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	14766	.	C	T	.	PASS	AC=1,.;Clinvar=150279;dbSNP=rs193302980;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	14905	.	G	A	.	PASS	AC=1,.;Clinvar=153642;dbSNP=rs193302983;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	15326	.	A	G	.	PASS	AC=1,.;Clinvar=150284;dbSNP=rs2853508;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	15452	.	C	A	.	PASS	AC=1,.;Clinvar=153648;dbSNP=rs193302994;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	15607	.	A	G	.	PASS	AC=1,.;Clinvar=153649;dbSNP=rs193302996;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=breast tumor	GT	0/1
+chrMT	15928	.	G	A	.	PASS	AC=1,.;Clinvar=153628;dbSNP=rs527236198;OMIM=.;MitomapAssociatedDiseases=Multiple Sclerosis / idiopathic repeat miscarriage / AD protection;MitomapSomaticMutations=.	GT	0/1
+chrMT	16126	.	T	C	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs147029798;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=glioblastoma, normal tissues	GT	0/1
+chrMT	16163	.	A	G	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs41479950;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	16186	.	C	T	.	PASS	AC=1,.;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	16188	.	CT	C	.	PASS	AC=1,.;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	16294	.	C	T	.	PASS	AC=1,.;Clinvar=.;dbSNP=rs140662392;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.	GT	0/1
+chrMT	16519	.	T	C	.	PASS	AC=2,.;Clinvar=.;dbSNP=rs3937033;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=glioblastoma, gastric, lung, ovarian, prostate tumors	GT	1/1

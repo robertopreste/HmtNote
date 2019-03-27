@@ -1,22 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
-import argparse
 import sys
-from hmtnote.classes import Annotator, check_connection
+from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper
+from hmtnote.classes import check_connection, check_dump
 
 
 def annotate_vcf(input_vcf: str, output_vcf: str,
                  basic: bool = False,
                  crossref: bool = False,
                  variab: bool = False,
-                 predict: bool = False):
+                 predict: bool = False,
+                 offline: bool = False):
     """
     Annotate a VCF file using information from HmtVar.
 
-    If neither --basic, --crossref, --variab nor --predict are provided, they
+    If neither basic, crossref, variab nor predict are provided, they
     will all default to True, and the VCF will be annotated using all the
     available information.
+    If no internet connection is available, use the offline option to use
+    the local database for annotation (you must have previously downloaded it
+    using the hmtnote dump command).
     :param str input_vcf: input VCF file to annotate
     :param str output_vcf: file where the annotated VCF will be saved
     :param bool basic: annotate VCF using basic information (locus,
@@ -27,52 +31,53 @@ def annotate_vcf(input_vcf: str, output_vcf: str,
     and aminoacid variability, allele frequencies) (default: False)
     :param bool predict: annotate VCF using predictions information (from
     MutPred, Panther, Polyphen and other resources) (default: False)
+    :param bool offline: annotate VCF using previously downloaded databases (offline mode) (default: False)
     :return:
     """
     if not basic and not crossref and not variab and not predict:
         basic, crossref, variab, predict = True, True, True, True
 
-    if check_connection():
-        vcf = Annotator(input_vcf, output_vcf, basic, crossref, variab, predict)
-        vcf.annotate()
+    if offline:
+        if not check_dump():
+            print("""Local annotation database hmtnote_dump.pkl not found.
+            
+            Please dump the annotation database first!""")
+            sys.exit(1)
+        vcf = OfflineAnnotator(input_vcf, output_vcf,
+                               basic, crossref, variab, predict)
     else:
-        print("No internet connection available!")
-        print("Exiting.")
-        sys.exit(1)
+        if check_connection():
+            vcf = Annotator(input_vcf, output_vcf,
+                            basic, crossref, variab, predict)
+        else:
+            # default to offline annotation if no connection available
+            # or an error occurs
+            print("No connection available!")
+            print("Switching to offline annotation...")
+            if not check_dump():
+                print("""Local annotation database hmtnote_dump.pkl not found.
+
+                Please dump the annotation database first!""")
+                sys.exit(1)
+            vcf = OfflineAnnotator(input_vcf, output_vcf,
+                                   basic, crossref, variab, predict)
+    vcf.annotate()
+
+    return
+
+
+def dump():
+    """
+    Download databases from HmtVar for offline annotation.
+    :return:
+    """
+    dumper = DataDumper()
+    dumper.download_data()
 
     return
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="""Annotate a VCF file using 
-    information from HmtVar. If neither --basic, --crossref, --variab nor 
-    --predict are provided, they will all default to True, and the VCF will be 
-    annotated using all the available information. """)
-    parser.add_argument("input_vcf", type=str,
-                        help="""Input VCF file to annotate.""")
-    parser.add_argument("output_vcf", type=str,
-                        help="""File where the annotated VCF will be saved.""")
-    parser.add_argument("-b", "--basic", action="store_true",
-                        dest="annot_basic",
-                        help="""Annotate VCF using basic information (locus, 
-                        pathogenicity, etc.) (default: False)""")
-    parser.add_argument("-c", "--crossref", action="store_true",
-                        dest="annot_crossref",
-                        help="""Annotate VCF using cross-reference information 
-                        (Clinvar and dbSNP IDs, etc.) (default: False)""")
-    parser.add_argument("-v", "--variab", action="store_true",
-                        dest="annot_variab",
-                        help="""Annotate VCF using variability information 
-                        (nucleotide and aminoacid variability, allele 
-                        frequencies) (default: False)""")
-    parser.add_argument("-p", "--predict", action="store_true",
-                        dest="annot_predict",
-                        help="""Annotate VCF using predictions information 
-                        (from MutPred, Panther, Polyphen and other resources) 
-                        (default: False)""")
-
-    args = parser.parse_args()
-
-    annotate_vcf(args.input_vcf, args.output_vcf,
-                 args.annot_basic, args.annot_crossref,
-                 args.annot_variab, args.annot_predict)
+    print("""Direct use of hmtnote.py is not allowed. 
+    
+    Please check the documentation for correct usage. """)

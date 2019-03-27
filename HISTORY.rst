@@ -48,9 +48,11 @@ History
 * Check internet connection before trying to annotate variants.
 
 
-X.X.X (WIP)
-===========
+0.3.0 (2019-03-27)
+------------------
 
-* Add options to download the required databases locally;
-* Use local databases to annotate variants (instead of calling HmtVar's API);
-* Fallback to using local databases when web connection is not available?
+* Add options to download the annotation database locally;
+* Use local database to annotate variants (instead of calling HmtVar's API);
+* Fallback to using local database when no internet connection is available;
+* Check if local database actually exists before performing offline annotation;
+* Databases are downloaded asynchronously.

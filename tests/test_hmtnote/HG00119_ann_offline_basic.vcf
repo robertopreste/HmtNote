@@ -1,0 +1,54 @@
+##fileformat=VCFv4.0
+##FILTER=<ID=PASS,Description="All filters passed">
+##reference=chrRCRS
+##FORMAT=<ID=GT,Number=.,Type=String,Description="Genotype">
+##FORMAT=<ID=DP,Number=.,Type=Integer,Description="Reads covering the REF position">
+##FORMAT=<ID=HF,Number=.,Type=Float,Description="Heteroplasmy Frequency of variant allele">
+##FORMAT=<ID=CILOW,Number=.,Type=Float,Description="Value defining the lower limit of the confidence interval of the heteroplasmy fraction">
+##FORMAT=<ID=CIUP,Number=.,Type=Float,Description="Value defining the upper limit of the confidence interval of the heteroplasmy fraction">
+##INFO=<ID=AC,Number=.,Type=Integer,Description="Allele count in genotypes">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##contig=<ID=chrMT,length=16569>
+##INFO=<ID=Locus,Number=A,Type=String,Description="Locus to which the variant belongs">
+##INFO=<ID=AaChange,Number=A,Type=String,Description="Aminoacidic change determined">
+##INFO=<ID=Pathogenicity,Number=A,Type=String,Description="Pathogenicity predicted by HmtVar">
+##INFO=<ID=DiseaseScore,Number=A,Type=String,Description="Disease score calculated by HmtVar">
+##INFO=<ID=HmtVar,Number=A,Type=String,Description="HmtVar ID of the variant (can be used to view the related VariantCard on https://www.hmtvar.uniba.it/varCard/<HmtVarID>)">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	SRR043366
+chrMT	73	.	A	G	.	PASS	AC=2,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=19	GT	1/1
+chrMT	152	.	T	C	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=50	GT	0/1
+chrMT	195	.	T	C	.	PASS	AC=2,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=76	GT	1/1
+chrMT	263	.	A	G	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=128	GT	0/1
+chrMT	310	.	T	C	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=146	GT	0/1
+chrMT	709	.	G	A	.	PASS	AC=1,.;Locus=MT-RNR1;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=446	GT	0/1
+chrMT	750	.	A	G	.	PASS	AC=1,.;Locus=MT-RNR1;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=461	GT	0/1
+chrMT	1438	.	A	G	.	PASS	AC=1,.;Locus=MT-RNR1;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=588	GT	0/1
+chrMT	1888	.	G	A	.	PASS	AC=1,.;Locus=MT-RNR2;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=863	GT	0/1
+chrMT	2706	.	A	G	.	PASS	AC=1,.;Locus=MT-RNR2;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=940	GT	0/1
+chrMT	3106	.	CN	C	.	PASS	AC=1,.;Locus=.;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=.	GT	0/1
+chrMT	4216	.	T	C	.	PASS	AC=1,.;Locus=MT-ND1;AaChange=Y304H;Pathogenicity=polymorphic;DiseaseScore=0.11;HmtVar=3354	GT	0/1
+chrMT	4769	.	A	G	.	PASS	AC=1,.;Locus=MT-ND2;AaChange=M100M;Pathogenicity=.;DiseaseScore=.;HmtVar=4804	GT	0/1
+chrMT	4917	.	A	G	.	PASS	AC=1,.;Locus=MT-ND2;AaChange=N150D;Pathogenicity=polymorphic;DiseaseScore=0.27;HmtVar=5143	GT	0/1
+chrMT	7028	.	C	T	.	PASS	AC=1,.;Locus=MT-CO1;AaChange=A375A;Pathogenicity=.;DiseaseScore=.;HmtVar=10317	GT	0/1
+chrMT	8697	.	G	A	.	PASS	AC=1,.;Locus=MT-ATP6;AaChange=M57M;Pathogenicity=.;DiseaseScore=.;HmtVar=14492	GT	0/1
+chrMT	8860	.	A	G	.	PASS	AC=1,.;Locus=MT-ATP6;AaChange=T112A;Pathogenicity=polymorphic;DiseaseScore=0.14;HmtVar=14872	GT	0/1
+chrMT	8935	.	C	T	.	PASS	AC=1,.;Locus=MT-ATP6;AaChange=L137F;Pathogenicity=pathogenic;DiseaseScore=0.81;HmtVar=15048	GT	0/1
+chrMT	9389	.	A	G	.	PASS	AC=1,.;Locus=MT-CO3;AaChange=V61V;Pathogenicity=.;DiseaseScore=.;HmtVar=16110	GT	0/1
+chrMT	9899	.	T	C	.	PASS	AC=1,.;Locus=MT-CO3;AaChange=H231H;Pathogenicity=.;DiseaseScore=.;HmtVar=17318	GT	0/1
+chrMT	10463	.	T	C	.	PASS	AC=1,.;Locus=MT-TR;AaChange=.;Pathogenicity=polymorphic;DiseaseScore=0.1;HmtVar=18734	GT	0/1
+chrMT	11251	.	A	G	.	PASS	AC=1,.;Locus=MT-ND4;AaChange=L164L;Pathogenicity=.;DiseaseScore=.;HmtVar=20593	GT	0/1
+chrMT	11719	.	G	A	.	PASS	AC=1,.;Locus=MT-ND4;AaChange=G320G;Pathogenicity=.;DiseaseScore=.;HmtVar=21687	GT	0/1
+chrMT	12633	.	C	A	.	PASS	AC=1,.;Locus=MT-ND5;AaChange=S99S;Pathogenicity=.;DiseaseScore=.;HmtVar=23953	GT	0/1
+chrMT	13368	.	G	A	.	PASS	AC=1,.;Locus=MT-ND5;AaChange=G344G;Pathogenicity=.;DiseaseScore=.;HmtVar=25677	GT	0/1
+chrMT	14766	.	C	T	.	PASS	AC=1,.;Locus=MT-CYB;AaChange=T7I;Pathogenicity=polymorphic;DiseaseScore=0.09;HmtVar=28983	GT	0/1
+chrMT	14905	.	G	A	.	PASS	AC=1,.;Locus=MT-CYB;AaChange=M53M;Pathogenicity=.;DiseaseScore=.;HmtVar=29304	GT	0/1
+chrMT	15326	.	A	G	.	PASS	AC=1,.;Locus=MT-CYB;AaChange=T194A;Pathogenicity=polymorphic;DiseaseScore=0.12;HmtVar=30311	GT	0/1
+chrMT	15452	.	C	A	.	PASS	AC=1,.;Locus=MT-CYB;AaChange=L236I;Pathogenicity=polymorphic;DiseaseScore=0.15;HmtVar=30609	GT	0/1
+chrMT	15607	.	A	G	.	PASS	AC=1,.;Locus=MT-CYB;AaChange=K287K;Pathogenicity=.;DiseaseScore=.;HmtVar=31010	GT	0/1
+chrMT	15928	.	G	A	.	PASS	AC=1,.;Locus=MT-TT;AaChange=.;Pathogenicity=polymorphic;DiseaseScore=0.2;HmtVar=31869	GT	0/1
+chrMT	16126	.	T	C	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=32181	GT	0/1
+chrMT	16163	.	A	G	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=32198	GT	0/1
+chrMT	16186	.	C	T	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=39829	GT	0/1
+chrMT	16188	.	CT	C	.	PASS	AC=1,.;Locus=.;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=.	GT	0/1
+chrMT	16294	.	C	T	.	PASS	AC=1,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=32288	GT	0/1
+chrMT	16519	.	T	C	.	PASS	AC=2,.;Locus=MT-DLOOP;AaChange=.;Pathogenicity=.;DiseaseScore=.;HmtVar=32334	GT	1/1
