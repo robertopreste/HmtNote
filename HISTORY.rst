@@ -49,7 +49,7 @@ History
 
 
 0.3.0 (2019-03-27)
-==================
+------------------
 
 * Add options to download the annotation database locally;
 * Use local database to annotate variants (instead of calling HmtVar's API);
