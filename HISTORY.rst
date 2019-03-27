@@ -41,7 +41,14 @@ History
 * Change `Disease Score` annotation to `DiseaseScore`.
 
 
-0.2.0 (2019-03-27)
+0.2.0 (2019-03-25)
+------------------
+
+* Add warnings to ``hmtnote`` command to be compliant with future versions;
+* Check internet connection before trying to annotate variants.
+
+
+0.3.0 (2019-03-27)
 ==================
 
 * Add options to download the annotation database locally;
