@@ -3,7 +3,8 @@
 # Created by Roberto Preste
 import sys
 import click
-from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper, check_connection
+from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper
+from hmtnote.classes import check_connection, check_dump
 
 
 @click.group()
@@ -45,6 +46,11 @@ def annotate(input_vcf, output_vcf, basic, crossref, variab, predict, offline):
         basic, crossref, variab, predict = True, True, True, True
 
     if offline:
+        if not check_dump():
+            click.echo("""Local annotation database hmtnote_dump.pkl not found.
+
+            Please dump the annotation database first!""")
+            return 1
         vcf = OfflineAnnotator(input_vcf, output_vcf,
                                basic, crossref, variab, predict)
     else:
@@ -56,6 +62,11 @@ def annotate(input_vcf, output_vcf, basic, crossref, variab, predict, offline):
             # or an error occurs
             click.echo("No connection available!")
             click.echo("Switching to offline annotation...")
+            if not check_dump():
+                click.echo("""Local annotation database hmtnote_dump.pkl not found.
+
+                Please dump the annotation database first!""")
+                return 1
             vcf = OfflineAnnotator(input_vcf, output_vcf,
                                    basic, crossref, variab, predict)
     vcf.annotate()

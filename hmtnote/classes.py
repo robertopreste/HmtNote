@@ -586,3 +586,8 @@ def check_connection():
     except requests.exceptions.RequestException as e:
         pass
     return False
+
+
+def check_dump():
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    return os.path.isfile(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))
