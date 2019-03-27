@@ -27,9 +27,9 @@ After that, HmtNote is capable of working even when no internet connection is av
     hmtnote annotate input.vcf annotated_variability.vcf --variab --offline
 
 HmtNote will look for data in the dumped database, which was saved as ``hmtnote_dump.pkl``, to perform annotations.
-**PLEASE NOTE: when working in *online mode*, HmtNote will retrieve from HmtVar only those entries that correspond to variants contained in the input VCF file; the ``dump`` command, instead, downloads the entire HmtVar database (actually just the subset used by HmtNote) to the local disk.** Although this local database is not larger than a few dozen MB, the download process may take a while.
+**PLEASE NOTE: when working in *online mode*, HmtNote will retrieve from HmtVar only those entries that correspond to variants contained in the input VCF file; the ``dump`` command, instead, downloads the entire HmtVar database (actually just the subset used by HmtNote) to the local disk.** Although this local database is not bigger than a few dozen MB, the download process may take a while.
 
-**PLEASE NOTE: data in HmtVar is subject to frequent updates, so please remember to run ``hmtnote dump`` as frequently as possible to be sure you're working with the latest data.**
+**PLEASE NOTE: data in HmtVar is subject to frequent updates, so please remember to run ``hmtnote dump`` as frequently as possible to be sure you're working with the latest data.** Use the *offline mode* at your own risk.
 
 Python Module
 =============
@@ -47,7 +47,7 @@ By default, ``annotate_vcf()`` will annotate the VCF using all four groups of an
     annotate_vcf("input.vcf", "annotated_predictions.vcf", predict=True)
     annotate_vcf("input.vcf", "annotate_basic_variability.vcf", basic=True, variab=True)
 
-If you want to work offline, you can use the ``dump()`` function to download the local HmtNote database::
+If you want to work offline, HmtNote offers an *offline mode*, that will download the annotation database so that it can be used when no internet connection is available. The ``dump()`` function allows to download the local HmtNote database::
 
     from hmtnote import dump
     dump()
@@ -57,6 +57,7 @@ Now it is possible to perform offline annotation of VCF files, by simply adding 
     annotate_vcf("input.vcf", "annotated.vcf", offline=True)
     annotate_vcf("input.vcf", "annotated_variability.vcf, variab=True, offline=True)
 
+Please read above for potential limitations of the *offline mode*.
 
 Annotations
 -----------

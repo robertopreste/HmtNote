@@ -41,11 +41,11 @@ History
 * Change `Disease Score` annotation to `DiseaseScore`.
 
 
-0.2.0 (WIP)
-===========
+0.2.0 (2019-03-27)
+==================
 
-* Add options to download the required databases locally;
-* Use local databases to annotate variants (instead of calling HmtVar's API);
-* Fallback to using local databases when web connection is not available;
-* Check if local databases actually exist before performing offline annotation;
-* Database download is performed with async.
+* Add options to download the annotation database locally;
+* Use local database to annotate variants (instead of calling HmtVar's API);
+* Fallback to using local database when no internet connection is available;
+* Check if local database actually exists before performing offline annotation;
+* Databases are downloaded asynchronously.

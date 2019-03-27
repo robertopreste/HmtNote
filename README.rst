@@ -34,7 +34,7 @@ Human mitochondrial variants annotation using HmtVar.
 Features
 --------
 
-HmtNote is a bioinformatics tool that can be used to annotate human mitochondrial variants from a VCF file, using data available on HmtVar_.
+HmtNote is a bioinformatics Python module and command line interface that can be used to annotate human mitochondrial variants from a VCF file, using data available on HmtVar_.
 
 Annotations are grouped into basic, cross-reference, variability and predictions, depending on the type of information they provide. It is possible to either use all of them to fully annotate a VCF file, or choose specific annotations of interest.
 
