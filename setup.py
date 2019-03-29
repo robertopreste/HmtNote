@@ -10,7 +10,7 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = ["Click>=6.0", "pyOpenSSL>=19.0.0", "cyvcf2>=0.10.0",
-                "aiohttp==3.5.4", "aiofiles==0.4.0"]
+                "pandas>=0.24.2", "aiohttp==3.5.4", "aiofiles==0.4.0"]
 
 setup_requirements = ['pytest-runner', ]
 

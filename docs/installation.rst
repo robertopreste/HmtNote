@@ -14,7 +14,7 @@ one of the core dependencies of HmtNote (namely the `cyvcf2` module):
 
     $ conda create -n HmtNote
     $ conda activate HmtNote
-    $ conda install requests
+    $ conda install requests pandas
     $ conda install -c bioconda cyvcf2
 
 And then to install HmtNote, run this command in your terminal:

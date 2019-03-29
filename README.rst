@@ -52,7 +52,7 @@ The preferred installation method for HmtNote is using ``pip`` in a conda enviro
 
 .. code-block:: console
 
-    $ conda install requests
+    $ conda install requests pandas
     $ conda install -c bioconda cyvcf2
     $ pip install hmtnote
 
