@@ -56,3 +56,9 @@ History
 * Fallback to using local database when no internet connection is available;
 * Check if local database actually exists before performing offline annotation;
 * Databases are downloaded asynchronously.
+
+
+0.3.1 (2019-03-29)
+==================
+
+* Update installation requirements and documentation.

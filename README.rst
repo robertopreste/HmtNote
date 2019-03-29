@@ -29,6 +29,7 @@ Human mitochondrial variants annotation using HmtVar.
 
 * Free software: MIT license
 * Documentation: https://hmtnote.readthedocs.io.
+* GitHub repo: https://github.com/robertopreste/HmtNote
 
 
 Features
