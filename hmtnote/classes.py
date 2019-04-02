@@ -260,9 +260,11 @@ class _OfflineHmtVarParser(_HmtVarParser):
 
 class Annotator:
     """
-    This class is the main entry point for VCF annotation. It will traverse a
-    given input VCF and
-    annotate each variant found, then save the annotated VCF.
+    Main entry point for VCF annotation.
+
+    This class is the main entry point for VCF annotation. It will
+    traverse a given input VCF and annotate each variant found, then save
+    the annotated VCF.
     self.vcf_in: input VCF filename
     self.vcf_out: output VCF filename
     self.basic: bool flag to enable annotation of basic information
@@ -275,8 +277,7 @@ class Annotator:
     self.variab_heads: header to be used for variability information
     self.predict_heads: header to be used for predictions information
     self.writer: output VCF writer (provided by cyvcf2.Writer), instantiated
-    after the header has
-    been updated according to new header to be used
+    after the header has been updated according to new header to be used
     """
 
     def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
@@ -407,33 +408,44 @@ class Annotator:
         """
         if self.basic:
             for field in self.basic_heads:
-                self.reader.add_info_to_header({"ID": field.element,
-                                                "Number": field.vcf_number,
-                                                "Type": field.vcf_type,
-                                                "Description": field.vcf_description})
+                self.reader.add_info_to_header(
+                    {"ID": field.element,
+                     "Number": field.vcf_number,
+                     "Type": field.vcf_type,
+                     "Description": field.vcf_description}
+                )
         if self.crossref:
             for field in self.crossref_heads:
-                self.reader.add_info_to_header({"ID": field.element,
-                                                "Number": field.vcf_number,
-                                                "Type": field.vcf_type,
-                                                "Description": field.vcf_description})
+                self.reader.add_info_to_header(
+                    {"ID": field.element,
+                     "Number": field.vcf_number,
+                     "Type": field.vcf_type,
+                     "Description": field.vcf_description}
+                )
         if self.variab:
             for field in self.variab_heads:
-                self.reader.add_info_to_header({"ID": field.element,
-                                                "Number": field.vcf_number,
-                                                "Type": field.vcf_type,
-                                                "Description": field.vcf_description})
+                self.reader.add_info_to_header(
+                    {"ID": field.element,
+                     "Number": field.vcf_number,
+                     "Type": field.vcf_type,
+                     "Description": field.vcf_description}
+                )
         if self.predict:
             for field in self.predict_heads:
-                self.reader.add_info_to_header({"ID": field.element,
-                                                "Number": field.vcf_number,
-                                                "Type": field.vcf_type,
-                                                "Description": field.vcf_description})
+                self.reader.add_info_to_header(
+                    {"ID": field.element,
+                     "Number": field.vcf_number,
+                     "Type": field.vcf_type,
+                     "Description": field.vcf_description}
+                )
 
     def annotate(self):
         """
-        Annotate variants according to the flags provided (basic, variability,
-        predictions information), and write the output VCF file.
+        Annotate VCF variants.
+
+        Annotate variants according to the flags provided (basic,
+        variability, predictions information), and write the output VCF
+        file.
         :return:
         """
         for record in self.reader:
@@ -444,16 +456,24 @@ class Annotator:
 
                 if self.basic:
                     for field in annots.basics:
-                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                        record.INFO[field.element] = ",".join(
+                            map(str, field.field_value)
+                        )
                 if self.crossref:
                     for field in annots.crossrefs:
-                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                        record.INFO[field.element] = ",".join(
+                            map(str, field.field_value)
+                        )
                 if self.variab:
                     for field in annots.variabs:
-                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                        record.INFO[field.element] = ",".join(
+                            map(str, field.field_value)
+                        )
                 if self.predict:
                     for field in annots.predicts:
-                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                        record.INFO[field.element] = ",".join(
+                            map(str, field.field_value)
+                        )
 
             self.writer.write_record(record)
 
@@ -462,6 +482,18 @@ class Annotator:
 
 
 class DataDumper:
+    """
+    Download and store locally the required data from HmtVar.
+
+    This class takes care of downloading the annotation database from
+    HmtVar using the specific API for HmtNote, and will store the results
+    in hmtnote_dump.pkl.
+    self._df_basic: temporary dataframe with basic annotations
+    self._df_crossref temporary dataframe with cross-reference annotations
+    self._df_variab: temporary dataframe with variability annotations
+    self._df_predict: temporary dataframe with prediction annotations
+    """
+
     def __init__(self):
         self._df_basic = None
         self._df_crossref = None
@@ -469,7 +501,19 @@ class DataDumper:
         self._df_predict = None
 
     @staticmethod
-    async def _download_json(session, url, dataset):
+    async def _download_json(session,
+                             url: str,
+                             dataset: str):
+        """
+        Async coroutine to download and save an annotation dataset.
+
+        Will download the given dataset in chunks and write them to a
+        JSON-formatted temporary file.
+        :param session: aiohttp.ClientSession() to use
+        :param str url: base url of HmtVar's API
+        :param str dataset: annotation dataset name
+        :return:
+        """
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         async with session.get(url, ssl=False) as res:
             filename = "dump_{}.json".format(dataset)
@@ -483,7 +527,12 @@ class DataDumper:
             return await res.release()
 
     @staticmethod
-    async def _looper_download_json(dataset):
+    async def _looper_download_json(dataset: str):
+        """
+        Main async function to download and save annotation datasets.
+        :param str dataset: annotation dataset name
+        :return:
+        """
         url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
         click.echo("Downloading {} annotations...".format(dataset))
         async with aiohttp.ClientSession() as session:
@@ -491,26 +540,30 @@ class DataDumper:
 
     def download_data(self):
         """
-        Call the `_dump_dataframe()` function to download the data and store
-        them in a single pickled dataframe for later use.
+        Download the annotations and build the local annotation database.
+
+        Call the `_looper_download_json()` function to download the data
+        and store them in a single pickled dataframe for later use.
         :return:
         """
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         datasets = ["basic", "crossref", "variab", "predict"]
         loop = asyncio.get_event_loop()
         loop.run_until_complete(
-            asyncio.gather(*(self._looper_download_json(dataset) for dataset in datasets))
+            asyncio.gather(
+                *(self._looper_download_json(dataset) for dataset in datasets)
+            )
         )
 
         click.echo("Building local database...", nl=" ")
-        self._df_basic = pd.read_json(os.path.join(BASE_DIR, "dump_basic.json"),
-                                      precise_float=True)
-        self._df_crossref = pd.read_json(os.path.join(BASE_DIR, "dump_crossref.json"),
-                                         precise_float=True)
-        self._df_variab = pd.read_json(os.path.join(BASE_DIR, "dump_variab.json"),
-                                       precise_float=True)
-        self._df_predict = pd.read_json(os.path.join(BASE_DIR, "dump_predict.json"),
-                                        precise_float=True)
+        self._df_basic = pd.read_json(
+            os.path.join(BASE_DIR, "dump_basic.json"), precise_float=True)
+        self._df_crossref = pd.read_json(
+            os.path.join(BASE_DIR, "dump_crossref.json"), precise_float=True)
+        self._df_variab = pd.read_json(
+            os.path.join(BASE_DIR, "dump_variab.json"), precise_float=True)
+        self._df_predict = pd.read_json(
+            os.path.join(BASE_DIR, "dump_predict.json"), precise_float=True)
 
         self._df_crossref.drop(["aa_change", "alt", "disease_score", "locus",
                                 "nt_start", "pathogenicity", "ref_rCRS"],
@@ -540,6 +593,28 @@ class DataDumper:
 
 
 class OfflineAnnotator(Annotator):
+    """
+        Main entry point for offline VCF annotation.
+
+        This class is the main entry point for offline VCF annotation. It
+        will traverse a given input VCF and annotate each variant found,
+        then save the annotated VCF.
+        self.vcf_in: input VCF filename
+        self.vcf_out: output VCF filename
+        self.basic: bool flag to enable annotation of basic information
+        self.crossref bool flag to enable annotation of cross-reference information
+        self.variab: bool flag to enable annotation of variability information
+        self.predict: bool flag to enable annotation of predictions information
+        self.reader: input VCF reader (provided by cyvcf2.VCF)
+        self.basic_heads: header to be used for basic information
+        self.crossref_heads: header to be used for cross-reference information
+        self.variab_heads: header to be used for variability information
+        self.predict_heads: header to be used for predictions information
+        self.writer: output VCF writer (provided by cyvcf2.Writer), instantiated
+        after the header has been updated according to new header to be used
+        self.db: local annotation database (hmtnote_dump.pkl)
+        """
+
     def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
         super().__init__(vcf_in, vcf_out, basic, crossref, variab, predict)
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -547,7 +622,9 @@ class OfflineAnnotator(Annotator):
 
     def annotate(self):
         """
-        Overwrites the Annotator.annotate() method to provide offline
+        Annotate VCF variants.
+
+        Override the Annotator.annotate() method to provide offline
         annotation according to the flags provided (basic, variability,
         predictions information), and write the output VCF file.
         :return:
@@ -560,16 +637,24 @@ class OfflineAnnotator(Annotator):
 
                 if self.basic:
                     for field in annots.basics:
-                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                        record.INFO[field.element] = ",".join(
+                            map(str, field.field_value)
+                        )
                 if self.crossref:
                     for field in annots.crossrefs:
-                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                        record.INFO[field.element] = ",".join(
+                            map(str, field.field_value)
+                        )
                 if self.variab:
                     for field in annots.variabs:
-                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                        record.INFO[field.element] = ",".join(
+                            map(str, field.field_value)
+                        )
                 if self.predict:
                     for field in annots.predicts:
-                        record.INFO[field.element] = ",".join(map(str, field.field_value))
+                        record.INFO[field.element] = ",".join(
+                            map(str, field.field_value)
+                        )
 
             self.writer.write_record(record)
 
@@ -577,7 +662,12 @@ class OfflineAnnotator(Annotator):
         self.writer.close()
 
 
-def check_connection():
+def check_connection() -> bool:
+    """
+    Look for a functioning internet connection.
+    :return: bool
+    """
+
     url = "https://www.google.com"
     timeout = 5
     try:
@@ -588,6 +678,11 @@ def check_connection():
     return False
 
 
-def check_dump():
+def check_dump() -> bool:
+    """
+    Check the presence of the local annotation database hmtnote_dump.pkl.
+    :return: bool
+    """
+
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     return os.path.isfile(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))
