@@ -6,6 +6,10 @@ HmtNote
 .. image:: https://img.shields.io/pypi/v/hmtnote.svg
         :target: https://pypi.python.org/pypi/hmtnote
 
+.. image:: https://www.repostatus.org/badges/latest/wip.svg
+        :alt: Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.
+        :target: https://www.repostatus.org/#wip
+
 .. image:: https://travis-ci.com/robertopreste/HmtNote.svg?token=zzk3yyGKDnWjk4pFXFuz&branch=master
     :target: https://travis-ci.com/robertopreste/HmtNote
 
