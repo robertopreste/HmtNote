@@ -23,6 +23,9 @@ HmtNote
      :target: https://pyup.io/repos/github/robertopreste/HmtNote/
      :alt: Updates
 
+.. image:: https://pepy.tech/badge/hmtnote
+        :target: https://pepy.tech/project/hmtnote
+        :alt: Downloads
 
 Human mitochondrial variants annotation using HmtVar.
 
