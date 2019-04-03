@@ -62,3 +62,10 @@ History
 ==================
 
 * Update installation requirements and documentation.
+
+
+0.4.0 (2019-04-03)
+------------------
+
+* Add support for insertion and deletion annotations;
+* Add test suite and files for indels.
