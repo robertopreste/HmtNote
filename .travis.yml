@@ -30,7 +30,7 @@ install:
 #install: pip install -U tox-travis
 
 # Command to run tests, e.g. python setup.py test
-script: travis_wait tox
+script: travis_wait 40 tox
 
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
