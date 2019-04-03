@@ -92,9 +92,39 @@ class _HmtVarVariant:
         self.reference = reference
         self.position = position
         self.alternate = alternate
-        # self.variant = f"{self.reference}{self.position}{self.alternate}"
-        # TODO: will need to fix ref for deletions (and insertions?)
         self._variant = "{}{}".format(self.position, self.alternate)
+
+    def _is_deletion(self) -> bool:
+        """
+        Check whether the current variant refers to a deletion.
+        :return: bool
+        """
+        # e.g. ref CTG | alt C
+        return len(self.reference) > len(self.alternate)
+
+    def _is_insertion(self) -> bool:
+        """
+        Check whether the current variant refers to an insertion.
+        :return: bool
+        """
+        # e.g. ref C | alt CTG
+        return len(self.alternate) > len(self.reference)
+
+    @property
+    def variant(self) -> str:
+        """
+        Create the proper variant format for deletions, insertions and SNPs.
+        :return: str
+        """
+        if self._is_deletion():
+            self._variant = "{}d".format(int(self.position) + 1)
+        elif self._is_insertion():
+            self._variant = "{}.{}".format(self.position,
+                                           self.alternate[len(self.reference):])
+        else:
+            self._variant = "{}{}".format(self.position, self.alternate)
+
+        return self._variant
 
     @property
     def response(self) -> dict:
@@ -102,7 +132,7 @@ class _HmtVarVariant:
         Call HmtVar's API to retrieve data related to self.variant.
         :return: dict
         """
-        url = "https://www.hmtvar.uniba.it/api/main/mutation/{}".format(self._variant)
+        url = "https://www.hmtvar.uniba.it/api/main/mutation/{}".format(self.variant)
         call = requests.get(url)
         # TODO variants not present in HmtVar actually return an empty dictionary
         resp = call.json()
@@ -119,17 +149,35 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
         super().__init__(reference, position, alternate)
         self.db = database
 
+    def dbcall(self) -> pd.DataFrame:
+        """
+        Create the proper database query for deletions, insertions and SNPs.
+        :return: pd.DataFrame
+        """
+        if super()._is_deletion():
+            return self.db[(self.db["nt_start"] == (int(self.position) + 1)) &
+                           (self.db["alt"] == "d")]
+        elif super()._is_insertion():
+            return self.db[(self.db["nt_start"] == self.position) &
+                           (self.db["alt"] == ".{}".format(
+                               self.alternate[len(self.reference):]
+                           ))]
+        else:
+            return self.db[(self.db["nt_start"] == self.position) &
+                           (self.db["alt"] == self.alternate)]
+
     @property
     def response(self) -> dict:
         """
-        Overwrites the _HmtVarVariant.response() method to retrieve the data
+        Overrides the _HmtVarVariant.response() method to retrieve the data
         from local dumped databases, instead of using HmtVar's API.
         :return: dict
         """
-        call = self.db[(self.db["nt_start"] == self.position) &
-                       (self.db["alt"] == self.alternate)]
+        # call = self.db[(self.db["nt_start"] == self.position) &
+        #                (self.db["alt"] == self.alternate)]
+        call = self.dbcall()
         resp = call.to_dict(orient="records")
-        if resp == []:
+        if not resp:
             resp = [{"CrossRef": {"none": "."},
                      "Variab": {"none": "."},
                      "Predict": {"none": "."}}]
@@ -140,8 +188,7 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
 class _HmtVarParser:
     """
     This class is used to parse information collected from HmtVar's API and
-    store them in the right
-    format, ready for VCF annotation.
+    store them in the right format, ready for VCF annotation.
     self.record: variant record as returned by cyvcf2.VCF
     self.basics: basic information from HmtVar
     self.crossrefs: cross-reference information from HmtVar
@@ -210,8 +257,9 @@ class _HmtVarParser:
         Update annotations about the given record.
         :return:
         """
-        variants = [_HmtVarVariant(self.record.REF,
-                                   self.record.POS, alt) for alt in self.record.ALT]
+        variants = [_HmtVarVariant(self.record.REF, self.record.POS, alt)
+                    for alt in self.record.ALT]
+
         for variant in variants:
             response = variant.response
             for field in self.basics:
@@ -238,10 +286,10 @@ class _OfflineHmtVarParser(_HmtVarParser):
         Overwrites the _HmtVarParser.parse() method for offline annotation.
         :return:
         """
-        variants = [_OfflineHmtVarVariant(self.record.REF,
-                                          self.record.POS,
-                                          alt,
-                                          self.db) for alt in self.record.ALT]
+        variants = [_OfflineHmtVarVariant(self.record.REF, self.record.POS,
+                                          alt, self.db)
+                    for alt in self.record.ALT]
+
         for variant in variants:
             response = variant.response
             for field in self.basics:
@@ -384,9 +432,7 @@ class Annotator:
         :param record: current VCF record
         :return: bool
         """
-        if len(record.ALT) > 0:
-            return True
-        return False
+        return len(record.ALT) > 0 and record.ALT != "."
 
     @staticmethod
     def _is_mitochondrial(record) -> bool:
@@ -396,9 +442,7 @@ class Annotator:
         :param record: current VCF record
         :return: bool
         """
-        if record.CHROM in ["M", "MT", "chrM", "chrMT"]:
-            return True
-        return False
+        return record.CHROM in ["M", "MT", "chrM", "chrMT", "chrRCRS"]
 
     def _update_header(self):
         """
@@ -555,7 +599,7 @@ class DataDumper:
             )
         )
 
-        click.echo("Building local database...", nl=" ")
+        click.echo("Building local database... ", nl=False)
         self._df_basic = pd.read_json(
             os.path.join(BASE_DIR, "dump_basic.json"), precise_float=True)
         self._df_crossref = pd.read_json(
@@ -583,7 +627,7 @@ class DataDumper:
         final_df.to_pickle(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))
         click.echo("Done.")
 
-        click.echo("Removing temporary files...", nl=" ")
+        click.echo("Removing temporary files... ", nl=False)
         os.remove(os.path.join(BASE_DIR, "dump_basic.json"))
         os.remove(os.path.join(BASE_DIR, "dump_crossref.json"))
         os.remove(os.path.join(BASE_DIR, "dump_variab.json"))

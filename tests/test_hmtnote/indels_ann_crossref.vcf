@@ -1,0 +1,139 @@
+##fileformat=VCFv4.0
+##FILTER=<ID=PASS,Description="All filters passed">
+##reference=chrRCRS
+##INFO=<ID=AC,Number=.,Type=Integer,Description="Allele count in genotypes">
+##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
+##contig=<ID=chrRCRS,length=16569>
+##INFO=<ID=Clinvar,Number=A,Type=String,Description="Clinvar ID of the variant">
+##INFO=<ID=dbSNP,Number=A,Type=String,Description="dbSNP ID of the variant">
+##INFO=<ID=OMIM,Number=A,Type=String,Description="OMIM ID of the variant">
+##INFO=<ID=MitomapAssociatedDiseases,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap">
+##INFO=<ID=MitomapSomaticMutations,Number=A,Type=String,Description="Diseases associated to the variant according to Mitomap Somatic Mutations">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+chrRCRS	2	.	A	AG	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	4	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	10	.	T	TT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	45	.	A	AT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	55	.	T	TT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	56	.	A	AT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	58	.	TTT	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	59	.	T	TC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	60	.	T	TC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	64	.	CT	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	65	.	T	TC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	68	.	G	GAGAA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	70	.	GG	G	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	73	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	74	.	T	TA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	91	.	C	CA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	95	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	97	.	GC	G,GCT	.	PASS	AC=1,1;AN=4;Clinvar=.,.;dbSNP=.,.;OMIM=.,.;MitomapAssociatedDiseases=.,.;MitomapSomaticMutations=thyroid tumor,.
+chrRCRS	98	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	104	.	CCGGAGC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	105	.	CGGAGCA	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	106	.	GG	G	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=thyroid tumor
+chrRCRS	156	.	A	AA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	158	.	T	TT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	172	.	T	TC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	190	.	C	CA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=POLG/PEO muscle
+chrRCRS	191	.	AT	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=POLG/PEO muscle
+chrRCRS	203	.	G	GT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=POLG/PEO muscle
+chrRCRS	232	.	A	AA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	243	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=prostate tumor
+chrRCRS	248	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=ovarian control tissue
+chrRCRS	276	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	278	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	289	.	AAA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	290	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=MNGIE fibroblasts
+chrRCRS	298	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	302	.	AC	ACC,ACCC,A	.	PASS	AC=1,1,1;AN=6;Clinvar=.,.,.;dbSNP=.,.,.;OMIM=.,.,.;MitomapAssociatedDiseases=.,Higher in melanoma patient group,.;MitomapSomaticMutations=.,.,.
+chrRCRS	307	.	C	CA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	309	.	CT	C,CCT	.	PASS	AC=2;AN=2;Clinvar=.,.;dbSNP=.,.;OMIM=.,.;MitomapAssociatedDiseases=.,.;MitomapSomaticMutations=breast tumor,.
+chrRCRS	314	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	315	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	336	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	375	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=colonic crypts
+chrRCRS	383	.	T	TT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=elderly fibroblasts
+chrRCRS	404	.	CT	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=Twinkle/PEO frontal cortex
+chrRCRS	405	.	T	TC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	454	.	TT	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	458	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	497	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	514	.	C	CCG	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=head/neck tumor
+chrRCRS	522	.	CNN	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=rs78907894;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	524	.	C	CAC,CACAC	.	PASS	AC=1,1;AN=4;Clinvar=.,.;dbSNP=.,.;OMIM=.,.;MitomapAssociatedDiseases=.,.;MitomapSomaticMutations=.,.
+chrRCRS	567	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=Twinkle/PEO frontal cortex
+chrRCRS	568	.	C	CCC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	573	.	C	CCC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	719	.	G	GG	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	752	.	C	CA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	899	.	G	GC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	955	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	959	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=not specified;dbSNP=rs397515730;OMIM=.;MitomapAssociatedDiseases=CPEO / poss. hypertension factor;MitomapSomaticMutations=.
+chrRCRS	960	.	CT	C,CCT	.	PASS	AC=1,1;AN=4;Clinvar=.,.;dbSNP=.,.;OMIM=.,.;MitomapAssociatedDiseases=DM,.;MitomapSomaticMutations=.,.
+chrRCRS	961	.	T	TC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=MERRF / KSS overlap;MitomapSomaticMutations=.
+chrRCRS	1408	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	2073	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	2310	.	G	GA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	2394	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=rs373605184;OMIM=.;MitomapAssociatedDiseases=LIMM / MERRF / mito disease;MitomapSomaticMutations=.
+chrRCRS	2998	.	T	TT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=lung tumor
+chrRCRS	3105	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	3106	.	CN	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	3232	.	TTAAGA	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	3270	.	CT	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=Ocular myopathy;MitomapSomaticMutations=.
+chrRCRS	3271	.	TT	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=Neuropsychiatric syndrome + cataract;MitomapSomaticMutations=.
+chrRCRS	3565	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	4316	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=not specified;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	4336	.	T	TA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	5001	.	A	AA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=Developmental delay, seizure, cardiomyopathy, lactic acidosis;MitomapSomaticMutations=.
+chrRCRS	5132	.	TAAA	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	5250	.	TT	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=parotid oncocytoma
+chrRCRS	5407	.	TA	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=papillary thyroid carcinoma
+chrRCRS	5537	.	A	AT	.	PASS	AC=1;AN=2;Clinvar=Encephalopathy, mitochondrial;Leigh syndrome;dbSNP=rs199474672;OMIM=590095#0002;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	5751	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	5884	.	AT	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=rs118203892;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=CPEO muscle
+chrRCRS	5898	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	5899	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	5944	.	A	AT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	6020	.	CCGAGC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	6169	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	6259	.	A	AA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	6697	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=Myopathy;MitomapSomaticMutations=colonic crypts
+chrRCRS	7406	.	C	CCCC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=head/neck tumor
+chrRCRS	7470	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=not specified;dbSNP=rs397515727;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	7472	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=rs199474819;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	8042	.	AAT	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	8280	.	ACCCCCTCTA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=rs369704279;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	8289	.	A	ACCCCCTCTA,ACCCCCTCTACCCCCTCTA	.	PASS	AC=1,1;AN=2;Clinvar=.,.;dbSNP=.,.;OMIM=.,.;MitomapAssociatedDiseases=.,.;MitomapSomaticMutations=.,.
+chrRCRS	9205	.	ATA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	9480	.	TTTTTTCTTCGCAGGA	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	9536	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=colonic crypts
+chrRCRS	9537	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=Cytochrome-c oxidase deficiency;Leigh syndrome;dbSNP=rs267606614;OMIM=516050#0005;MitomapAssociatedDiseases=Leigh Disease;MitomapSomaticMutations=colonic crypts
+chrRCRS	9558	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=Rhabdomyolysis;MitomapSomaticMutations=.
+chrRCRS	10952	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=oncocytoma
+chrRCRS	11237	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=pituitary oncocytoma
+chrRCRS	11621	.	ATA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	11872	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=pituitary oncocytoma
+chrRCRS	12232	.	TC	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=control colon tissue
+chrRCRS	12384	.	T	TT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	12417	.	CA	CAA,C	.	PASS	AC=1,1;AN=2;Clinvar=.,.;dbSNP=.,.;OMIM=.,.;MitomapAssociatedDiseases=.,.;MitomapSomaticMutations=.,.
+chrRCRS	13083	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=pituitary oncocytoma
+chrRCRS	14080	.	G	GA	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=pituitary oncocytoma
+chrRCRS	14509	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=endometrial tumor
+chrRCRS	14787	.	ATTAA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	15498	.	GGCGACCCAGACAATTATACCCTAG	G	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	15540	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=colonic crypts
+chrRCRS	15939	.	CT	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=MERRF-like disease;MitomapSomaticMutations=.
+chrRCRS	15943	.	TT	T	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	16032	.	T	TTTCTCTGTTCTTTCAT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	16052	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=myocyte
+chrRCRS	16165	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	16182	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=colonic crypts
+chrRCRS	16183	.	A	ACC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	16188	.	C	CT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	16189	.	T	TT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=bladder tumor
+chrRCRS	16191	.	CCC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	16192	.	CC	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	16193	.	C	CC,CCC,CCCC	.	PASS	AC=1,1;AN=4;Clinvar=.,.,.;dbSNP=rs869031780,.,.;OMIM=.,.,.;MitomapAssociatedDiseases=.,.,.;MitomapSomaticMutations=.,.,.
+chrRCRS	16256	.	CC	C	.	PASS	AC=1,1;AN=4;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
+chrRCRS	16324	.	TT	T	.	PASS	AC=1,1;AN=4;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
