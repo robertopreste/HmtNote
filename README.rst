@@ -35,8 +35,9 @@ Human mitochondrial variants annotation using HmtVar.
 
 
 * Free software: MIT license
-* Documentation: https://hmtnote.readthedocs.io.
+* Documentation: https://hmtnote.readthedocs.io
 * GitHub repo: https://github.com/robertopreste/HmtNote
+* Publication: https://doi.org/10.1101/600619
 
 
 Features
@@ -120,6 +121,12 @@ It is also possible to download the annotation database using the ``dump()`` fun
 
 For more information, please refer to the Usage_ section of the documentation.
 
+Citing HmtNote
+--------------
+
+If you find HmtNote useful for your research, please cite this work:
+
+    Preste R. *et al* - Human mitochondrial variant annotation with HmtNote (doi: https://doi.org/10.1101/600619)
 
 Credits
 -------
