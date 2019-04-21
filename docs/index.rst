@@ -10,6 +10,7 @@ HmtNote is a bioinformatics Python module and command line interface that can be
    readme
    installation
    usage
+   api
    modules
    contributing
    authors
