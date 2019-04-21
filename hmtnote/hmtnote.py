@@ -11,7 +11,7 @@ def annotate_vcf(input_vcf: str, output_vcf: str,
                  crossref: bool = False,
                  variab: bool = False,
                  predict: bool = False,
-                 offline: bool = False):
+                 offline: bool = False) -> bool:
     """
     Annotate a VCF file using information from HmtVar.
 
@@ -21,18 +21,26 @@ def annotate_vcf(input_vcf: str, output_vcf: str,
     If no internet connection is available, use the offline option to use
     the local database for annotation (you must have previously downloaded it
     using the hmtnote dump command).
+
     :param str input_vcf: input VCF file to annotate
+
     :param str output_vcf: file where the annotated VCF will be saved
+
     :param bool basic: annotate VCF using basic information (locus,
-    pathogenicity, etc.) (default: False)
+        pathogenicity, etc.) (default: False)
+
     :param bool crossref: annotate VCF using cross-reference information
-    (Clinvar and dbSNP IDs, etc.) (default: False)
+        (Clinvar and dbSNP IDs, etc.) (default: False)
+
     :param bool variab: annotate VCF using variability information (nucleotide
-    and aminoacid variability, allele frequencies) (default: False)
+        and aminoacid variability, allele frequencies) (default: False)
+
     :param bool predict: annotate VCF using predictions information (from
-    MutPred, Panther, Polyphen and other resources) (default: False)
+        MutPred, Panther, Polyphen and other resources) (default: False)
+
     :param bool offline: annotate VCF using previously downloaded databases (offline mode) (default: False)
-    :return:
+
+    :return: bool
     """
     if not basic and not crossref and not variab and not predict:
         basic, crossref, variab, predict = True, True, True, True
@@ -63,18 +71,19 @@ def annotate_vcf(input_vcf: str, output_vcf: str,
                                    basic, crossref, variab, predict)
     vcf.annotate()
 
-    return
+    return True
 
 
-def dump():
+def dump() -> bool:
     """
     Download databases from HmtVar for offline annotation.
-    :return:
+
+    :return: bool
     """
     dumper = DataDumper()
     dumper.download_data()
 
-    return
+    return True
 
 
 if __name__ == '__main__':
