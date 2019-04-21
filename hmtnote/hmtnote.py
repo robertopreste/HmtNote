@@ -84,9 +84,3 @@ def dump() -> bool:
     dumper.download_data()
 
     return True
-
-
-if __name__ == '__main__':
-    print("""Direct use of hmtnote.py is not allowed. 
-    
-    Please check the documentation for correct usage. """)
