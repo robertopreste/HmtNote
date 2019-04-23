@@ -10,7 +10,8 @@ import aiofiles
 import os
 import pandas as pd
 from typing import Union
-from cyvcf2 import VCF, Writer
+# from cyvcf2 import VCF, Writer
+import vcfpy
 
 
 class _HmtVarField:
@@ -92,7 +93,7 @@ class _HmtVarVariant:
         self.reference = reference
         self.position = position
         self.alternate = alternate
-        self._variant = "{}{}".format(self.position, self.alternate)
+        self._variant = "{}{}".format(self.position, self.alternate.value)
 
     def _is_deletion(self) -> bool:
         """
@@ -100,7 +101,8 @@ class _HmtVarVariant:
         :return: bool
         """
         # e.g. ref CTG | alt C
-        return len(self.reference) > len(self.alternate)
+        # return len(self.reference) > len(self.alternate)
+        return self.alternate.type == "DEL"
 
     def _is_insertion(self) -> bool:
         """
@@ -108,7 +110,8 @@ class _HmtVarVariant:
         :return: bool
         """
         # e.g. ref C | alt CTG
-        return len(self.alternate) > len(self.reference)
+        # return len(self.alternate) > len(self.reference)
+        return self.alternate.type == "INS"
 
     @property
     def variant(self) -> str:
@@ -120,9 +123,9 @@ class _HmtVarVariant:
             self._variant = "{}d".format(int(self.position) + 1)
         elif self._is_insertion():
             self._variant = "{}.{}".format(self.position,
-                                           self.alternate[len(self.reference):])
+                                           self.alternate.value[len(self.reference):])
         else:
-            self._variant = "{}{}".format(self.position, self.alternate)
+            self._variant = "{}{}".format(self.position, self.alternate.value)
 
         return self._variant
 
@@ -160,11 +163,11 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
         elif super()._is_insertion():
             return self.db[(self.db["nt_start"] == self.position) &
                            (self.db["alt"] == ".{}".format(
-                               self.alternate[len(self.reference):]
+                               self.alternate.value[len(self.reference):]
                            ))]
         else:
             return self.db[(self.db["nt_start"] == self.position) &
-                           (self.db["alt"] == self.alternate)]
+                           (self.db["alt"] == self.alternate.value)]
 
     @property
     def response(self) -> dict:
@@ -335,7 +338,8 @@ class Annotator:
         self.crossref = crossref
         self.variab = variab
         self.predict = predict
-        self.reader = VCF(vcf_in)
+        # self.reader = VCF(vcf_in)
+        self.reader = vcfpy.Reader.from_path(vcf_in)
         self.basic_heads = (
             _HmtVarHeader("Locus", "A", "String",
                           "Locus to which the variant belongs"),
@@ -423,7 +427,8 @@ class Annotator:
                           "Confidence of the pathogenicity prediction offered by Polyphen2 HumVar")
         )
         self._update_header()
-        self.writer = Writer(vcf_out, self.reader)
+        # self.writer = Writer(vcf_out, self.reader)
+        self.writer = vcfpy.Writer.from_path(vcf_out, self.reader.header)
 
     @staticmethod
     def _is_variation(record) -> bool:
@@ -432,7 +437,10 @@ class Annotator:
         :param record: current VCF record
         :return: bool
         """
-        return len(record.ALT) > 0 and record.ALT != "."
+        # return len(record.ALT) > 0 and record.ALT != "."
+        # TODO: check this
+        return len(record.ALT) > 0 and all([rec["value"] != "."
+                                            for rec in record])
 
     @staticmethod
     def _is_mitochondrial(record) -> bool:
@@ -452,36 +460,68 @@ class Annotator:
         """
         if self.basic:
             for field in self.basic_heads:
-                self.reader.add_info_to_header(
-                    {"ID": field.element,
-                     "Number": field.vcf_number,
-                     "Type": field.vcf_type,
-                     "Description": field.vcf_description}
+                self.reader.header.add_info_line(
+                    vcfpy.OrderedDict([
+                        ("ID", field.element),
+                        ("Number", field.vcf_number),
+                        ("Type", field.vcf_type),
+                        ("Description", field.vcf_description)
+                    ])
                 )
+                # self.reader.add_info_to_header(
+                #     {"ID": field.element,
+                #      "Number": field.vcf_number,
+                #      "Type": field.vcf_type,
+                #      "Description": field.vcf_description}
+                # )
         if self.crossref:
             for field in self.crossref_heads:
-                self.reader.add_info_to_header(
-                    {"ID": field.element,
-                     "Number": field.vcf_number,
-                     "Type": field.vcf_type,
-                     "Description": field.vcf_description}
+                self.reader.header.add_info_line(
+                    vcfpy.OrderedDict([
+                        ("ID", field.element),
+                        ("Number", field.vcf_number),
+                        ("Type", field.vcf_type),
+                        ("Description", field.vcf_description)
+                    ])
                 )
+                # self.reader.add_info_to_header(
+                #     {"ID": field.element,
+                #      "Number": field.vcf_number,
+                #      "Type": field.vcf_type,
+                #      "Description": field.vcf_description}
+                # )
         if self.variab:
             for field in self.variab_heads:
-                self.reader.add_info_to_header(
-                    {"ID": field.element,
-                     "Number": field.vcf_number,
-                     "Type": field.vcf_type,
-                     "Description": field.vcf_description}
+                self.reader.header.add_info_line(
+                    vcfpy.OrderedDict([
+                        ("ID", field.element),
+                        ("Number", field.vcf_number),
+                        ("Type", field.vcf_type),
+                        ("Description", field.vcf_description)
+                    ])
                 )
+                # self.reader.add_info_to_header(
+                #     {"ID": field.element,
+                #      "Number": field.vcf_number,
+                #      "Type": field.vcf_type,
+                #      "Description": field.vcf_description}
+                # )
         if self.predict:
             for field in self.predict_heads:
-                self.reader.add_info_to_header(
-                    {"ID": field.element,
-                     "Number": field.vcf_number,
-                     "Type": field.vcf_type,
-                     "Description": field.vcf_description}
+                self.reader.header.add_info_line(
+                    vcfpy.OrderedDict([
+                        ("ID", field.element),
+                        ("Number", field.vcf_number),
+                        ("Type", field.vcf_type),
+                        ("Description", field.vcf_description)
+                    ])
                 )
+                # self.reader.add_info_to_header(
+                #     {"ID": field.element,
+                #      "Number": field.vcf_number,
+                #      "Type": field.vcf_type,
+                #      "Description": field.vcf_description}
+                # )
 
     def annotate(self):
         """
