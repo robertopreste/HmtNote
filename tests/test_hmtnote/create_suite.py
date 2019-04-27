@@ -4,7 +4,7 @@
 import argparse
 import click
 import os
-from hmtnote import annotate_vcf, dump
+from hmtnote import annotate, dump
 
 
 def check(vcf_online, vcf_offline):
@@ -23,23 +23,19 @@ def main(input_vcf: str):
 
     click.echo("Starting online annotations.")
     click.echo("\tPerforming basic annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_basic.vcf".format(basename),
-                 basic=True)
+    annotate(input_vcf, "{}_ann_basic.vcf".format(basename), basic=True)
     click.echo("Done.")
     click.echo("\tPerforming crossref annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_crossref.vcf".format(basename),
-                 crossref=True)
+    annotate(input_vcf, "{}_ann_crossref.vcf".format(basename), crossref=True)
     click.echo("Done.")
     click.echo("\tPerforming variab annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_variab.vcf".format(basename),
-                 variab=True)
+    annotate(input_vcf, "{}_ann_variab.vcf".format(basename), variab=True)
     click.echo("Done.")
     click.echo("\tPerforming predict annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_predict.vcf".format(basename),
-                 predict=True)
+    annotate(input_vcf, "{}_ann_predict.vcf".format(basename), predict=True)
     click.echo("Done.")
     click.echo("\tPerforming full annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann.vcf".format(basename))
+    annotate(input_vcf, "{}_ann.vcf".format(basename))
     click.echo("Done.")
 
     click.echo(" ")
@@ -48,24 +44,23 @@ def main(input_vcf: str):
 
     click.echo("Starting offline annotations.")
     click.echo("\tPerforming offline basic annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_offline_basic.vcf".format(basename),
-                 basic=True, offline=True)
+    annotate(input_vcf, "{}_ann_offline_basic.vcf".format(basename),
+             basic=True, offline=True)
     click.echo("Done.")
     click.echo("\tPerforming offline crossref annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_offline_crossref.vcf".format(basename),
-                 crossref=True, offline=True)
+    annotate(input_vcf, "{}_ann_offline_crossref.vcf".format(basename),
+             crossref=True, offline=True)
     click.echo("Done.")
     click.echo("\tPerforming offline variab annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_offline_variab.vcf".format(basename),
-                 variab=True, offline=True)
+    annotate(input_vcf, "{}_ann_offline_variab.vcf".format(basename),
+             variab=True, offline=True)
     click.echo("Done.")
     click.echo("\tPerforming offline predict annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_offline_predict.vcf".format(basename),
-                 predict=True, offline=True)
+    annotate(input_vcf, "{}_ann_offline_predict.vcf".format(basename),
+             predict=True, offline=True)
     click.echo("Done.")
     click.echo("\tPerforming offline full annotation... ", nl=False)
-    annotate_vcf(input_vcf, "{}_ann_offline.vcf".format(basename),
-                 offline=True)
+    annotate(input_vcf, "{}_ann_offline.vcf".format(basename), offline=True)
     click.echo("Done.")
 
     # Checks

@@ -6,21 +6,21 @@ from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper
 from hmtnote.classes import check_connection, check_dump
 
 
-def annotate_vcf(input_vcf: str, output_vcf: str,
-                 basic: bool = False,
-                 crossref: bool = False,
-                 variab: bool = False,
-                 predict: bool = False,
-                 offline: bool = False) -> bool:
+def annotate(input_vcf: str, output_vcf: str,
+             basic: bool = False,
+             crossref: bool = False,
+             variab: bool = False,
+             predict: bool = False,
+             offline: bool = False) -> bool:
     """
     Annotate a VCF file using information from HmtVar.
 
-    If neither basic, crossref, variab nor predict are provided, they
-    will all default to True, and the VCF will be annotated using all the
-    available information.
-    If no internet connection is available, use the offline option to use
-    the local database for annotation (you must have previously downloaded it
-    using the hmtnote dump command).
+    If neither ``basic``, ``crossref``, ``variab`` nor ``predict`` are
+    provided, they will all default to True, and the VCF will be
+    annotated using all the available information.
+    If no internet connection is available, use the ``offline`` option to
+    use the local database for annotation (you must have previously
+    downloaded it using the ``hmtnote dump`` command).
 
     :param str input_vcf: input VCF file to annotate
 
@@ -32,13 +32,15 @@ def annotate_vcf(input_vcf: str, output_vcf: str,
     :param bool crossref: annotate VCF using cross-reference information
         (Clinvar and dbSNP IDs, etc.) (default: False)
 
-    :param bool variab: annotate VCF using variability information (nucleotide
-        and aminoacid variability, allele frequencies) (default: False)
+    :param bool variab: annotate VCF using variability information
+        (nucleotide and aminoacid variability, allele frequencies)
+        (default: False)
 
     :param bool predict: annotate VCF using predictions information (from
         MutPred, Panther, Polyphen and other resources) (default: False)
 
-    :param bool offline: annotate VCF using previously downloaded databases (offline mode) (default: False)
+    :param bool offline: annotate VCF using previously downloaded
+        databases (offline mode) (default: False)
 
     :return: bool
     """
