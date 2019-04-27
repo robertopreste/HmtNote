@@ -69,3 +69,10 @@ History
 
 * Add support for insertion and deletion annotations;
 * Add test suite and files for indels.
+
+
+0.5.0 (2019-04-27)
+------------------
+
+* Replace VCF parsing using VCFpy instead of cyvcf2;
+* Rename ``hmtnote.annotate_vcf()`` to ``hmtnote.annotate()`` for compliance with CLI.

@@ -37,15 +37,15 @@ Python Module
 HmtNote can also be imported in a Python script and its function ``annotate_vcf()`` can be used to annotate a given VCF::
 
     from hmtnote import annotate_vcf
-    annotate_vcf("input.vcf", "annotated.vcf")
+    annotate("input.vcf", "annotated.vcf")
 
 By default, ``annotate_vcf()`` will annotate the VCF using all four groups of annotations (basic, cross-reference, variability and predictions). If desired, you can specify which kind of annotation you want, using respectively the ``basic=True``, ``crossref=True``, ``variab=True``, ``predict=True`` arguments, or any combination of them::
 
-    annotate_vcf("input.vcf", "annotated_basic.vcf", basic=True)
-    annotate_vcf("input.vcf", "annotated_crossreferences.vcf", crossref=True)
-    annotate_vcf("input.vcf", "annotated_variability.vcf", variab=True)
-    annotate_vcf("input.vcf", "annotated_predictions.vcf", predict=True)
-    annotate_vcf("input.vcf", "annotate_basic_variability.vcf", basic=True, variab=True)
+    annotate("input.vcf", "annotated_basic.vcf", basic=True)
+    annotate("input.vcf", "annotated_crossreferences.vcf", crossref=True)
+    annotate("input.vcf", "annotated_variability.vcf", variab=True)
+    annotate("input.vcf", "annotated_predictions.vcf", predict=True)
+    annotate("input.vcf", "annotate_basic_variability.vcf", basic=True, variab=True)
 
 If you want to work offline, HmtNote offers an *offline mode*, that will download the annotation database so that it can be used when no internet connection is available. The ``dump()`` function allows to download the local HmtNote database::
 
@@ -54,8 +54,8 @@ If you want to work offline, HmtNote offers an *offline mode*, that will downloa
 
 Now it is possible to perform offline annotation of VCF files, by simply adding the ``offline=True`` argument to the usual annotation function::
 
-    annotate_vcf("input.vcf", "annotated.vcf", offline=True)
-    annotate_vcf("input.vcf", "annotated_variability.vcf, variab=True, offline=True)
+    annotate("input.vcf", "annotated.vcf", offline=True)
+    annotate("input.vcf", "annotated_variability.vcf, variab=True, offline=True)
 
 Please read above for potential limitations of the *offline mode*.
 

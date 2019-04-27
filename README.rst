@@ -106,21 +106,21 @@ Python Module
 
 HmtNote can also be imported in a Python script and its function ``annotate_vcf()`` can be used to annotate a given VCF::
 
-    from hmtnote import annotate_vcf
-    annotate_vcf("input.vcf", "annotated.vcf")
+    from hmtnote import annotate
+    annotate("input.vcf", "annotated.vcf")
 
 By default, ``annotate_vcf()`` will annotate the VCF using all four groups of annotations (basic, cross-reference, variability and predictions). If desired, you can specify which kind of annotation you want, using respectively the ``basic=True``, ``crossref=True``, ``variab=True``, ``predict=True`` arguments, or any combination of them::
 
-    annotate_vcf("input.vcf", "annotated_basic.vcf", basic=True)
-    annotate_vcf("input.vcf", "annotated_crossreferences.vcf", crossref=True)
-    annotate_vcf("input.vcf", "annotated_variability.vcf", variab=True)
-    annotate_vcf("input.vcf", "annotated_predictions.vcf", predict=True)
+    annotate("input.vcf", "annotated_basic.vcf", basic=True)
+    annotate("input.vcf", "annotated_crossreferences.vcf", crossref=True)
+    annotate("input.vcf", "annotated_variability.vcf", variab=True)
+    annotate("input.vcf", "annotated_predictions.vcf", predict=True)
 
 It is also possible to download the annotation database using the ``dump()`` function, and perform offline annotation of VCF files by simply adding the ``offline=True`` argument to ``annotate_vcf()``::
 
     from hmtnote import dump
     dump()
-    annotate_vcf("input.vcf", "annotated.vcf", offline=True)
+    annotate("input.vcf", "annotated.vcf", offline=True)
 
 For more information, please refer to the Usage_ section of the documentation.
 
