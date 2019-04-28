@@ -60,16 +60,13 @@ Installation
 
 **PLEASE NOTE: HmtNote only supports Python 3!**
 
-The preferred installation method for HmtNote is using ``pip`` in a conda environment:
+The preferred installation method for HmtNote is using ``pip``:
 
 .. code-block:: console
 
-    $ conda install requests pandas
-    $ conda install -c bioconda cyvcf2
     $ pip install hmtnote
 
 For more information, please refer to the Installation_ section of the documentation.
-
 
 
 Usage

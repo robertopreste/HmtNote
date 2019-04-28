@@ -7,17 +7,7 @@ Installation
 Stable release
 --------------
 
-The recommended way of installing HmtNote is in a conda environment, which seems to better manage
-one of the core dependencies of HmtNote (namely the `cyvcf2` module):
-
-.. code-block:: console
-
-    $ conda create -n HmtNote
-    $ conda activate HmtNote
-    $ conda install requests pandas
-    $ conda install -c bioconda cyvcf2
-
-And then to install HmtNote, run this command in your terminal:
+To install HmtNote, run this command in your terminal:
 
 .. code-block:: console
 
@@ -26,27 +16,11 @@ And then to install HmtNote, run this command in your terminal:
 This is the preferred method to install HmtNote, as it will always install the most recent stable
 release.
 
-Should you have issues with the installation process, there are a few tricks you can try.
+If you don't have `pip`_ installed, this `Python installation guide`_ can guide
+you through the process.
 
-* If the error message mentions a `gcc` issue, you can install it using ``apt install gcc`` (this command works on Ubuntu, please check your distribution's documentation for details); then retry ``pip install hmtnote``.
-
-* If still failing, try ``apt install zlib1g-dev`` and then ``pip install hmtnote``.
-
-* If the installations still fails, you should first make sure you have pyOpenSSL_ installed (otherwise you can ``pip install pyOpenSSL``), and then you should export the following environment variables in your shell, before launching the ``pip install hmtnote`` command again::
-
-    LDFLAGS = "-L/usr/local/opt/openssl/lib"
-    CPPFLAGS = "-I/usr/local/opt/openssl/include"
-    PKG_CONFIG_PATH = "/usr/local/opt/openssl/lib/pkgconfig"
-    LC_ALL = "en_US.UTF-8"
-    LANG = "en_US.UTF-8"
-
-Please refer to the details of your shell to check the right way to export environment variables.
-
-In case you still have issues with the installation, please read below how to install HmtNote from
-sources.
-
-.. _pyOpenSSL: https://pyopenssl.org/en/stable/
-
+.. _pip: https://pip.pypa.io
+.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 From sources
 ------------
