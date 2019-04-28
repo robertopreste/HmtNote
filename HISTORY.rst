@@ -71,7 +71,7 @@ History
 * Add test suite and files for indels.
 
 
-0.5.0 (2019-04-27)
+0.5.0 (2019-04-28)
 ------------------
 
 * Replace VCF parsing using VCFpy instead of cyvcf2;
