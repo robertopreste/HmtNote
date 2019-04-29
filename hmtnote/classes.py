@@ -507,25 +507,16 @@ class Annotator:
 
                 if self.basic:
                     for field in annots.basics:
-                        record.INFO[field.element] = ",".join(
-                            map(str, field.field_value)
-                        )
+                        record.INFO[field.element] = field.field_value
                 if self.crossref:
                     for field in annots.crossrefs:
-                        record.INFO[field.element] = ",".join(
-                            map(str, field.field_value)
-                        )
+                        record.INFO[field.element] = field.field_value
                 if self.variab:
                     for field in annots.variabs:
-                        record.INFO[field.element] = ",".join(
-                            map(str, field.field_value)
-                        )
+                        record.INFO[field.element] = field.field_value
                 if self.predict:
                     for field in annots.predicts:
-                        record.INFO[field.element] = ",".join(
-                            map(str, field.field_value)
-                        )
-
+                        record.INFO[field.element] = field.field_value
             self.writer.write_record(record)
 
         self.reader.close()
@@ -688,25 +679,16 @@ class OfflineAnnotator(Annotator):
 
                 if self.basic:
                     for field in annots.basics:
-                        record.INFO[field.element] = ",".join(
-                            map(str, field.field_value)
-                        )
+                        record.INFO[field.element] = field.field_value
                 if self.crossref:
                     for field in annots.crossrefs:
-                        record.INFO[field.element] = ",".join(
-                            map(str, field.field_value)
-                        )
+                        record.INFO[field.element] = field.field_value
                 if self.variab:
                     for field in annots.variabs:
-                        record.INFO[field.element] = ",".join(
-                            map(str, field.field_value)
-                        )
+                        record.INFO[field.element] = field.field_value
                 if self.predict:
                     for field in annots.predicts:
-                        record.INFO[field.element] = ",".join(
-                            map(str, field.field_value)
-                        )
-
+                        record.INFO[field.element] = field.field_value
             self.writer.write_record(record)
 
         self.reader.close()
