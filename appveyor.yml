@@ -4,46 +4,50 @@
 environment:
   matrix:
     - PYTHON: "C:\\Python35"
-      MINICONDA: "C:\\Miniconda3"
+#      MINICONDA: "C:\\Miniconda3"
       TOX_ENV: "python3.5"
       PYTHON_VERSION: 3.5
 
     - PYTHON: "C:\\Python35-x64"
-      MINICONDA: "C:\\Miniconda3"
+#      MINICONDA: "C:\\Miniconda3"
       TOX_ENV: "python3.5"
       PYTHON_VERSION: 3.5
 
     - PYTHON: "C:\\Python36"
-      MINICONDA: "C:\\Miniconda3"
+#      MINICONDA: "C:\\Miniconda3"
       TOX_ENV: "python3.6"
       PYTHON_VERSION: 3.6
 
     - PYTHON: "C:\\Python36-x64"
-      MINICONDA: "C:\\Miniconda3"
+#      MINICONDA: "C:\\Miniconda3"
       TOX_ENV: "python3.6"
       PYTHON_VERSION: 3.6
 
 init:
+#   - ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%
 #  - set PATH=%PYTHON%;%PYTHON%\Scripts;C:\MinGW\msys\1.0\bin;%PATH%
-  - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
+#  - "set PATH=%MINICONDA%;%MINICONDA%\\Scripts;%PATH%"
 #  - "git config --system http.sslcainfo \"C:\\Program Files\\Git\\mingw64\\ssl\\certs\\ca-bundle.crt\""
   - "%PYTHON%/python -V"
   - "%PYTHON%/python -c \"import struct;print(8 * struct.calcsize(\'P\'))\""
 
 install:
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda info -a
-  - "conda create -q -n HmtNote python=%PYTHON_VERSION%"
-  - activate HmtNote
-  - conda install pytest click requests
+#  - conda config --set always_yes yes --set changeps1 no
+#  - conda update -q conda
+#  - conda info -a
+#  - "conda create -q -n HmtNote python=%PYTHON_VERSION%"
+#  - activate HmtNote
+#  - conda install pytest click requests
 #  - conda install -c bioconda cyvcf2
-  - "%PYTHON%/Scripts/pip install cyvcf2"
+#  - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
+#  - "%PYTHON%/Scripts/pip install cyvcf2"
   - "%PYTHON%/Scripts/easy_install -U pip"
+#  - "%PYTHON%/python -m pip install -U pip"
   - "%PYTHON%/Scripts/pip install tox"
   - "%PYTHON%/Scripts/pip install wheel"
+  - "%PYTHON%/Scripts/pip install -e ."
 
-build: false  # Not a C# project, build stuff at the test step instead.
+build: off
 
 test_script:
   - "%PYTHON%/Scripts/tox -e %TOX_ENV%"
