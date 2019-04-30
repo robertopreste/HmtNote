@@ -79,7 +79,12 @@ History
 
 
 0.5.1 (2019-04-29)
-------------------
+==================
 
 * Fix issue with the new VCFpy implementation where new info where badly reported;
 * Update test files restricting the number of entries to 80 for faster testing.
+
+0.5.2 (2019-04-30)
+==================
+
+* Fix requirements in setup.py file.
