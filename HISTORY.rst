@@ -98,3 +98,8 @@ History
 ==================
 
 * Fix installation issue.
+
+0.5.5 (2019-05-06)
+==================
+
+* Fix VCF record parsing issue.
