@@ -430,8 +430,8 @@ class Annotator:
         :param record: current VCF record
         :return: bool
         """
-        return len(record.ALT) > 0 and all([rec["value"] != "."
-                                            for rec in record])
+        return len(record.ALT) > 0 and all([rec.value != "."
+                                            for rec in record.ALT])
 
     @staticmethod
     def _is_mitochondrial(record) -> bool:
