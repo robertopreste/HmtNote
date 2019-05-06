@@ -88,3 +88,8 @@ History
 ==================
 
 * Fix requirements in setup.py file.
+
+0.5.3 (2019-05-06)
+==================
+
+* Update requirements in setup.py.
