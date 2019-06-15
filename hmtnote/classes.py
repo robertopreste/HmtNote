@@ -14,14 +14,16 @@ import vcfpy
 
 
 class _HmtVarField:
-    """
-    This class is used to collect data from HmtVar's API for each field
+    """This class is used to collect data from HmtVar's API for each field
     returned.
-    self.element: name of the field to be used in the VCF file
-    self.api_slug: name of the field used in HmtVar's API
-    self._field_value: value of the given field; automatically instantiated as
-    an empty list, is then populated with a single value for each alternate
-    allele found in the variant
+
+    :param self.element: name of the field to be used in the VCF file
+
+    :param self.api_slug: name of the field used in HmtVar's API
+
+    :param self._field_value: value of the given field; automatically
+        instantiated as an empty list, is then populated with a single value
+        for each alternate allele found in the variant
     """
 
     def __init__(self, element, api_slug):
@@ -32,11 +34,12 @@ class _HmtVarField:
     @staticmethod
     def _replace_null(element: Union[str, int, float, None]) -> Union[str, int,
                                                                       float]:
-        """
-        Replace null values returned by HmtVar's API (None) with a '.'
+        """Replace null values returned by HmtVar's API (None) with a '.'
         character.
-        :param Union[str, int, float, None] element: value returned by HmtVar
-        :return: Union[str, int, float]
+
+        :param Union[str,int,float,None] element: value returned by HmtVar
+
+        :return: Union[str,int,float]
         """
         if element is None:
             return "."
@@ -44,31 +47,36 @@ class _HmtVarField:
 
     @property
     def field_value(self):
-        """
-        List of values parsed from HmtVar's API for each alternate allele of
-        the given variant.
+        """List of values parsed from HmtVar's API for each alternate allele
+        of the given variant.
+
         :return:
         """
         return self._field_value
 
     @field_value.setter
     def field_value(self, value):
-        """
-        Update the list of values with a new value.
+        """Update the list of values with a new value.
+
         :param value: new value to be appended to the list of values
+
         :return:
         """
         self._field_value.append(self._replace_null(value))
 
 
 class _HmtVarHeader:
-    """
-    This class is used to create a new header that will be added to the
+    """This class is used to create a new header that will be added to the
     annotated VCF file.
-    self.element: name of the field to be used in the VCF file
-    self.vcf_number: value used in the 'number' attribute of the header line
-    self.vcf_type: type of value for this information
-    self.vcf_description: description of this information
+
+    :param self.element: name of the field to be used in the VCF file
+
+    :param self.vcf_number: value used in the 'number' attribute of the header
+        line
+
+    :param self.vcf_type: type of value for this information
+
+    :param self.vcf_description: description of this information
     """
 
     def __init__(self, element, vcf_number, vcf_type, vcf_description):
@@ -79,13 +87,16 @@ class _HmtVarHeader:
 
 
 class _HmtVarVariant:
-    """
-    This class is used to store a given variant and retrieve the related
+    """This class is used to store a given variant and retrieve the related
     information from HmtVar.
-    self.reference: reference allele of the variant
-    self.position: position of the variant
-    self.alternate: alternate allele of the variant
-    self.variant: string-formatted variant, used for the API call
+
+    :param self.reference: reference allele of the variant
+
+    :param self.position: position of the variant
+
+    :param self.alternate: alternate allele of the variant
+
+    :param self.variant: string-formatted variant, used for the API call
     """
 
     def __init__(self, reference, position, alternate):
@@ -95,16 +106,16 @@ class _HmtVarVariant:
         self._variant = "{}{}".format(self.position, self.alternate.value)
 
     def _is_deletion(self) -> bool:
-        """
-        Check whether the current variant refers to a deletion.
+        """Check whether the current variant refers to a deletion.
+
         :return: bool
         """
         # e.g. ref CTG | alt C
         return self.alternate.type == "DEL"
 
     def _is_insertion(self) -> bool:
-        """
-        Check whether the current variant refers to an insertion.
+        """Check whether the current variant refers to an insertion.
+
         :return: bool
         """
         # e.g. ref C | alt CTG
@@ -112,8 +123,8 @@ class _HmtVarVariant:
 
     @property
     def variant(self) -> str:
-        """
-        Create the proper variant format for deletions, insertions and SNPs.
+        """Create the proper variant format for deletions, insertions and SNPs.
+
         :return: str
         """
         if self._is_deletion():
@@ -128,8 +139,8 @@ class _HmtVarVariant:
 
     @property
     def response(self) -> dict:
-        """
-        Call HmtVar's API to retrieve data related to self.variant.
+        """Call HmtVar's API to retrieve data related to self.variant.
+
         :return: dict
         """
         url = "https://www.hmtvar.uniba.it/api/main/mutation/{}".format(self.variant)
@@ -150,8 +161,8 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
         self.db = database
 
     def dbcall(self) -> pd.DataFrame:
-        """
-        Create the proper database query for deletions, insertions and SNPs.
+        """Create the proper database query for deletions, insertions and SNPs.
+
         :return: pd.DataFrame
         """
         if super()._is_deletion():
@@ -168,9 +179,9 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
 
     @property
     def response(self) -> dict:
-        """
-        Overrides the _HmtVarVariant.response() method to retrieve the data
+        """Override the _HmtVarVariant.response() method to retrieve the data
         from local dumped databases, instead of using HmtVar's API.
+
         :return: dict
         """
         call = self.dbcall()
@@ -184,14 +195,18 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
 
 
 class _HmtVarParser:
-    """
-    This class is used to parse information collected from HmtVar's API and
+    """This class is used to parse information collected from HmtVar's API and
     store them in the right format, ready for VCF annotation.
-    self.record: variant record as returned by cyvcf2.VCF
-    self.basics: basic information from HmtVar
-    self.crossrefs: cross-reference information from HmtVar
-    self.variabs: variability information from HmtVar
-    self.predicts: predictions information from HmtVar
+
+    :param self.record: variant record as returned by vcfpy.Reader.from_path()
+
+    :param self.basics: basic information from HmtVar
+
+    :param self.crossrefs: cross-reference information from HmtVar
+
+    :param self.variabs: variability information from HmtVar
+
+    :param self.predicts: predictions information from HmtVar
     """
 
     def __init__(self, record):
@@ -251,8 +266,8 @@ class _HmtVarParser:
         )
 
     def parse(self):
-        """
-        Update annotations about the given record.
+        """Update annotations about the given record.
+
         :return:
         """
         variants = [_HmtVarVariant(self.record.REF, self.record.POS, alt)
@@ -275,13 +290,21 @@ class _HmtVarParser:
 
 
 class _OfflineHmtVarParser(_HmtVarParser):
+    """This class is used to parse information collected from the downloaded
+    local HmtVar database for offline annotation.
+
+    :param self.record: variant record as returned by vcfpy.Reader.from_path()
+
+    :param self.db: local HmtVar database
+    """
+
     def __init__(self, record, database):
         super().__init__(record)
         self.db = database
 
     def parse(self):
-        """
-        Overwrites the _HmtVarParser.parse() method for offline annotation.
+        """Override the _HmtVarParser.parse() method for offline annotation.
+
         :return:
         """
         variants = [_OfflineHmtVarVariant(self.record.REF, self.record.POS,
@@ -305,25 +328,41 @@ class _OfflineHmtVarParser(_HmtVarParser):
 
 
 class Annotator:
-    """
-    Main entry point for VCF annotation.
+    """Main entry point for VCF annotation.
 
     This class is the main entry point for VCF annotation. It will
     traverse a given input VCF and annotate each variant found, then save
     the annotated VCF.
-    self.vcf_in: input VCF filename
-    self.vcf_out: output VCF filename
-    self.basic: bool flag to enable annotation of basic information
-    self.crossref bool flag to enable annotation of cross-reference information
-    self.variab: bool flag to enable annotation of variability information
-    self.predict: bool flag to enable annotation of predictions information
-    self.reader: input VCF reader (provided by cyvcf2.VCF)
-    self.basic_heads: header to be used for basic information
-    self.crossref_heads: header to be used for cross-reference information
-    self.variab_heads: header to be used for variability information
-    self.predict_heads: header to be used for predictions information
-    self.writer: output VCF writer (provided by cyvcf2.Writer), instantiated
-    after the header has been updated according to new header to be used
+
+    :param self.vcf_in: input VCF filename
+
+    :param self.vcf_out: output VCF filename
+
+    :param self.basic: bool flag to enable annotation of basic information
+
+    :param self.crossref bool flag to enable annotation of cross-reference
+        information
+
+    :param self.variab: bool flag to enable annotation of variability
+        information
+
+    :param self.predict: bool flag to enable annotation of predictions
+        information
+
+    :param self.reader: input VCF reader (provided by cyvcf2.VCF)
+
+    :param self.basic_heads: header to be used for basic information
+
+    :param self.crossref_heads: header to be used for cross-reference
+        information
+
+    :param self.variab_heads: header to be used for variability information
+
+    :param self.predict_heads: header to be used for predictions information
+
+    :param self.writer: output VCF writer (provided by cyvcf2.Writer),
+        instantiated after the header has been updated according to new
+        header to be used
     """
 
     def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
@@ -425,9 +464,10 @@ class Annotator:
 
     @staticmethod
     def _is_variation(record) -> bool:
-        """
-        Check whether or not the current record refers to an actual variant.
+        """Check whether or not the current record refers to an actual variant.
+
         :param record: current VCF record
+
         :return: bool
         """
         return len(record.ALT) > 0 and all([rec.value != "."
@@ -435,18 +475,19 @@ class Annotator:
 
     @staticmethod
     def _is_mitochondrial(record) -> bool:
-        """
-        Check whether or not the current record is a mitochondrial variant; if
-        not will avoid sending useless requests to HmtVar.
+        """Check whether or not the current record is a mitochondrial variant;
+        if not will avoid sending useless requests to HmtVar.
+
         :param record: current VCF record
+
         :return: bool
         """
         return record.CHROM in ["M", "MT", "chrM", "chrMT", "chrRCRS"]
 
     def _update_header(self):
-        """
-        Update the header present in the input VCF file according to the flags
-        provided (basic, variability, predictions information).
+        """Update the header present in the input VCF file according to the
+        flags provided (basic, variability, predictions information).
+
         :return:
         """
         if self.basic:
@@ -491,12 +532,12 @@ class Annotator:
                 )
 
     def annotate(self):
-        """
-        Annotate VCF variants.
+        """Annotate VCF variants.
 
         Annotate variants according to the flags provided (basic,
         variability, predictions information), and write the output VCF
         file.
+
         :return:
         """
         for record in self.reader:
@@ -524,16 +565,20 @@ class Annotator:
 
 
 class DataDumper:
-    """
-    Download and store locally the required data from HmtVar.
+    """Download and store locally the required data from HmtVar.
 
     This class takes care of downloading the annotation database from
     HmtVar using the specific API for HmtNote, and will store the results
     in hmtnote_dump.pkl.
-    self._df_basic: temporary dataframe with basic annotations
-    self._df_crossref temporary dataframe with cross-reference annotations
-    self._df_variab: temporary dataframe with variability annotations
-    self._df_predict: temporary dataframe with prediction annotations
+
+    :param self._df_basic: temporary dataframe with basic annotations
+
+    :param self._df_crossref temporary dataframe with cross-reference
+        annotations
+
+    :param self._df_variab: temporary dataframe with variability annotations
+
+    :param self._df_predict: temporary dataframe with prediction annotations
     """
 
     def __init__(self):
@@ -546,14 +591,17 @@ class DataDumper:
     async def _download_json(session,
                              url: str,
                              dataset: str):
-        """
-        Async coroutine to download and save an annotation dataset.
+        """Async coroutine to download and save an annotation dataset.
 
         Will download the given dataset in chunks and write them to a
         JSON-formatted temporary file.
+
         :param session: aiohttp.ClientSession() to use
+
         :param str url: base url of HmtVar's API
+
         :param str dataset: annotation dataset name
+
         :return:
         """
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -570,9 +618,10 @@ class DataDumper:
 
     @staticmethod
     async def _looper_download_json(dataset: str):
-        """
-        Main async function to download and save annotation datasets.
+        """Main async function to download and save annotation datasets.
+
         :param str dataset: annotation dataset name
+
         :return:
         """
         url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
@@ -581,11 +630,11 @@ class DataDumper:
             await DataDumper._download_json(session, url, dataset)
 
     def download_data(self):
-        """
-        Download the annotations and build the local annotation database.
+        """Download the annotations and build the local annotation database.
 
         Call the `_looper_download_json()` function to download the data
         and store them in a single pickled dataframe for later use.
+
         :return:
         """
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -635,27 +684,44 @@ class DataDumper:
 
 
 class OfflineAnnotator(Annotator):
-    """
-        Main entry point for offline VCF annotation.
+    """Main entry point for offline VCF annotation.
 
-        This class is the main entry point for offline VCF annotation. It
-        will traverse a given input VCF and annotate each variant found,
-        then save the annotated VCF.
-        self.vcf_in: input VCF filename
-        self.vcf_out: output VCF filename
-        self.basic: bool flag to enable annotation of basic information
-        self.crossref bool flag to enable annotation of cross-reference information
-        self.variab: bool flag to enable annotation of variability information
-        self.predict: bool flag to enable annotation of predictions information
-        self.reader: input VCF reader (provided by cyvcf2.VCF)
-        self.basic_heads: header to be used for basic information
-        self.crossref_heads: header to be used for cross-reference information
-        self.variab_heads: header to be used for variability information
-        self.predict_heads: header to be used for predictions information
-        self.writer: output VCF writer (provided by cyvcf2.Writer), instantiated
-        after the header has been updated according to new header to be used
-        self.db: local annotation database (hmtnote_dump.pkl)
-        """
+    This class is the main entry point for offline VCF annotation. It
+    will traverse a given input VCF and annotate each variant found,
+    then save the annotated VCF.
+
+    :param self.vcf_in: input VCF filename
+
+    :param self.vcf_out: output VCF filename
+
+    :param self.basic: bool flag to enable annotation of basic information
+
+    :param self.crossref bool flag to enable annotation of cross-reference
+        information
+
+    :param self.variab: bool flag to enable annotation of variability
+        information
+
+    :param self.predict: bool flag to enable annotation of predictions
+        information
+
+    :param self.reader: input VCF reader (provided by cyvcf2.VCF)
+
+    :param self.basic_heads: header to be used for basic information
+
+    :param self.crossref_heads: header to be used for cross-reference
+        information
+
+    :param self.variab_heads: header to be used for variability information
+
+    :param self.predict_heads: header to be used for predictions information
+
+    :param self.writer: output VCF writer (provided by cyvcf2.Writer),
+        instantiated after the header has been updated according to new
+        header to be used
+
+    :param self.db: local annotation database (hmtnote_dump.pkl)
+    """
 
     def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
         super().__init__(vcf_in, vcf_out, basic, crossref, variab, predict)
@@ -663,12 +729,12 @@ class OfflineAnnotator(Annotator):
         self.db = pd.read_pickle(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))
 
     def annotate(self):
-        """
-        Annotate VCF variants.
+        """Annotate VCF variants.
 
         Override the Annotator.annotate() method to provide offline
         annotation according to the flags provided (basic, variability,
         predictions information), and write the output VCF file.
+
         :return:
         """
         for record in self.reader:
@@ -696,8 +762,8 @@ class OfflineAnnotator(Annotator):
 
 
 def check_connection() -> bool:
-    """
-    Look for a functioning internet connection.
+    """Look for a functioning internet connection.
+
     :return: bool
     """
 
@@ -712,8 +778,8 @@ def check_connection() -> bool:
 
 
 def check_dump() -> bool:
-    """
-    Check the presence of the local annotation database hmtnote_dump.pkl.
+    """Check the presence of the local annotation database hmtnote_dump.pkl.
+
     :return: bool
     """
 
