@@ -11,6 +11,7 @@ import os
 import pandas as pd
 from typing import Union
 import vcfpy
+import subprocess
 
 
 class _HmtVarField:
@@ -340,7 +341,7 @@ class Annotator:
 
     :param self.basic: bool flag to enable annotation of basic information
 
-    :param self.crossref bool flag to enable annotation of cross-reference
+    :param self.crossref: bool flag to enable annotation of cross-reference
         information
 
     :param self.variab: bool flag to enable annotation of variability
@@ -461,6 +462,11 @@ class Annotator:
         )
         self._update_header()
         self.writer = vcfpy.Writer.from_path(vcf_out, self.reader.header)
+        self._n_records = int(
+            subprocess.check_output(
+                "cat {} | grep -v '^#' | wc -l".format(self.vcf_in),
+                shell=True).strip()
+        )
 
     @staticmethod
     def _is_variation(record) -> bool:
@@ -540,25 +546,27 @@ class Annotator:
 
         :return:
         """
-        for record in self.reader:
+        with click.progressbar(self.reader,
+                               length=self._n_records,
+                               label="Annotating...") as bar:
+            for record in bar:
+                if self._is_variation(record) and self._is_mitochondrial(record):
+                    annots = _HmtVarParser(record)
+                    annots.parse()
 
-            if self._is_variation(record) and self._is_mitochondrial(record):
-                annots = _HmtVarParser(record)
-                annots.parse()
-
-                if self.basic:
-                    for field in annots.basics:
-                        record.INFO[field.element] = field.field_value
-                if self.crossref:
-                    for field in annots.crossrefs:
-                        record.INFO[field.element] = field.field_value
-                if self.variab:
-                    for field in annots.variabs:
-                        record.INFO[field.element] = field.field_value
-                if self.predict:
-                    for field in annots.predicts:
-                        record.INFO[field.element] = field.field_value
-            self.writer.write_record(record)
+                    if self.basic:
+                        for field in annots.basics:
+                            record.INFO[field.element] = field.field_value
+                    if self.crossref:
+                        for field in annots.crossrefs:
+                            record.INFO[field.element] = field.field_value
+                    if self.variab:
+                        for field in annots.variabs:
+                            record.INFO[field.element] = field.field_value
+                    if self.predict:
+                        for field in annots.predicts:
+                            record.INFO[field.element] = field.field_value
+                self.writer.write_record(record)
 
         self.reader.close()
         self.writer.close()
@@ -573,7 +581,7 @@ class DataDumper:
 
     :param self._df_basic: temporary dataframe with basic annotations
 
-    :param self._df_crossref temporary dataframe with cross-reference
+    :param self._df_crossref: temporary dataframe with cross-reference
         annotations
 
     :param self._df_variab: temporary dataframe with variability annotations
@@ -624,10 +632,13 @@ class DataDumper:
 
         :return:
         """
-        url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
+        # url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
+        url = "https://github.com/robertopreste/HmtVar/raw/master/update/data/hmtnote/{}.json"
         click.echo("Downloading {} annotations...".format(dataset))
         async with aiohttp.ClientSession() as session:
-            await DataDumper._download_json(session, url, dataset)
+            await DataDumper._download_json(session,
+                                            url.format(dataset),
+                                            dataset)
 
     def download_data(self):
         """Download the annotations and build the local annotation database.
@@ -696,7 +707,7 @@ class OfflineAnnotator(Annotator):
 
     :param self.basic: bool flag to enable annotation of basic information
 
-    :param self.crossref bool flag to enable annotation of cross-reference
+    :param self.crossref: bool flag to enable annotation of cross-reference
         information
 
     :param self.variab: bool flag to enable annotation of variability
@@ -737,37 +748,39 @@ class OfflineAnnotator(Annotator):
 
         :return:
         """
-        for record in self.reader:
+        with click.progressbar(self.reader,
+                               length=self._n_records,
+                               label="Annotating...") as bar:
+            for record in bar:
+                if self._is_variation(record) and self._is_mitochondrial(record):
+                    annots = _OfflineHmtVarParser(record, self.db)
+                    annots.parse()
 
-            if self._is_variation(record) and self._is_mitochondrial(record):
-                annots = _OfflineHmtVarParser(record, self.db)
-                annots.parse()
-
-                if self.basic:
-                    for field in annots.basics:
-                        record.INFO[field.element] = field.field_value
-                if self.crossref:
-                    for field in annots.crossrefs:
-                        record.INFO[field.element] = field.field_value
-                if self.variab:
-                    for field in annots.variabs:
-                        record.INFO[field.element] = field.field_value
-                if self.predict:
-                    for field in annots.predicts:
-                        record.INFO[field.element] = field.field_value
-            self.writer.write_record(record)
+                    if self.basic:
+                        for field in annots.basics:
+                            record.INFO[field.element] = field.field_value
+                    if self.crossref:
+                        for field in annots.crossrefs:
+                            record.INFO[field.element] = field.field_value
+                    if self.variab:
+                        for field in annots.variabs:
+                            record.INFO[field.element] = field.field_value
+                    if self.predict:
+                        for field in annots.predicts:
+                            record.INFO[field.element] = field.field_value
+                self.writer.write_record(record)
 
         self.reader.close()
         self.writer.close()
 
 
 def check_connection() -> bool:
-    """Look for a functioning internet connection.
+    """Ensure a functioning internet connection is available.
 
     :return: bool
     """
 
-    url = "https://www.google.com"
+    url = "https://httpstat.us/200"
     timeout = 5
     try:
         _ = requests.get(url, timeout=timeout)
