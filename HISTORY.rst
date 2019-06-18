@@ -103,3 +103,11 @@ History
 ==================
 
 * Fix VCF record parsing issue.
+
+0.6.0 (WIP)
+-----------
+
+* Dump annotation files from GitHub instead of the original HmtVar server;
+* Add annotation progress bar;
+* Check internet connection using httpstat.us;
+* Update documentation.

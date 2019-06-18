@@ -3,8 +3,8 @@
 # Created by Roberto Preste
 import sys
 import click
-from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper
-from hmtnote.classes import check_connection, check_dump
+from .classes import Annotator, OfflineAnnotator, DataDumper, \
+    check_connection, check_dump
 
 
 @click.group()
@@ -17,20 +17,20 @@ def main():
 @click.argument("input_vcf")
 @click.argument("output_vcf")
 @click.option("--basic", "-b", is_flag=True, default=False,
-              help="""Annotate VCF using basic information (locus, pathogenicity, etc.) 
-              (default: False)""")
+              help="""Annotate VCF using basic information (locus, 
+              pathogenicity, etc.) (default: False)""")
 @click.option("--crossref", "-c", is_flag=True, default=False,
-              help="""Annotate VCF using cross-reference information (Clinvar and dbSNP IDs, etc.) 
-              (default: False)""")
+              help="""Annotate VCF using cross-reference information (Clinvar 
+              and dbSNP IDs, etc.) (default: False)""")
 @click.option("--variab", "-v", is_flag=True, default=False,
-              help="""Annotate VCF using variability information (nucleotide and aminoacid 
-              variability, allele frequencies) (default: False)""")
+              help="""Annotate VCF using variability information (nucleotide 
+              and aminoacid variability, allele frequencies) (default: False)""")
 @click.option("--predict", "-p", is_flag=True, default=False,
-              help="""Annotate VCF using predictions information (from MutPred, Panther, Polyphen 
-              and other resources) (default: False)""")
+              help="""Annotate VCF using predictions information (from MutPred, 
+              Panther, Polyphen and other resources) (default: False)""")
 @click.option("--offline", "-o", is_flag=True, default=False,
-              help="""Annotate VCF using previously downloaded databases (offline mode) 
-              (default: False)""")
+              help="""Annotate VCF using previously downloaded databases 
+              (offline mode) (default: False)""")
 def annotate(input_vcf, output_vcf, basic, crossref, variab, predict, offline):
     """
     Annotate a VCF file using data from HmtVar.
