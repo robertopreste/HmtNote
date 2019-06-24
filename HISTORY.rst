@@ -110,4 +110,4 @@ History
 * Dump annotation files directly from HmtVar instead of the original API call;
 * Add annotation progress bar;
 * Check internet connection using httpstat.us;
-* Update documentation.
+* Update documentation with detailed API usage.
