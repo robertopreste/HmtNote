@@ -107,7 +107,7 @@ History
 0.6.0 (WIP)
 -----------
 
-* Dump annotation files from GitHub instead of the original HmtVar server;
+* Dump annotation files directly from HmtVar instead of the original API call;
 * Add annotation progress bar;
 * Check internet connection using httpstat.us;
 * Update documentation.
