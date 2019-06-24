@@ -35,12 +35,12 @@ def annotate(input_vcf, output_vcf, basic, crossref, variab, predict, offline):
     """
     Annotate a VCF file using data from HmtVar.
 
-    If neither --basic, --crossref, --variab nor --predict are
+    If neither ``--basic``, ``--crossref``, ``--variab`` nor ``--predict`` are
     provided, they will all default to True, and the VCF will be annotated
     using all the available information.
-    If no internet connection is available, use the --offline option to use
+    If no internet connection is available, use the ``--offline`` option to use
     the local database for annotation (you must have previously downloaded it
-    using the hmtnote dump command).
+    using the ``hmtnote dump`` command).
     """
     if not basic and not crossref and not variab and not predict:
         basic, crossref, variab, predict = True, True, True, True
