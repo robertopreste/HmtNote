@@ -1,8 +1,0 @@
-name: HmtNote
-channels:
-  - bioconda
-  - anaconda
-  - defaults
-dependencies:
-  - cyvcf2=0.10.0=py36h355e19c_0
-  - requests=2.21.0=py36_0
