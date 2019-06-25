@@ -5,4 +5,4 @@ from hmtnote.hmtnote import annotate, dump
 
 __author__ = """Roberto Preste"""
 __email__ = 'robertopreste@gmail.com'
-__version__ = '0.5.5'
+__version__ = '0.6.0'
