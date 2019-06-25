@@ -104,8 +104,8 @@ History
 
 * Fix VCF record parsing issue.
 
-0.6.0 (WIP)
------------
+0.6.0 (2019-06-25)
+------------------
 
 * Use vcfpy2 for VCF files parsing;
 * Dump annotation files directly from HmtVar instead of the original API call;
