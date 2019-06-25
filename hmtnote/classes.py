@@ -10,7 +10,7 @@ import aiofiles
 import os
 import pandas as pd
 from typing import Union
-import vcfpy
+import vcfpy2 as vcfpy
 import subprocess
 
 
@@ -588,8 +588,6 @@ class DataDumper:
 
         :return:
         """
-        # url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
-        # url = "https://github.com/robertopreste/HmtVar/raw/master/update/data/hmtnote/{}.json"
         url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
         click.echo("Downloading {} annotations...".format(dataset))
         async with aiohttp.ClientSession() as session:
