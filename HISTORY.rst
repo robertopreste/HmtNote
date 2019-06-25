@@ -107,7 +107,9 @@ History
 0.6.0 (WIP)
 -----------
 
+* Use vcfpy2 for VCF files parsing;
 * Dump annotation files directly from HmtVar instead of the original API call;
 * Add annotation progress bar;
 * Check internet connection using httpstat.us;
+* Update tests and add more test cases;
 * Update documentation with detailed API usage.
