@@ -1,0 +1,46 @@
+##fileformat=VCFv4.1
+##samtoolsVersion=0.1.18 (r982:295)
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Raw read depth">
+##INFO=<ID=DP4,Number=4,Type=Integer,Description="# high-quality ref-forward bases, ref-reverse, alt-forward and alt-reverse bases">
+##INFO=<ID=MQ,Number=1,Type=Integer,Description="Root-mean-square mapping quality of covering reads">
+##INFO=<ID=FQ,Number=1,Type=Float,Description="Phred probability of all samples being the same">
+##INFO=<ID=AF1,Number=1,Type=Float,Description="Max-likelihood estimate of the first ALT allele frequency (assuming HWE)">
+##INFO=<ID=AC1,Number=1,Type=Float,Description="Max-likelihood estimate of the first ALT allele count (no HWE assumption)">
+##INFO=<ID=G3,Number=3,Type=Float,Description="ML estimate of genotype frequencies">
+##INFO=<ID=HWE,Number=1,Type=Float,Description="Chi^2 based HWE test P-value based on G3">
+##INFO=<ID=CLR,Number=1,Type=Integer,Description="Log ratio of genotype likelihoods with and without the constraint">
+##INFO=<ID=UGT,Number=1,Type=String,Description="The most probable unconstrained genotype configuration in the trio">
+##INFO=<ID=CGT,Number=1,Type=String,Description="The most probable constrained genotype configuration in the trio">
+##INFO=<ID=PV4,Number=4,Type=Float,Description="P-values for strand bias, baseQ bias, mapQ bias and tail distance bias">
+##INFO=<ID=INDEL,Number=0,Type=Flag,Description="Indicates that the variant is an INDEL.">
+##INFO=<ID=PC2,Number=2,Type=Integer,Description="Phred probability of the nonRef allele frequency in group1 samples being larger (,smaller) than in group2.">
+##INFO=<ID=PCHI2,Number=1,Type=Float,Description="Posterior weighted chi^2 P-value for testing the association between group1 and group2 samples.">
+##INFO=<ID=QCHI2,Number=1,Type=Integer,Description="Phred scaled PCHI2.">
+##INFO=<ID=PR,Number=1,Type=Integer,Description="# permutations yielding a smaller PCHI2.">
+##INFO=<ID=VDB,Number=1,Type=Float,Description="Variant Distance Bias">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=GL,Number=3,Type=Float,Description="Likelihoods for RR,RA,AA genotypes (R=ref,A=alt)">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="# high-quality bases">
+##FORMAT=<ID=SP,Number=1,Type=Integer,Description="Phred-scaled strand bias P-value">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="List of Phred-scaled genotype likelihoods">
+##INFO=<ID=NtVarH,Number=A,Type=String,Description="Nucleotide variability of the position in healthy individuals">
+##INFO=<ID=NtVarP,Number=A,Type=String,Description="Nucleotide variability of the position in patient individuals">
+##INFO=<ID=AaVarH,Number=A,Type=String,Description="Aminoacid variability of the position in healthy individuals">
+##INFO=<ID=AaVarP,Number=A,Type=String,Description="Aminoacid variability of the position in patient individuals">
+##INFO=<ID=AlleleFreqH,Number=A,Type=String,Description="Allele frequency of the variant in healthy individuals overall">
+##INFO=<ID=AlleleFreqP,Number=A,Type=String,Description="Allele frequency of the variant in patient individuals overall">
+##INFO=<ID=AlleleFreqH_AF,Number=A,Type=String,Description="Allele frequency of the variant in healthy individuals from Africa">
+##INFO=<ID=AlleleFreqP_AF,Number=A,Type=String,Description="Allele frequency of the variant in patient individuals from Africa">
+##INFO=<ID=AlleleFreqH_AM,Number=A,Type=String,Description="Allele frequency of the variant in healthy individuals from America">
+##INFO=<ID=AlleleFreqP_AM,Number=A,Type=String,Description="Allele frequency of the variant in patient individuals from America">
+##INFO=<ID=AlleleFreqH_AS,Number=A,Type=String,Description="Allele frequency of the variant in healthy individuals from Asia">
+##INFO=<ID=AlleleFreqP_AS,Number=A,Type=String,Description="Allele frequency of the variant in patient individuals from Asia">
+##INFO=<ID=AlleleFreqH_EU,Number=A,Type=String,Description="Allele frequency of the variant in healthy individuals from Europe">
+##INFO=<ID=AlleleFreqP_EU,Number=A,Type=String,Description="Allele frequency of the variant in patient individuals from Europe">
+##INFO=<ID=AlleleFreqH_OC,Number=A,Type=String,Description="Allele frequency of the variant in healthy individuals from Oceania">
+##INFO=<ID=AlleleFreqP_OC,Number=A,Type=String,Description="Allele frequency of the variant in patient individuals from Oceania">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample
+MT	263	.	A	G	210	.	DP=302;VDB=0.0417;AF1=1.0;AC1=2.0;DP4=0,0,289,0;MQ=56;FQ=-282.0;NtVarH=0.064124;NtVarP=0.100418;AaVarH=.;AaVarP=.;AlleleFreqH=0.9104310816;AlleleFreqP=0.9538968167;AlleleFreqH_AF=0.8137254902;AlleleFreqP_AF=0.8194444444;AlleleFreqH_AM=0.9488770686;AlleleFreqP_AM=0.9655172414000001;AlleleFreqH_AS=0.7733904429999999;AlleleFreqP_AS=0.9766606822;AlleleFreqH_EU=0.9509263896;AlleleFreqP_EU=0.9561354803000001;AlleleFreqH_OC=0.9910198845;AlleleFreqP_OC=0.0	GT:PL:GQ	1/1:243,255,0:99
+MT	420	.	C	.	283	.	DP=787;VDB=0.0268;AF1=0.0;AC1=0.0;DP4=450,313,3,0;MQ=52;FQ=-282.0;PV4=0.27,1.3e-11,0.11,1.0	PL	0
+MT	750	.	A	G	222	.	DP=890;VDB=0.0435;AF1=1.0;AC1=2.0;DP4=0,3,483,315;MQ=45;FQ=-282.0;PV4=0.062,1.0,0.18,1.0;NtVarH=0.050588;NtVarP=0.0;AaVarH=.;AaVarP=.;AlleleFreqH=0.9246023254000001;AlleleFreqP=0.9688254665;AlleleFreqH_AF=0.9600103199;AlleleFreqP_AF=0.9583333333;AlleleFreqH_AM=0.9494680851;AlleleFreqP_AM=0.9310344828;AlleleFreqH_AS=0.7767367153;AlleleFreqP_AS=0.9946140036;AlleleFreqH_EU=0.9489233851000001;AlleleFreqP_EU=0.9761243753;AlleleFreqH_OC=0.992944195;AlleleFreqP_OC=0.0	GT:PL:GQ	1/1:255,255,0:99

@@ -9,9 +9,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ["Click>=6.0", "requests>=2.21.0", "vcfpy>=0.12.0",
+requirements = ["Click>=6.0", "requests>=2.21.0",
                 "pysam>=0.15.2", "pandas>=0.24.2", "aiohttp>=3.5.4",
-                "aiofiles>=0.4.0"]
+                "aiofiles>=0.4.0", "vcfpy2==0.1.2"]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -30,7 +30,7 @@ setup(  # pragma: no cover
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Human mitochondrial variants annotation using HmtVar. ",
+    description="Human mitochondrial variants annotation using HmtVar.",
     entry_points={
         'console_scripts': [
             'hmtnote=hmtnote.cli:main',
