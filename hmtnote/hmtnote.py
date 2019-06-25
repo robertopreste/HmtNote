@@ -2,8 +2,8 @@
 # -*- coding: UTF-8 -*-
 # Created by Roberto Preste
 import sys
-from hmtnote.classes import Annotator, OfflineAnnotator, DataDumper
-from hmtnote.classes import check_connection, check_dump
+from .classes import Annotator, OfflineAnnotator, DataDumper, \
+    check_connection, check_dump
 
 
 def annotate(input_vcf: str, output_vcf: str,
@@ -11,7 +11,7 @@ def annotate(input_vcf: str, output_vcf: str,
              crossref: bool = False,
              variab: bool = False,
              predict: bool = False,
-             offline: bool = False) -> bool:
+             offline: bool = False):
     """
     Annotate a VCF file using information from HmtVar.
 
@@ -42,7 +42,7 @@ def annotate(input_vcf: str, output_vcf: str,
     :param bool offline: annotate VCF using previously downloaded
         databases (offline mode) (default: False)
 
-    :return: bool
+    :return:
     """
     if not basic and not crossref and not variab and not predict:
         basic, crossref, variab, predict = True, True, True, True
@@ -73,16 +73,16 @@ def annotate(input_vcf: str, output_vcf: str,
                                    basic, crossref, variab, predict)
     vcf.annotate()
 
-    return True
+    return
 
 
-def dump() -> bool:
+def dump():
     """
     Download databases from HmtVar for offline annotation.
 
-    :return: bool
+    :return:
     """
     dumper = DataDumper()
     dumper.download_data()
 
-    return True
+    return

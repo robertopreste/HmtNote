@@ -1,0 +1,42 @@
+##fileformat=VCFv4.1
+##samtoolsVersion=0.1.18 (r982:295)
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Raw read depth">
+##INFO=<ID=DP4,Number=4,Type=Integer,Description="# high-quality ref-forward bases, ref-reverse, alt-forward and alt-reverse bases">
+##INFO=<ID=MQ,Number=1,Type=Integer,Description="Root-mean-square mapping quality of covering reads">
+##INFO=<ID=FQ,Number=1,Type=Float,Description="Phred probability of all samples being the same">
+##INFO=<ID=AF1,Number=1,Type=Float,Description="Max-likelihood estimate of the first ALT allele frequency (assuming HWE)">
+##INFO=<ID=AC1,Number=1,Type=Float,Description="Max-likelihood estimate of the first ALT allele count (no HWE assumption)">
+##INFO=<ID=G3,Number=3,Type=Float,Description="ML estimate of genotype frequencies">
+##INFO=<ID=HWE,Number=1,Type=Float,Description="Chi^2 based HWE test P-value based on G3">
+##INFO=<ID=CLR,Number=1,Type=Integer,Description="Log ratio of genotype likelihoods with and without the constraint">
+##INFO=<ID=UGT,Number=1,Type=String,Description="The most probable unconstrained genotype configuration in the trio">
+##INFO=<ID=CGT,Number=1,Type=String,Description="The most probable constrained genotype configuration in the trio">
+##INFO=<ID=PV4,Number=4,Type=Float,Description="P-values for strand bias, baseQ bias, mapQ bias and tail distance bias">
+##INFO=<ID=INDEL,Number=0,Type=Flag,Description="Indicates that the variant is an INDEL.">
+##INFO=<ID=PC2,Number=2,Type=Integer,Description="Phred probability of the nonRef allele frequency in group1 samples being larger (,smaller) than in group2.">
+##INFO=<ID=PCHI2,Number=1,Type=Float,Description="Posterior weighted chi^2 P-value for testing the association between group1 and group2 samples.">
+##INFO=<ID=QCHI2,Number=1,Type=Integer,Description="Phred scaled PCHI2.">
+##INFO=<ID=PR,Number=1,Type=Integer,Description="# permutations yielding a smaller PCHI2.">
+##INFO=<ID=VDB,Number=1,Type=Float,Description="Variant Distance Bias">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=GL,Number=3,Type=Float,Description="Likelihoods for RR,RA,AA genotypes (R=ref,A=alt)">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="# high-quality bases">
+##FORMAT=<ID=SP,Number=1,Type=Integer,Description="Phred-scaled strand bias P-value">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="List of Phred-scaled genotype likelihoods">
+##INFO=<ID=MutPred_Prediction,Number=A,Type=String,Description="Pathogenicity prediction offered by MutPred">
+##INFO=<ID=MutPred_Probability,Number=A,Type=String,Description="Confidence of the pathogenicity prediction offered by MutPred">
+##INFO=<ID=Panther_Prediction,Number=A,Type=String,Description="Pathogenicity prediction offered by Panther">
+##INFO=<ID=Panther_Probability,Number=A,Type=String,Description="Confidence of the pathogenicity prediction offered by Panther">
+##INFO=<ID=PhDSNP_Prediction,Number=A,Type=String,Description="Pathogenicity prediction offered by PhD SNP">
+##INFO=<ID=PhDSNP_Probability,Number=A,Type=String,Description="Confidence of the pathogenicity prediction offered by PhD SNP">
+##INFO=<ID=SNPsGO_Prediction,Number=A,Type=String,Description="Pathogenicity prediction offered by SNPs & GO">
+##INFO=<ID=SNPsGO_Probability,Number=A,Type=String,Description="Confidence of the pathogenicity prediction offered by SNPs & GO">
+##INFO=<ID=Polyphen2HumDiv_Prediction,Number=A,Type=String,Description="Pathogenicity prediction offered by Polyphen2 HumDiv">
+##INFO=<ID=Polyphen2HumDiv_Probability,Number=A,Type=String,Description="Confidence of the pathogenicity prediction offered by Polyphen2 HumDiv">
+##INFO=<ID=Polyphen2HumVar_Prediction,Number=A,Type=String,Description="Pathogenicity prediction offered by Polyphen2 HumVar">
+##INFO=<ID=Polyphen2HumVar_Probability,Number=A,Type=String,Description="Confidence of the pathogenicity prediction offered by Polyphen2 HumVar">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample
+MT	263	.	A	G	210	.	DP=302;VDB=0.0417;AF1=1.0;AC1=2.0;DP4=0,0,289,0;MQ=56;FQ=-282.0;MutPred_Prediction=.;MutPred_Probability=.;Panther_Prediction=.;Panther_Probability=.;PhDSNP_Prediction=.;PhDSNP_Probability=.;SNPsGO_Prediction=.;SNPsGO_Probability=.;Polyphen2HumDiv_Prediction=.;Polyphen2HumDiv_Probability=.;Polyphen2HumVar_Prediction=.;Polyphen2HumVar_Probability=.	GT:PL:GQ	1/1:243,255,0:99
+MT	420	.	C	.	283	.	DP=787;VDB=0.0268;AF1=0.0;AC1=0.0;DP4=450,313,3,0;MQ=52;FQ=-282.0;PV4=0.27,1.3e-11,0.11,1.0	PL	0
+MT	750	.	A	G	222	.	DP=890;VDB=0.0435;AF1=1.0;AC1=2.0;DP4=0,3,483,315;MQ=45;FQ=-282.0;PV4=0.062,1.0,0.18,1.0;MutPred_Prediction=.;MutPred_Probability=.;Panther_Prediction=.;Panther_Probability=.;PhDSNP_Prediction=.;PhDSNP_Probability=.;SNPsGO_Prediction=.;SNPsGO_Probability=.;Polyphen2HumDiv_Prediction=.;Polyphen2HumDiv_Probability=.;Polyphen2HumVar_Prediction=.;Polyphen2HumVar_Probability=.	GT:PL:GQ	1/1:255,255,0:99
