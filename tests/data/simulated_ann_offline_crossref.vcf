@@ -20,7 +20,6 @@ chrMT	203	.	G	GT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDise
 chrMT	248	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=ovarian control tissue
 chrMT	263	.	A	G	.	PASS	AC=1;AN=2;Clinvar=434777;dbSNP=rs2853515;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=POLG/MNGIE muscle
 chrMT	290	.	AA	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=MNGIE fibroblasts
-chrMT	302	.	AC	ACC,ACCC,A	.	PASS	AC=1,1,1;AN=6;Clinvar=.,.,.;dbSNP=.,.,.;OMIM=.,.,.;MitomapAssociatedDiseases=.,.,.;MitomapSomaticMutations=.,.,.
 chrMT	309	.	CT	C,CCT	.	PASS	AC=2;AN=2;Clinvar=.,.;dbSNP=.,.;OMIM=.,.;MitomapAssociatedDiseases=.,.;MitomapSomaticMutations=breast tumor,.
 chrMT	310	.	T	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=normal buccal swab
 chrMT	375	.	C	CC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=colonic crypts
@@ -28,7 +27,6 @@ chrMT	383	.	T	TT	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDise
 chrMT	404	.	CT	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=Twinkle/PEO frontal cortex
 chrMT	514	.	C	CCG	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=head/neck tumor
 chrMT	522	.	CNN	C	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=rs78907894;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
-chrMT	524	.	C	CAC,CACAC	.	PASS	AC=1,1;AN=4;Clinvar=.,.;dbSNP=.,.;OMIM=.,.;MitomapAssociatedDiseases=.,.;MitomapSomaticMutations=.,.
 chrMT	567	.	A	AC	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=.;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=Twinkle/PEO frontal cortex
 chrMT	709	.	G	A	.	PASS	AC=1;AN=2;Clinvar=.;dbSNP=rs2853517;OMIM=.;MitomapAssociatedDiseases=Possibly LVNC-associated;MitomapSomaticMutations=.
 chrMT	750	.	A	G	.	PASS	AC=1;AN=2;Clinvar=434781;dbSNP=rs2853518;OMIM=.;MitomapAssociatedDiseases=.;MitomapSomaticMutations=.
