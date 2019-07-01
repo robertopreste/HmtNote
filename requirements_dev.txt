@@ -9,7 +9,7 @@ Sphinx==2.1.2
 sphinx-click==2.2.0
 twine==1.13.0
 click==7.0
-pytest==4.6.3
+pytest==5.0.0
 pytest-runner==5.1
 pytest-cov==2.7.1
 pandas==0.24.2
