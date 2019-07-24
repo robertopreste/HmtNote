@@ -30,7 +30,19 @@ _FIELDS_CROSSREF = (
     ("MitomapAssociatedDiseases", "mitomap_associated_disease",
      "Diseases associated to the variant according to Mitomap"),
     ("MitomapSomaticMutations", "somatic_mutations",
-     "Diseases associated to the variant according to Mitomap Somatic Mutations")
+     "Diseases associated to the variant according to Mitomap Somatic Mutations"),
+    ("MitomapHeteroplasmy", "mitomap_hetero",
+     "The variant was found as heteroplasmic in Mitomap datasets (Y=yes,N=no)"),
+    ("MitomapHomoplasmy", "mitomap_homo",
+     "The variant was found as homoplasmic in Mitomap datasets (Y=yes,N=no)"),
+    ("SomaticMutationsHeteroplasmy", "sm_hetero",
+     "The variant was found as heteroplasmic in Mitomap Somatic Mutations datasets (Y=yes,N=no)"),
+    ("SomaticMutationsHomoplasmy", "sm_homo",
+     "The variant was found as homoplasmic in Mitomap Somatic Mutations datasets (Y=yes,N=no)"),
+    ("1KGenomesHeteroplasmy", "genomes1K_hetero",
+     "The variant was found as heteroplasmic in 1KGenomes datasets (Y=yes,N=no)"),
+    ("1KGenomesHomoplasmy", "genomes1K_homo",
+     "The variant was found as homoplasmic in 1KGenomes datasets (Y=yes,N=no)")
 )
 _FIELDS_VARIAB = (
     ("NtVarH", "nt_var",
@@ -230,7 +242,7 @@ class _HmtVarVariant:
         resp = call.json()
         if resp == {}:
             # TODO: fix this, it's quite ugly
-            resp = {"CrossRef": {"none": "."},
+            resp = {"CrossRef": {"none": "."}, "Plasmy": {"none": "."},
                     "Variab": {"none": "."},
                     "Predict": {"none": "."}}
         return resp
@@ -268,7 +280,7 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
         call = self.dbcall()
         resp = call.to_dict(orient="records")
         if not resp:
-            resp = [{"CrossRef": {"none": "."},
+            resp = [{"CrossRef": {"none": "."}, "Plasmy": {"none": "."},
                      "Variab": {"none": "."},
                      "Predict": {"none": "."}}]
 
@@ -315,8 +327,10 @@ class _HmtVarParser:
                 field.field_value = response.get(field.api_slug,
                                                  ".")
             for field in self.crossrefs:
-                field.field_value = response.get("CrossRef").get(field.api_slug,
-                                                                 ".")
+                if field.api_slug in response.get("CrossRef"):
+                    field.field_value = response.get("CrossRef").get(field.api_slug, ".")
+                else:  # plasmy field
+                    field.field_value = response.get("Plasmy").get(field.api_slug, ".")
             for field in self.variabs:
                 field.field_value = response.get("Variab").get(field.api_slug,
                                                                ".")
@@ -353,8 +367,10 @@ class _OfflineHmtVarParser(_HmtVarParser):
                 field.field_value = response.get(field.api_slug,
                                                  ".")
             for field in self.crossrefs:
-                field.field_value = response.get("CrossRef").get(field.api_slug,
-                                                                 ".")
+                if field.api_slug in response.get("CrossRef"):
+                    field.field_value = response.get("CrossRef").get(field.api_slug, ".")
+                else:  # plasmy field
+                    field.field_value = response.get("Plasmy").get(field.api_slug, ".")
             for field in self.variabs:
                 field.field_value = response.get("Variab").get(field.api_slug,
                                                                ".")
