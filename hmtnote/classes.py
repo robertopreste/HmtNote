@@ -12,6 +12,7 @@ import pandas as pd
 from typing import Union
 import vcfpy2 as vcfpy
 import subprocess
+import allel
 
 
 _FIELDS_BASIC = (
@@ -423,6 +424,7 @@ class Annotator:
                 "cat {} | grep -v '^#' | wc -l".format(self.vcf_in),
                 shell=True).strip()
         )
+        self._n_alleles = []
 
     @staticmethod
     def _is_variation(record) -> bool:
@@ -506,6 +508,7 @@ class Annotator:
                                length=self._n_records,
                                label="Annotating...") as bar:
             for record in bar:
+                self._n_alleles.append(len(record.ALT))
                 if self._is_variation(record) and self._is_mitochondrial(record):
                     annots = _HmtVarParser(record)
                     annots.parse()
@@ -526,6 +529,25 @@ class Annotator:
 
         self.reader.close()
         self.writer.close()
+
+    def to_csv(self):
+        """Convert the resulting annotated VCF file to CSV format.
+
+        Create an additional annotated CSV file with the same name of
+        self.vcf_out (except for a .csv extension) and in its same
+        location.
+
+        :return:
+        """
+        base_path, base_name = os.path.split(self.vcf_out)
+        csv_name = os.path.splitext(base_name)[0]
+        csv_out = os.path.join(base_path, "{}.csv".format(csv_name))
+
+        # The alt_number option specifies the number of alternate allele to
+        # consider, and is automatically set to the max number of alleles
+        # in the current VCF file.
+        allel.vcf_to_csv(self.vcf_out, csv_out,
+                         fields="*", alt_number=max(self._n_alleles))
 
 
 class DataDumper:
@@ -707,6 +729,7 @@ class OfflineAnnotator(Annotator):
                                length=self._n_records,
                                label="Annotating...") as bar:
             for record in bar:
+                self._n_alleles.append(len(record.ALT))
                 if self._is_variation(record) and self._is_mitochondrial(record):
                     annots = _OfflineHmtVarParser(record, self.db)
                     annots.parse()

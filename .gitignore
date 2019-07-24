@@ -235,4 +235,4 @@ pip-selfcheck.json
 hmtnote_dump.pkl
 rtdocs/
 tests/prova.py
-tests/data/test.vcf
+tests/data/test.*

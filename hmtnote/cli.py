@@ -31,7 +31,10 @@ def main():
 @click.option("--offline", "-o", is_flag=True, default=False,
               help="""Annotate VCF using previously downloaded databases 
               (offline mode) (default: False)""")
-def annotate(input_vcf, output_vcf, basic, crossref, variab, predict, offline):
+@click.option("--csv", "-C", is_flag=True, default=False,
+              help="""Produce an additional annotated CSV file (default: False)""")
+def annotate(input_vcf, output_vcf,
+             basic, crossref, variab, predict, offline, csv):
     """
     Annotate a VCF file using data from HmtVar.
 
@@ -41,6 +44,9 @@ def annotate(input_vcf, output_vcf, basic, crossref, variab, predict, offline):
     If no internet connection is available, use the ``--offline`` option to use
     the local database for annotation (you must have previously downloaded it
     using the ``hmtnote dump`` command).
+    If ``csv`` is set to True, an additional annotated CSV file will be
+    produced (along with the annotated VCF file) with the same base name
+    and in the same path as the provided ``output_vcf`` argument.
     """
     if not basic and not crossref and not variab and not predict:
         basic, crossref, variab, predict = True, True, True, True
@@ -70,6 +76,10 @@ def annotate(input_vcf, output_vcf, basic, crossref, variab, predict, offline):
             vcf = OfflineAnnotator(input_vcf, output_vcf,
                                    basic, crossref, variab, predict)
     vcf.annotate()
+    if csv:
+        click.echo("Converting annotated VCF file to CSV format...", nl=False)
+        vcf.to_csv()
+        click.echo("Done.")
 
     return 0
 

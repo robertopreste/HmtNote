@@ -17,6 +17,12 @@ By default, HmtNote will annotate the VCF file using all four groups of annotati
     hmtnote annotate input.vcf annotated_predictions.vcf --predict
     hmtnote annotate input.vcf annotate_basic_variability.vcf --basic --variab
 
+It is also possible to convert the resulting annotated VCF file to CSV format, for a simpler visual inspection of the data, by simply specifying the ``--csv`` option **(please note that an output VCF file name must be provided)**::
+
+    hmtnote annotate input.vcf annotated.vcf --csv
+
+An additional ``annotated.csv`` file will be created in the same directory of ``annotated.vcf``.
+
 By default, HmtNote works by pulling the required data from HmtVar_ on the fly, but if you're planning to annotate VCF files offline, first download the annotation database using the ``dump`` command::
 
     hmtnote dump
@@ -46,6 +52,10 @@ By default, ``annotate_vcf()`` will annotate the VCF using all four groups of an
     annotate("input.vcf", "annotated_variability.vcf", variab=True)
     annotate("input.vcf", "annotated_predictions.vcf", predict=True)
     annotate("input.vcf", "annotate_basic_variability.vcf", basic=True, variab=True)
+
+An additional annotated CSV can be produced from the output VCF using the ``csv=True`` argument::
+
+    annotate("input.vcf", "annotated.vcf", csv=True)
 
 If you want to work offline, HmtNote offers an *offline mode*, that will download the annotation database so that it can be used when no internet connection is available. The ``dump()`` function allows to download the local HmtNote database::
 
