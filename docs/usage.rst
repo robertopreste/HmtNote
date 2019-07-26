@@ -83,7 +83,7 @@ Basic information about the variant; they include:
 * AaChange: Aminoacidic change determined
 * Pathogenicity: Pathogenicity predicted by HmtVar
 * DiseaseScore: Disease score calculated by HmtVar
-* HmtVar: HmtVar_ ID of the variant (can be used to view the related VariantCard on `https://www.hmtvar.uniba.it/varCard/<HmtVarID>`)
+* HmtVar: HmtVar_ ID of the variant (can be used to view the related VariantCard on ``https://www.hmtvar.uniba.it/varCard/<HmtVarID>``)
 
 Cross-reference
 ===============
@@ -95,6 +95,12 @@ Cross-reference information about the variant; they include:
 * OMIM: OMIM_ ID of the variant
 * MitomapAssociatedDiseases: Diseases associated to the variant according to Mitomap_
 * MitomapSomaticMutations: Diseases associated to the variant according to `Mitomap Somatic Mutations`_
+* MitomapHeteroplasmy: The variant was found as heteroplasmic in Mitomap datasets
+* MitomapHomoplasmy: The variant was found as homoplasmic in Mitomap datasets
+* SomaticMutationsHeteroplasmy: The variant was found as heteroplasmic in Mitomap Somatic Mutations datasets
+* SomaticMutationsHomoplasmy: The variant was found as homoplasmic in Mitomap Somatic Mutations datasets
+* 1KGenomesHeteroplasmy: The variant was found as heteroplasmic in 1KGenomes datasets
+* 1KGenomesHomoplasmy: The variant was found as homoplasmic in 1KGenomes datasets
 
 Variability
 ===========
