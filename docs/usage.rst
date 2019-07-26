@@ -95,6 +95,7 @@ Cross-reference information about the variant; they include:
 * OMIM: OMIM_ ID of the variant
 * MitomapAssociatedDiseases: Diseases associated to the variant according to Mitomap_
 * MitomapSomaticMutations: Diseases associated to the variant according to `Mitomap Somatic Mutations`_
+* LiteratureDiseases: Diseases associated to the variant according to studies found in literature
 * MitomapHeteroplasmy: The variant was found as heteroplasmic in Mitomap datasets
 * MitomapHomoplasmy: The variant was found as homoplasmic in Mitomap datasets
 * SomaticMutationsHeteroplasmy: The variant was found as heteroplasmic in Mitomap Somatic Mutations datasets
