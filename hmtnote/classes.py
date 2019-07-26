@@ -31,8 +31,6 @@ _FIELDS_CROSSREF = (
      "Diseases associated to the variant according to Mitomap"),
     ("MitomapSomaticMutations", "somatic_mutations",
      "Diseases associated to the variant according to Mitomap Somatic Mutations"),
-    ("LiteratureDiseases", "pubs_disease",
-     "Diseases associated to the variant according to studies found in literature"),
     ("MitomapHeteroplasmy", "mitomap_hetero",
      "The variant was found as heteroplasmic in Mitomap datasets (Y=yes,N=no)"),
     ("MitomapHomoplasmy", "mitomap_homo",
