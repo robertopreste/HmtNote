@@ -50,7 +50,7 @@ chrMT,8935,.,C,T,,,,1,-1,-1,2,MT-ATP6,,,L137F,,,pathogenic,,,0.81,,,15048,,,True
 chrMT,9389,.,A,G,,,,1,-1,-1,2,MT-CO3,,,V61V,,,.,,,.,,,16110,,,True,1,0,0,0,True
 chrMT,9536,.,CC,C,,,,1,-1,-1,2,MT-CO3,,,frameshift,,,.,,,.,,,16466,,,True,1,-1,0,0,False
 chrMT,9537,.,C,CC,,,,1,-1,-1,2,MT-CO3,,,frameshift,,,.,,,.,,,16464,,,True,1,1,0,0,False
-chrMT,10463,.,T,C,,,,1,-1,-1,2,MT-TR,,,.,,,polymorphic,,,0.1,,,18734,,,True,1,0,0,0,True
+chrMT,10463,.,T,C,,,,1,-1,-1,2,MT-TR,,,.,,,polymorphic,,,0.2,,,18734,,,True,1,0,0,0,True
 chrMT,10952,.,C,CC,,,,1,-1,-1,2,MT-ND4,,,frameshift,,,.,,,.,,,19898,,,True,1,1,0,0,False
 chrMT,11251,.,A,G,,,,1,-1,-1,2,MT-ND4,,,L164L,,,.,,,.,,,20593,,,True,1,0,0,0,True
 chrMT,11621,.,ATA,A,,,,1,-1,-1,2,MT-ND4,,,frameshift,,,.,,,.,,,21459,,,True,1,-2,0,0,False
