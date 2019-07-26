@@ -17,6 +17,12 @@ By default, HmtNote will annotate the VCF file using all four groups of annotati
     hmtnote annotate input.vcf annotated_predictions.vcf --predict
     hmtnote annotate input.vcf annotate_basic_variability.vcf --basic --variab
 
+It is also possible to convert the resulting annotated VCF file to CSV format, for a simpler visual inspection of the data, by simply specifying the ``--csv`` option **(please note that an output VCF file name must be provided)**::
+
+    hmtnote annotate input.vcf annotated.vcf --csv
+
+An additional ``annotated.csv`` file will be created in the same directory of ``annotated.vcf``.
+
 By default, HmtNote works by pulling the required data from HmtVar_ on the fly, but if you're planning to annotate VCF files offline, first download the annotation database using the ``dump`` command::
 
     hmtnote dump
@@ -47,6 +53,10 @@ By default, ``annotate_vcf()`` will annotate the VCF using all four groups of an
     annotate("input.vcf", "annotated_predictions.vcf", predict=True)
     annotate("input.vcf", "annotate_basic_variability.vcf", basic=True, variab=True)
 
+An additional annotated CSV can be produced from the output VCF using the ``csv=True`` argument::
+
+    annotate("input.vcf", "annotated.vcf", csv=True)
+
 If you want to work offline, HmtNote offers an *offline mode*, that will download the annotation database so that it can be used when no internet connection is available. The ``dump()`` function allows to download the local HmtNote database::
 
     from hmtnote import dump
@@ -73,7 +83,7 @@ Basic information about the variant; they include:
 * AaChange: Aminoacidic change determined
 * Pathogenicity: Pathogenicity predicted by HmtVar
 * DiseaseScore: Disease score calculated by HmtVar
-* HmtVar: HmtVar_ ID of the variant (can be used to view the related VariantCard on `https://www.hmtvar.uniba.it/varCard/<HmtVarID>`)
+* HmtVar: HmtVar_ ID of the variant (can be used to view the related VariantCard on ``https://www.hmtvar.uniba.it/varCard/<HmtVarID>``)
 
 Cross-reference
 ===============
@@ -85,6 +95,12 @@ Cross-reference information about the variant; they include:
 * OMIM: OMIM_ ID of the variant
 * MitomapAssociatedDiseases: Diseases associated to the variant according to Mitomap_
 * MitomapSomaticMutations: Diseases associated to the variant according to `Mitomap Somatic Mutations`_
+* MitomapHeteroplasmy: The variant was found as heteroplasmic in Mitomap datasets
+* MitomapHomoplasmy: The variant was found as homoplasmic in Mitomap datasets
+* SomaticMutationsHeteroplasmy: The variant was found as heteroplasmic in Mitomap Somatic Mutations datasets
+* SomaticMutationsHomoplasmy: The variant was found as homoplasmic in Mitomap Somatic Mutations datasets
+* 1KGenomesHeteroplasmy: The variant was found as heteroplasmic in 1KGenomes datasets
+* 1KGenomesHomoplasmy: The variant was found as homoplasmic in 1KGenomes datasets
 
 Variability
 ===========

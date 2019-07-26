@@ -1,0 +1,79 @@
+CHROM,POS,ID,REF,ALT_1,ALT_2,ALT_3,QUAL,AC_1,AC_2,AC_3,AN,Clinvar_1,Clinvar_2,Clinvar_3,dbSNP_1,dbSNP_2,dbSNP_3,OMIM_1,OMIM_2,OMIM_3,MitomapAssociatedDiseases_1,MitomapAssociatedDiseases_2,MitomapAssociatedDiseases_3,MitomapSomaticMutations_1,MitomapSomaticMutations_2,MitomapSomaticMutations_3,MitomapHeteroplasmy_1,MitomapHeteroplasmy_2,MitomapHeteroplasmy_3,MitomapHomoplasmy_1,MitomapHomoplasmy_2,MitomapHomoplasmy_3,SomaticMutationsHeteroplasmy_1,SomaticMutationsHeteroplasmy_2,SomaticMutationsHeteroplasmy_3,SomaticMutationsHomoplasmy_1,SomaticMutationsHomoplasmy_2,SomaticMutationsHomoplasmy_3,1KGenomesHeteroplasmy_1,1KGenomesHeteroplasmy_2,1KGenomesHeteroplasmy_3,1KGenomesHomoplasmy_1,1KGenomesHomoplasmy_2,1KGenomesHomoplasmy_3,FILTER_PASS,numalt,altlen_1,altlen_2,altlen_3,is_snp
+chrMT,73,.,A,G,,,,2,-1,-1,2,.,,,rs869183622,,,.,,,.,,,aging brains%2C POLG/PEO & control muscle%2C buccal cell%2C thyroid & prostate tumors,,,.,,,.,,,Y,,,Y,,,.,,,.,,,True,1,0,0,0,True
+chrMT,97,.,GC,G,GCT,,,1,1,-1,4,.,.,,.,.,,.,.,,.,.,,thyroid tumor,.,,.,.,,.,.,,N,.,,Y,.,,.,.,,.,.,,True,2,-1,1,0,False
+chrMT,106,.,GG,G,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,thyroid tumor,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,152,.,T,C,,,,1,-1,-1,2,.,,,rs117135796,,,.,,,.,,,elderly brains%2C elderly fibroblasts%2C ovarian carcinoma%2C breast tumor,,,.,,,.,,,Y,,,Y,,,.,,,.,,,True,1,0,0,0,True
+chrMT,190,.,C,CA,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,POLG/PEO muscle,,,.,,,.,,,Y,,,N,,,Y,,,N,,,True,1,1,0,0,False
+chrMT,191,.,AT,A,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,POLG/PEO muscle,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,195,.,T,C,,,,2,-1,-1,2,.,,,rs2857291,,,.,,,BD-associated / melanoma pts,,,elderly fibroblasts%2C elderly/AD brains%2C tumors%3A lung%2C thyroid%2C ovarian%2C prostate%2C glioblastoma,,,N,,,Y,,,Y,,,Y,,,.,,,.,,,True,1,0,0,0,True
+chrMT,203,.,G,GT,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,POLG/PEO muscle,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,1,0,0,False
+chrMT,248,.,AA,A,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,ovarian control tissue,,,.,,,.,,,N,,,Y,,,Y,,,N,,,True,1,-1,0,0,False
+chrMT,263,.,A,G,,,,1,-1,-1,2,434777,,,rs2853515,,,.,,,.,,,POLG/MNGIE muscle,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,0,0,0,True
+chrMT,290,.,AA,A,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,MNGIE fibroblasts,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,309,.,CT,C,CCT,,,2,-1,-1,2,.,.,,.,.,,.,.,,.,.,,breast tumor,.,,.,.,,.,.,,N,.,,Y,.,,Y,.,,N,.,,True,2,-1,1,0,False
+chrMT,310,.,T,C,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,normal buccal swab,,,.,,,.,,,Y,,,Y,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,375,.,C,CC,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,colonic crypts,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,1,0,0,False
+chrMT,383,.,T,TT,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,elderly fibroblasts,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,1,0,0,False
+chrMT,404,.,CT,C,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,Twinkle/PEO frontal cortex,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,514,.,C,CCG,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,head/neck tumor,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,2,0,0,False
+chrMT,522,.,CNN,C,,,,1,-1,-1,2,.,,,rs78907894,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,Y,,,True,1,-2,0,0,False
+chrMT,567,.,A,AC,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,Twinkle/PEO frontal cortex,,,.,,,.,,,Y,,,N,,,Y,,,N,,,True,1,1,0,0,False
+chrMT,709,.,G,A,,,,1,-1,-1,2,.,,,rs2853517,,,.,,,Possibly LVNC-associated,,,.,,,N,,,Y,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,750,.,A,G,,,,1,-1,-1,2,434781,,,rs2853518,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,959,.,CC,C,,,,1,-1,-1,2,not specified,,,rs397515730,,,.,,,CPEO / poss. hypertension factor,,,.,,,N,,,Y,,,.,,,.,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,960,.,CT,C,CCT,,,1,1,-1,4,.,.,,.,.,,.,.,,DM,.,,.,.,,Y,.,,N,.,,.,.,,.,.,,.,.,,.,.,,True,2,-1,1,0,False
+chrMT,961,.,T,TC,,,,1,-1,-1,2,.,,,.,,,.,,,MERRF / KSS overlap,,,.,,,Y,,,N,,,.,,,.,,,.,,,.,,,True,1,1,0,0,False
+chrMT,1438,.,A,G,,,,1,-1,-1,2,51390,,,rs2001030,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,1888,.,G,A,,,,1,-1,-1,2,.,,,rs2897260,,,.,,,Combined OXPHOS defects & severe multisystem disorder,,,.,,,Y,,,N,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,2394,.,AA,A,,,,1,-1,-1,2,.,,,rs373605184,,,.,,,LIMM / MERRF / mito disease,,,.,,,Y,,,N,,,.,,,.,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,2706,.,A,G,,,,1,-1,-1,2,.,,,rs2854128,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,2998,.,T,TT,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,lung tumor,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,1,0,0,False
+chrMT,3270,.,CT,C,,,,1,-1,-1,2,.,,,.,,,.,,,Ocular myopathy,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,3271,.,TT,T,,,,1,-1,-1,2,.,,,.,,,.,,,Neuropsychiatric syndrome + cataract,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,4216,.,T,C,,,,1,-1,-1,2,24763,,,rs1599988,,,516000#0003,,,LHON / Insulin Resistance /possible adaptive high altitude variant,,,acute leukemia platelets%2C leukocytes & bone marrow,,,N,,,Y,,,Y,,,Y,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,4316,.,AA,A,,,,1,-1,-1,2,not specified,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,4769,.,A,G,,,,1,-1,-1,2,434779,,,rs3021086,,,.,,,Mitochondrial myopathy,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,5001,.,A,AA,,,,1,-1,-1,2,.,,,.,,,.,,,Developmental delay%2C seizure%2C cardiomyopathy%2C lactic acidosis,,,.,,,Y,,,N,,,.,,,.,,,.,,,.,,,True,1,1,0,0,False
+chrMT,5250,.,TT,T,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,parotid oncocytoma,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,5407,.,TA,T,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,papillary thyroid carcinoma,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,5537,.,A,AT,,,,1,-1,-1,2,Encephalopathy%2C mitochondrial%3BLeigh syndrome,,,rs199474672,,,590095#0002,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,1,0,0,False
+chrMT,5884,.,AT,A,,,,1,-1,-1,2,.,,,rs118203892,,,.,,,.,,,CPEO muscle,,,.,,,.,,,Y,,,N,,,Y,,,N,,,True,1,-1,0,0,False
+chrMT,6697,.,AA,A,,,,1,-1,-1,2,.,,,.,,,.,,,Myopathy,,,colonic crypts,,,Y,,,N,,,N,,,Y,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,7028,.,C,T,,,,1,-1,-1,2,.,,,rs2015062,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,7406,.,C,CCCC,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,head/neck tumor,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,3,0,0,False
+chrMT,7470,.,CC,C,,,,1,-1,-1,2,not specified,,,rs397515727,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,7472,.,A,AC,,,,1,-1,-1,2,.,,,rs199474819,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,1,0,0,False
+chrMT,8280,.,ACCCCCTCTA,A,,,,1,-1,-1,2,.,,,rs369704279,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,-9,0,0,False
+chrMT,8697,.,G,A,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,thyroid tumor,,,.,,,.,,,N,,,Y,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,8860,.,A,G,,,,1,-1,-1,2,.,,,rs2001031,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,8935,.,C,T,,,,1,-1,-1,2,.,,,rs28377547,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,N,,,True,1,0,0,0,True
+chrMT,9389,.,A,G,,,,1,-1,-1,2,.,,,rs28462217,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,9536,.,CC,C,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,colonic crypts,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,9537,.,C,CC,,,,1,-1,-1,2,Cytochrome-c oxidase deficiency%3BLeigh syndrome,,,rs267606614,,,516050#0005,,,Leigh Disease,,,colonic crypts,,,N,,,Y,,,N,,,Y,,,.,,,.,,,True,1,1,0,0,False
+chrMT,10463,.,T,C,,,,1,-1,-1,2,.,,,rs28358279,,,.,,,.,,,endometrium tumor,,,.,,,.,,,N,,,Y,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,10952,.,C,CC,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,oncocytoma,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,1,0,0,False
+chrMT,11251,.,A,G,,,,1,-1,-1,2,.,,,rs869096886,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,11621,.,ATA,A,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,-2,0,0,False
+chrMT,11719,.,G,A,,,,1,-1,-1,2,.,,,rs2853495,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,11872,.,C,CC,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,pituitary oncocytoma,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,1,0,0,False
+chrMT,12232,.,TC,T,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,control colon tissue,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,12384,.,T,TT,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,1,0,0,False
+chrMT,12633,.,C,A,,,,1,-1,-1,2,.,,,rs3926883,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,13083,.,A,AC,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,pituitary oncocytoma,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,1,0,0,False
+chrMT,13368,.,G,A,,,,1,-1,-1,2,.,,,rs3899498,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,14080,.,G,GA,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,pituitary oncocytoma,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,1,0,0,False
+chrMT,14509,.,AA,A,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,endometrial tumor,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,14766,.,C,T,,,,1,-1,-1,2,150279,,,rs193302980,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,15326,.,A,G,,,,1,-1,-1,2,150284,,,rs2853508,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,15452,.,C,A,,,,1,-1,-1,2,153648,,,rs193302994,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,15540,.,C,CC,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,colonic crypts,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,1,0,0,False
+chrMT,15939,.,CT,C,,,,1,-1,-1,2,.,,,.,,,.,,,MERRF-like disease,,,.,,,.,,,.,,,.,,,.,,,Y,,,N,,,True,1,-1,0,0,False
+chrMT,16032,.,T,TTTCTCTGTTCTTTCAT,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,16,0,0,False
+chrMT,16052,.,CC,C,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,myocyte,,,.,,,.,,,Y,,,N,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,16163,.,A,G,,,,1,-1,-1,2,.,,,rs41479950,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,16182,.,AA,A,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,colonic crypts,,,.,,,.,,,N,,,Y,,,.,,,.,,,True,1,-1,0,0,False
+chrMT,16186,.,C,T,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,True,1,0,0,0,True
+chrMT,16189,.,T,TT,,,,1,-1,-1,2,.,,,.,,,.,,,.,,,bladder tumor,,,.,,,.,,,N,,,Y,,,Y,,,N,,,True,1,1,0,0,False
+chrMT,16193,.,C,CC,CCC,CCCC,,1,1,-1,4,.,.,.,rs869031780,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,True,3,1,2,3,False
+chrMT,16294,.,C,T,,,,1,-1,-1,2,.,,,rs140662392,,,.,,,.,,,.,,,.,,,.,,,.,,,.,,,Y,,,Y,,,True,1,0,0,0,True
+chrMT,16519,.,T,C,,,,2,-1,-1,2,.,,,rs3937033,,,.,,,.,,,glioblastoma%2C gastric%2C lung%2C ovarian%2C prostate tumors,,,.,,,.,,,Y,,,Y,,,.,,,.,,,True,1,0,0,0,True

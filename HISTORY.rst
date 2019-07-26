@@ -113,3 +113,11 @@ History
 * Check internet connection using httpstat.us;
 * Update tests and add more test cases;
 * Update documentation with detailed API usage.
+
+0.7.0 (2019-07-26)
+------------------
+
+* Add ``--csv`` command line option to convert output to CSV format;
+* Add homoplasmy annotations;
+* Update all tests accordingly;
+* Update documentation.

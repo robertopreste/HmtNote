@@ -2,7 +2,7 @@
 Installation
 ============
 
-**PLEASE NOTE: HmtNote only supports Python 3!**
+**PLEASE NOTE: HmtNote only supports Python >= 3.6!**
 
 Stable release
 --------------

@@ -10,8 +10,8 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = ["Click>=6.0", "requests>=2.21.0",
-                "pysam>=0.15.2", "pandas>=0.24.2", "aiohttp>=3.5.4",
-                "aiofiles>=0.4.0", "vcfpy2==0.1.2"]
+                "pysam>=0.15.2", "pandas==0.24.2", "aiohttp>=3.5.4",
+                "aiofiles>=0.4.0", "vcfpy2==0.1.2", "scikit-allel==1.2.1"]
 
 setup_requirements = ['pytest-runner', ]
 
@@ -26,7 +26,6 @@ setup(  # pragma: no cover
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
@@ -48,6 +47,6 @@ setup(  # pragma: no cover
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/robertopreste/hmtnote',
-    version='0.6.0',
+    version='0.7.0',
     zip_safe=False,
 )

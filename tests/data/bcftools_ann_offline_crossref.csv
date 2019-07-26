@@ -1,0 +1,4 @@
+CHROM,POS,ID,REF,ALT,QUAL,DP,DP4_1,DP4_2,DP4_3,DP4_4,MQ,FQ,AF1,AC1,G3_1,G3_2,G3_3,HWE,CLR,UGT,CGT,PV4_1,PV4_2,PV4_3,PV4_4,INDEL,PC2_1,PC2_2,PCHI2,QCHI2,PR,VDB,Clinvar,dbSNP,OMIM,MitomapAssociatedDiseases,MitomapSomaticMutations,MitomapHeteroplasmy,MitomapHomoplasmy,SomaticMutationsHeteroplasmy,SomaticMutationsHomoplasmy,1KGenomesHeteroplasmy,1KGenomesHomoplasmy,FILTER_PASS,numalt,altlen,is_snp
+MT,263,.,A,G,210.0,302,0,0,289,0,56,-282.0,1.0,2.0,,,,,-1,,,,,,,False,-1,-1,,-1,-1,0.04170000180602074,434777,rs2853515,.,.,POLG/MNGIE muscle,.,.,Y,N,.,.,False,1,0,True
+MT,420,.,C,,283.0,787,450,313,3,0,52,-282.0,0.0,0.0,,,,,-1,,,0.27000001072883606,1.3000000381735433e-11,0.10999999940395355,1.0,False,-1,-1,,-1,-1,0.026799999177455902,,,,,,,,,,,,False,0,0,False
+MT,750,.,A,G,222.0,890,0,3,483,315,45,-282.0,1.0,2.0,,,,,-1,,,0.06199999898672104,1.0,0.18000000715255737,1.0,False,-1,-1,,-1,-1,0.04349999874830246,434781,rs2853518,.,.,.,.,.,.,.,.,.,False,1,0,True

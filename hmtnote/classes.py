@@ -12,6 +12,7 @@ import pandas as pd
 from typing import Union
 import vcfpy2 as vcfpy
 import subprocess
+import allel
 
 
 _FIELDS_BASIC = (
@@ -29,8 +30,21 @@ _FIELDS_CROSSREF = (
     ("MitomapAssociatedDiseases", "mitomap_associated_disease",
      "Diseases associated to the variant according to Mitomap"),
     ("MitomapSomaticMutations", "somatic_mutations",
-     "Diseases associated to the variant according to Mitomap Somatic Mutations")
+     "Diseases associated to the variant according to Mitomap Somatic Mutations"),
+    ("MitomapHeteroplasmy", "mitomap_hetero",
+     "The variant was found as heteroplasmic in Mitomap datasets (Y=yes,N=no)"),
+    ("MitomapHomoplasmy", "mitomap_homo",
+     "The variant was found as homoplasmic in Mitomap datasets (Y=yes,N=no)"),
+    ("SomaticMutationsHeteroplasmy", "sm_hetero",
+     "The variant was found as heteroplasmic in Mitomap Somatic Mutations datasets (Y=yes,N=no)"),
+    ("SomaticMutationsHomoplasmy", "sm_homo",
+     "The variant was found as homoplasmic in Mitomap Somatic Mutations datasets (Y=yes,N=no)"),
+    ("1KGenomesHeteroplasmy", "genomes1K_hetero",
+     "The variant was found as heteroplasmic in 1KGenomes datasets (Y=yes,N=no)"),
+    ("1KGenomesHomoplasmy", "genomes1K_homo",
+     "The variant was found as homoplasmic in 1KGenomes datasets (Y=yes,N=no)")
 )
+
 _FIELDS_VARIAB = (
     ("NtVarH", "nt_var",
      "Nucleotide variability of the position in healthy individuals"),
@@ -65,6 +79,7 @@ _FIELDS_VARIAB = (
     ("AlleleFreqP_OC", "all_freq_p_OC",
      "Allele frequency of the variant in patient individuals from Oceania")
 )
+
 _FIELDS_PREDICT = (
     ("MutPred_Prediction", "mutPred_pred",
      "Pathogenicity prediction offered by MutPred"),
@@ -229,7 +244,7 @@ class _HmtVarVariant:
         resp = call.json()
         if resp == {}:
             # TODO: fix this, it's quite ugly
-            resp = {"CrossRef": {"none": "."},
+            resp = {"CrossRef": {"none": "."}, "Plasmy": {"none": "."},
                     "Variab": {"none": "."},
                     "Predict": {"none": "."}}
         return resp
@@ -267,7 +282,7 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
         call = self.dbcall()
         resp = call.to_dict(orient="records")
         if not resp:
-            resp = [{"CrossRef": {"none": "."},
+            resp = [{"CrossRef": {"none": "."}, "Plasmy": {"none": "."},
                      "Variab": {"none": "."},
                      "Predict": {"none": "."}}]
 
@@ -314,8 +329,10 @@ class _HmtVarParser:
                 field.field_value = response.get(field.api_slug,
                                                  ".")
             for field in self.crossrefs:
-                field.field_value = response.get("CrossRef").get(field.api_slug,
-                                                                 ".")
+                if field.api_slug in response.get("CrossRef"):
+                    field.field_value = response.get("CrossRef").get(field.api_slug, ".")
+                else:  # plasmy field
+                    field.field_value = response.get("Plasmy").get(field.api_slug, ".")
             for field in self.variabs:
                 field.field_value = response.get("Variab").get(field.api_slug,
                                                                ".")
@@ -352,8 +369,10 @@ class _OfflineHmtVarParser(_HmtVarParser):
                 field.field_value = response.get(field.api_slug,
                                                  ".")
             for field in self.crossrefs:
-                field.field_value = response.get("CrossRef").get(field.api_slug,
-                                                                 ".")
+                if field.api_slug in response.get("CrossRef"):
+                    field.field_value = response.get("CrossRef").get(field.api_slug, ".")
+                else:  # plasmy field
+                    field.field_value = response.get("Plasmy").get(field.api_slug, ".")
             for field in self.variabs:
                 field.field_value = response.get("Variab").get(field.api_slug,
                                                                ".")
@@ -423,6 +442,7 @@ class Annotator:
                 "cat {} | grep -v '^#' | wc -l".format(self.vcf_in),
                 shell=True).strip()
         )
+        self._n_alleles = []
 
     @staticmethod
     def _is_variation(record) -> bool:
@@ -506,6 +526,7 @@ class Annotator:
                                length=self._n_records,
                                label="Annotating...") as bar:
             for record in bar:
+                self._n_alleles.append(len(record.ALT))
                 if self._is_variation(record) and self._is_mitochondrial(record):
                     annots = _HmtVarParser(record)
                     annots.parse()
@@ -526,6 +547,25 @@ class Annotator:
 
         self.reader.close()
         self.writer.close()
+
+    def to_csv(self):
+        """Convert the resulting annotated VCF file to CSV format.
+
+        Create an additional annotated CSV file with the same name of
+        self.vcf_out (except for a .csv extension) and in its same
+        location.
+
+        :return:
+        """
+        base_path, base_name = os.path.split(self.vcf_out)
+        csv_name = os.path.splitext(base_name)[0]
+        csv_out = os.path.join(base_path, "{}.csv".format(csv_name))
+
+        # The alt_number option specifies the number of alternate allele to
+        # consider, and is automatically set to the max number of alleles
+        # in the current VCF file.
+        allel.vcf_to_csv(self.vcf_out, csv_out,
+                         fields="*", alt_number=max(self._n_alleles))
 
 
 class DataDumper:
@@ -707,6 +747,7 @@ class OfflineAnnotator(Annotator):
                                length=self._n_records,
                                label="Annotating...") as bar:
             for record in bar:
+                self._n_alleles.append(len(record.ALT))
                 if self._is_variation(record) and self._is_mitochondrial(record):
                     annots = _OfflineHmtVarParser(record, self.db)
                     annots.parse()

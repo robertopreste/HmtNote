@@ -60,7 +60,7 @@ chrMT	8935	.	C	T	.	PASS	AC=1;AN=2;Locus=MT-ATP6;AaChange=L137F;Pathogenicity=pat
 chrMT	9389	.	A	G	.	PASS	AC=1;AN=2;Locus=MT-CO3;AaChange=V61V;Pathogenicity=.;DiseaseScore=.;HmtVar=16110
 chrMT	9536	.	CC	C	.	PASS	AC=1;AN=2;Locus=MT-CO3;AaChange=frameshift;Pathogenicity=.;DiseaseScore=.;HmtVar=16466
 chrMT	9537	.	C	CC	.	PASS	AC=1;AN=2;Locus=MT-CO3;AaChange=frameshift;Pathogenicity=.;DiseaseScore=.;HmtVar=16464
-chrMT	10463	.	T	C	.	PASS	AC=1;AN=2;Locus=MT-TR;AaChange=.;Pathogenicity=polymorphic;DiseaseScore=0.1;HmtVar=18734
+chrMT	10463	.	T	C	.	PASS	AC=1;AN=2;Locus=MT-TR;AaChange=.;Pathogenicity=polymorphic;DiseaseScore=0.2;HmtVar=18734
 chrMT	10952	.	C	CC	.	PASS	AC=1;AN=2;Locus=MT-ND4;AaChange=frameshift;Pathogenicity=.;DiseaseScore=.;HmtVar=19898
 chrMT	11251	.	A	G	.	PASS	AC=1;AN=2;Locus=MT-ND4;AaChange=L164L;Pathogenicity=.;DiseaseScore=.;HmtVar=20593
 chrMT	11621	.	ATA	A	.	PASS	AC=1;AN=2;Locus=MT-ND4;AaChange=frameshift;Pathogenicity=.;DiseaseScore=.;HmtVar=21459
