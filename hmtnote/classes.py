@@ -46,6 +46,7 @@ _FIELDS_CROSSREF = (
     ("1KGenomesHomoplasmy", "genomes1K_homo",
      "The variant was found as homoplasmic in 1KGenomes datasets (Y=yes,N=no)")
 )
+
 _FIELDS_VARIAB = (
     ("NtVarH", "nt_var",
      "Nucleotide variability of the position in healthy individuals"),
@@ -80,6 +81,7 @@ _FIELDS_VARIAB = (
     ("AlleleFreqP_OC", "all_freq_p_OC",
      "Allele frequency of the variant in patient individuals from Oceania")
 )
+
 _FIELDS_PREDICT = (
     ("MutPred_Prediction", "mutPred_pred",
      "Pathogenicity prediction offered by MutPred"),

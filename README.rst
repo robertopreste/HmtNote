@@ -58,7 +58,7 @@ For more information, please refer to the Usage_ section of the documentation.
 Installation
 ------------
 
-**PLEASE NOTE: HmtNote only supports Python 3!**
+**PLEASE NOTE: HmtNote only supports Python >= 3.6!**
 
 The preferred installation method for HmtNote is using ``pip``:
 
