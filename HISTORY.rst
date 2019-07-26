@@ -118,6 +118,6 @@ History
 ------------------
 
 * Add ``--csv`` command line option to convert output to CSV format;
-* Add homoplasmy and diseases in literature annotations;
+* Add homoplasmy annotations;
 * Update all tests accordingly;
 * Update documentation.
