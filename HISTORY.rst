@@ -121,3 +121,10 @@ History
 * Add homoplasmy annotations;
 * Update all tests accordingly;
 * Update documentation.
+
+0.7.1 (2019-07-30)
+==================
+
+* Fix issue with echoed string (#78);
+* Fix issue with CSV format columns (#79);
+* Update testfiles.
