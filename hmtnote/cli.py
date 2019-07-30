@@ -77,7 +77,7 @@ def annotate(input_vcf, output_vcf,
                                    basic, crossref, variab, predict)
     vcf.annotate()
     if csv:
-        click.echo("Converting annotated VCF file to CSV format...", nl=False)
+        click.echo("Converting annotated VCF file to CSV format... ", nl=False)
         vcf.to_csv()
         click.echo("Done.")
 
