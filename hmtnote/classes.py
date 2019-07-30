@@ -13,6 +13,7 @@ from typing import Union
 import vcfpy2 as vcfpy
 import subprocess
 import allel
+from collections import defaultdict
 
 
 _FIELDS_BASIC = (
@@ -564,8 +565,27 @@ class Annotator:
         # The alt_number option specifies the number of alternate allele to
         # consider, and is automatically set to the max number of alleles
         # in the current VCF file.
-        allel.vcf_to_csv(self.vcf_out, csv_out,
-                         fields="*", alt_number=max(self._n_alleles))
+        df = allel.vcf_to_dataframe(self.vcf_out, fields="*",
+                                    alt_number=max(self._n_alleles))
+
+        df.fillna(".", inplace=True)
+        to_merge = [col for col in df.columns
+                    if "_" in col and col.split("_")[-1].isdigit()]
+        # dictionary of new columns names -> columns to merge
+        col_dict = defaultdict(list)
+        for col in to_merge:
+            new_col = "_".join(col.split("_")[:-1])
+            col_dict[new_col].append(col)
+        # merge columns and drop duplicate columns
+        for new_col, old_cols in col_dict.items():
+            # get index of the first column of the set to be merged
+            col_idx = df.columns.get_loc(old_cols[0])
+            merged_col = df[old_cols].astype(str).apply(lambda x: ";".join(x),
+                                                        axis=1)
+            df.drop(old_cols, axis=1, inplace=True)
+            df.insert(loc=col_idx, column=new_col, value=merged_col.values)
+
+        df.to_csv(csv_out, index=False)
 
 
 class DataDumper:
