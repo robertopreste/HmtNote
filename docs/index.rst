@@ -1,7 +1,9 @@
-Welcome to HmtNote's documentation!
-======================================
+.. include:: ../README.rst
 
-HmtNote is a bioinformatics Python module and command line interface that can be used to annotate human mitochondrial variants from a VCF file, using data available on HmtVar_.
+____
+
+Table Of Contents
+=================
 
 .. toctree::
    :maxdepth: 2
@@ -17,9 +19,7 @@ HmtNote is a bioinformatics Python module and command line interface that can be
    history
 
 Indices and tables
-------------------
+==================
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-.. _HmtVar: https://www.hmtvar.uniba.it

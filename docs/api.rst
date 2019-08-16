@@ -3,7 +3,7 @@ API
 ===
 
 Command Line Interface
-----------------------
+======================
 
 .. click:: hmtnote.cli:annotate
     :prog: hmtnote annotate
@@ -14,9 +14,10 @@ Command Line Interface
     :prog: hmtnote dump
     :show-nested:
 
+____
 
 Python Module
--------------
+=============
 
 .. automodule:: hmtnote.hmtnote
     :members:

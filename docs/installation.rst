@@ -5,7 +5,7 @@ Installation
 **PLEASE NOTE: HmtNote only supports Python >= 3.6!**
 
 Stable release
---------------
+==============
 
 To install HmtNote, run this command in your terminal:
 
@@ -23,7 +23,7 @@ you through the process.
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 From sources
-------------
+============
 
 The sources for HmtNote can be downloaded from the `Github repo`_.
 

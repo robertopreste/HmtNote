@@ -44,7 +44,7 @@ Human mitochondrial variants annotation using HmtVar.
 
 
 Features
---------
+========
 
 HmtNote is a bioinformatics Python module and command line interface that can be used to annotate human mitochondrial variants from a VCF file, using data available on HmtVar_.
 
@@ -56,7 +56,7 @@ For more information, please refer to the Usage_ section of the documentation.
 
 
 Installation
-------------
+============
 
 **PLEASE NOTE: HmtNote only supports Python >= 3.6!**
 
@@ -70,10 +70,10 @@ For more information, please refer to the Installation_ section of the documenta
 
 
 Usage
------
+=====
 
 Command Line Interface
-======================
+----------------------
 
 HmtNote can be used as a command line tool, using the ``annotate`` command and providing the input VCF file name and the file name or path where the annotated VCF will be saved::
 
@@ -105,7 +105,7 @@ After that, HmtNote is capable of working even when no internet connection is av
 For more information, please refer to the Usage_ section of the documentation.
 
 Python Module
-=============
+-------------
 
 HmtNote can also be imported in a Python script and its function ``annotate_vcf()`` can be used to annotate a given VCF::
 
@@ -132,14 +132,14 @@ It is also possible to download the annotation database using the ``dump()`` fun
 For more information, please refer to the Usage_ section of the documentation.
 
 Citing HmtNote
---------------
+==============
 
 If you find HmtNote useful for your research, please cite this work:
 
     Preste R. *et al* - Human mitochondrial variant annotation with HmtNote (doi: https://doi.org/10.1101/600619)
 
 Credits
--------
+=======
 
 This package was created with Cookiecutter_ and the `cc-pypackage`_ project template.
 

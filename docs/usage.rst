@@ -75,7 +75,7 @@ Annotations
 HmtNote offers several annotations, grouped for simplicity into basic, cross-reference, variability and predictions, depending on the type of information they provide.
 
 Basic
-=====
+~~~~~
 
 Basic information about the variant; they include:
 
@@ -86,7 +86,7 @@ Basic information about the variant; they include:
 * HmtVar: HmtVar_ ID of the variant (can be used to view the related VariantCard on ``https://www.hmtvar.uniba.it/varCard/<HmtVarID>``)
 
 Cross-reference
-===============
+~~~~~~~~~~~~~~~
 
 Cross-reference information about the variant; they include:
 
@@ -103,7 +103,7 @@ Cross-reference information about the variant; they include:
 * 1KGenomesHomoplasmy: The variant was found as homoplasmic in 1KGenomes datasets
 
 Variability
-===========
+~~~~~~~~~~~
 
 Variability and allele frequency data about the variant; they include:
 
@@ -125,7 +125,7 @@ Variability and allele frequency data about the variant; they include:
 * AlleleFreqP_OC: Allele frequency of the variant in patient individuals from Oceania
 
 Predictions
-===========
+~~~~~~~~~~~
 
 Pathogenicity prediction information of the variant from external resources; they include:
 
