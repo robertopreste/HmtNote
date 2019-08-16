@@ -9,9 +9,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ["Click>=6.0", "requests>=2.21.0",
-                "pysam>=0.15.2", "pandas==0.24.2", "aiohttp>=3.5.4",
-                "aiofiles>=0.4.0", "vcfpy2==0.1.2", "scikit-allel==1.2.1"]
+requirements = ["Click==7.0", "requests==2.22.0", "numpy==1.16.4",
+                "pandas==0.24.2", "aiohttp==3.5.4", "aiofiles==0.4.0",
+                "vcfpy2==0.1.2", "scikit-allel==1.2.1"]
 
 setup_requirements = ['pytest-runner', ]
 
