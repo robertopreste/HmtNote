@@ -128,3 +128,11 @@ History
 * Fix issue with echoed string (#78);
 * Fix issue with CSV format columns (#79);
 * Update testfiles.
+
+0.7.2 (2019-08-16)
+------------------
+
+* Remove pysam from requirements and fix dependencies;
+* Change docstrings to Google style;
+* Update documentation;
+* Update testfiles.
