@@ -113,13 +113,12 @@ class _HmtVarField:
     """This class is used to collect data from HmtVar's API for each field
     returned.
 
-    :param self.element: name of the field to be used in the VCF file
-
-    :param self.api_slug: name of the field used in HmtVar's API
-
-    :param self._field_value: value of the given field; automatically
-        instantiated as an empty list, is then populated with a single value
-        for each alternate allele found in the variant
+    Attributes:
+        element: name of the field to be used in the VCF file
+        api_slug: name of the field used in HmtVar's API
+        _field_value: value of the given field; automatically
+            instantiated as an empty list, is then populated with a
+            single value for each alternate allele found in the variant
     """
 
     def __init__(self, element, api_slug):
@@ -133,9 +132,11 @@ class _HmtVarField:
         """Replace null values returned by HmtVar's API (None) with a '.'
         character.
 
-        :param Union[str,int,float,None] element: value returned by HmtVar
+        Args:
+            element: value returned by HmtVar
 
-        :return: Union[str,int,float]
+        Returns:
+            '.' if element is None, otherwise the element itself
         """
         if element is None:
             return "."
@@ -144,19 +145,15 @@ class _HmtVarField:
     @property
     def field_value(self):
         """List of values parsed from HmtVar's API for each alternate allele
-        of the given variant.
-
-        :return:
-        """
+        of the given variant."""
         return self._field_value
 
     @field_value.setter
     def field_value(self, value):
         """Update the list of values with a new value.
 
-        :param value: new value to be appended to the list of values
-
-        :return:
+        Args:
+            value: new value to be appended to the list of values
         """
         self._field_value.append(self._replace_null(value))
 
@@ -165,14 +162,12 @@ class _HmtVarHeader:
     """This class is used to create a new header that will be added to the
     annotated VCF file.
 
-    :param self.element: name of the field to be used in the VCF file
-
-    :param self.vcf_number: value used in the 'number' attribute of the header
-        line
-
-    :param self.vcf_type: type of value for this information
-
-    :param self.vcf_description: description of this information
+    Attributes:
+        element: name of the field to be used in the VCF file
+        vcf_number: value used in the 'number' attribute of the header
+            line
+        vcf_type: type of value for this information
+        vcf_description: description of this information
     """
 
     def __init__(self, element, vcf_number, vcf_type, vcf_description):
@@ -186,13 +181,11 @@ class _HmtVarVariant:
     """This class is used to store a given variant and retrieve the related
     information from HmtVar.
 
-    :param self.reference: reference allele of the variant
-
-    :param self.position: position of the variant
-
-    :param self.alternate: alternate allele of the variant
-
-    :param self.variant: string-formatted variant, used for the API call
+    Attributes:
+        reference: reference allele of the variant
+        position: position of the variant
+        alternate: alternate allele of the variant
+        _variant: string-formatted variant, used for the API call
     """
 
     def __init__(self, reference, position, alternate):
@@ -202,27 +195,18 @@ class _HmtVarVariant:
         self._variant = "{}{}".format(self.position, self.alternate.value)
 
     def _is_deletion(self) -> bool:
-        """Check whether the current variant refers to a deletion.
-
-        :return: bool
-        """
+        """Check whether the current variant refers to a deletion."""
         # e.g. ref CTG | alt C
         return self.alternate.type == "DEL"
 
     def _is_insertion(self) -> bool:
-        """Check whether the current variant refers to an insertion.
-
-        :return: bool
-        """
+        """Check whether the current variant refers to an insertion."""
         # e.g. ref C | alt CTG
         return self.alternate.type == "INS"
 
     @property
     def variant(self) -> str:
-        """Create the proper variant format for deletions, insertions and SNPs.
-
-        :return: str
-        """
+        """Create the proper variant format for deletions, insertions and SNPs."""
         if self._is_deletion():
             self._variant = "{}d".format(int(self.position) + 1)
         elif self._is_insertion():
@@ -235,10 +219,7 @@ class _HmtVarVariant:
 
     @property
     def response(self) -> dict:
-        """Call HmtVar's API to retrieve data related to self.variant.
-
-        :return: dict
-        """
+        """Call HmtVar's API to retrieve data related to self.variant."""
         url = "https://www.hmtvar.uniba.it/api/main/mutation/{}".format(self.variant)
         call = requests.get(url)
         # TODO variants not present in HmtVar actually return an empty dictionary
@@ -252,15 +233,19 @@ class _HmtVarVariant:
 
 
 class _OfflineHmtVarVariant(_HmtVarVariant):
+    """This class extends _HmtVarVariant to store a given variant and
+    retrieve the related information from the downloaded HmtVar database.
+
+    Attributes:
+        db: local database to use
+    """
+
     def __init__(self, reference, position, alternate, database):
         super().__init__(reference, position, alternate)
         self.db = database
 
     def dbcall(self) -> pd.DataFrame:
-        """Create the proper database query for deletions, insertions and SNPs.
-
-        :return: pd.DataFrame
-        """
+        """Create the proper database query for deletions, insertions and SNPs."""
         if super()._is_deletion():
             return self.db[(self.db["nt_start"] == (int(self.position) + 1)) &
                            (self.db["alt"] == "d")]
@@ -276,10 +261,7 @@ class _OfflineHmtVarVariant(_HmtVarVariant):
     @property
     def response(self) -> dict:
         """Override the _HmtVarVariant.response() method to retrieve the data
-        from local dumped databases, instead of using HmtVar's API.
-
-        :return: dict
-        """
+        from local dumped databases, instead of using HmtVar's API."""
         call = self.dbcall()
         resp = call.to_dict(orient="records")
         if not resp:
@@ -294,15 +276,12 @@ class _HmtVarParser:
     """This class is used to parse information collected from HmtVar's API and
     store them in the right format, ready for VCF annotation.
 
-    :param self.record: variant record as returned by vcfpy.Reader.from_path()
-
-    :param self.basics: basic information from HmtVar
-
-    :param self.crossrefs: cross-reference information from HmtVar
-
-    :param self.variabs: variability information from HmtVar
-
-    :param self.predicts: predictions information from HmtVar
+    Attributes:
+        record: variant record as returned by vcfpy.Reader.from_path()
+        basics: basic information from HmtVar
+        crossrefs: cross-reference information from HmtVar
+        variabs: variability information from HmtVar
+        predicts: predictions information from HmtVar
     """
 
     def __init__(self, record):
@@ -317,10 +296,7 @@ class _HmtVarParser:
                          for el in _FIELDS_PREDICT]
 
     def parse(self):
-        """Update annotations about the given record.
-
-        :return:
-        """
+        """Update annotations about the given record."""
         variants = [_HmtVarVariant(self.record.REF, self.record.POS, alt)
                     for alt in self.record.ALT]
 
@@ -335,20 +311,18 @@ class _HmtVarParser:
                 else:  # plasmy field
                     field.field_value = response.get("Plasmy").get(field.api_slug, ".")
             for field in self.variabs:
-                field.field_value = response.get("Variab").get(field.api_slug,
-                                                               ".")
+                field.field_value = response.get("Variab").get(field.api_slug, ".")
             for field in self.predicts:
-                field.field_value = response.get("Predict").get(field.api_slug,
-                                                                ".")
+                field.field_value = response.get("Predict").get(field.api_slug, ".")
 
 
 class _OfflineHmtVarParser(_HmtVarParser):
-    """This class is used to parse information collected from the downloaded
+    """This class extends _HmtVarParser to parse information collected from the downloaded
     local HmtVar database for offline annotation.
 
-    :param self.record: variant record as returned by vcfpy.Reader.from_path()
-
-    :param self.db: local HmtVar database
+    Attributes:
+        record: variant record as returned by vcfpy.Reader.from_path()
+        db: local HmtVar database
     """
 
     def __init__(self, record, database):
@@ -356,10 +330,7 @@ class _OfflineHmtVarParser(_HmtVarParser):
         self.db = database
 
     def parse(self):
-        """Override the _HmtVarParser.parse() method for offline annotation.
-
-        :return:
-        """
+        """Override the _HmtVarParser.parse() method for offline annotation."""
         variants = [_OfflineHmtVarVariant(self.record.REF, self.record.POS,
                                           alt, self.db)
                     for alt in self.record.ALT]
@@ -389,35 +360,25 @@ class Annotator:
     traverse a given input VCF and annotate each variant found, then save
     the annotated VCF.
 
-    :param self.vcf_in: input VCF filename
-
-    :param self.vcf_out: output VCF filename
-
-    :param self.basic: bool flag to enable annotation of basic information
-
-    :param self.crossref: bool flag to enable annotation of cross-reference
-        information
-
-    :param self.variab: bool flag to enable annotation of variability
-        information
-
-    :param self.predict: bool flag to enable annotation of predictions
-        information
-
-    :param self.reader: input VCF reader (provided by cyvcf2.VCF)
-
-    :param self.basic_heads: header to be used for basic information
-
-    :param self.crossref_heads: header to be used for cross-reference
-        information
-
-    :param self.variab_heads: header to be used for variability information
-
-    :param self.predict_heads: header to be used for predictions information
-
-    :param self.writer: output VCF writer (provided by cyvcf2.Writer),
-        instantiated after the header has been updated according to new
-        header to be used
+    Attributes:
+        vcf_in: input VCF filename
+        vcf_out: output VCF filename
+        basic: bool flag to enable annotation of basic information
+        crossref: bool flag to enable annotation of cross-reference
+            information
+        variab: bool flag to enable annotation of variability information
+        predict: bool flag to enable annotation of predictions
+            information
+        reader: input VCF reader (provided by vcfpy.Reader.from_path())
+        basic_heads: header to be used for basic information
+        crossref_heads: header to be used for cross-reference information
+        variab_heads: header to be used for variability information
+        predict_heads: header to be used for predictions information
+        writer: output VCF writer (provided by vcfpy.Writer.from_path()),
+            instantiated after the header has been updated according to
+            new header to be used
+        _n_records: number of records contained in vcf_in
+        _n_alleles: list of alleles present in a specific record
     """
 
     def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
@@ -449,9 +410,8 @@ class Annotator:
     def _is_variation(record) -> bool:
         """Check whether or not the current record refers to an actual variant.
 
-        :param record: current VCF record
-
-        :return: bool
+        Args:
+            record: current VCF record
         """
         return len(record.ALT) > 0 and all([rec.value != "."
                                             for rec in record.ALT])
@@ -461,18 +421,14 @@ class Annotator:
         """Check whether or not the current record is a mitochondrial variant;
         if not will avoid sending useless requests to HmtVar.
 
-        :param record: current VCF record
-
-        :return: bool
+        Args:
+            record: current VCF record
         """
         return record.CHROM in ["M", "MT", "chrM", "chrMT", "chrRCRS"]
 
     def _update_header(self):
         """Update the header present in the input VCF file according to the
-        flags provided (basic, variability, predictions information).
-
-        :return:
-        """
+        flags provided (basic, variability, predictions information)."""
         if self.basic:
             for field in self.basic_heads:
                 self.reader.header.add_info_line(
@@ -519,10 +475,7 @@ class Annotator:
 
         Annotate variants according to the flags provided (basic,
         variability, predictions information), and write the output VCF
-        file.
-
-        :return:
-        """
+        file."""
         with click.progressbar(self.reader,
                                length=self._n_records,
                                label="Annotating...") as bar:
@@ -555,8 +508,6 @@ class Annotator:
         Create an additional annotated CSV file with the same name of
         self.vcf_out (except for a .csv extension) and in its same
         location.
-
-        :return:
         """
         base_path, base_name = os.path.split(self.vcf_out)
         csv_name = os.path.splitext(base_name)[0]
@@ -595,14 +546,11 @@ class DataDumper:
     HmtVar using the specific API for HmtNote, and will store the results
     in hmtnote_dump.pkl.
 
-    :param self._df_basic: temporary dataframe with basic annotations
-
-    :param self._df_crossref: temporary dataframe with cross-reference
-        annotations
-
-    :param self._df_variab: temporary dataframe with variability annotations
-
-    :param self._df_predict: temporary dataframe with prediction annotations
+    Attributes:
+        _df_basic: temporary dataframe with basic annotations
+        _df_crossref: temporary dataframe with cross-reference annotations
+        _df_variab: temporary dataframe with variability annotations
+        _df_predict: temporary dataframe with prediction annotations
     """
 
     def __init__(self):
@@ -620,13 +568,10 @@ class DataDumper:
         Will download the given dataset in chunks and write them to a
         JSON-formatted temporary file.
 
-        :param session: aiohttp.ClientSession() to use
-
-        :param str url: base url of HmtVar's API
-
-        :param str dataset: annotation dataset name
-
-        :return:
+        Args:
+            session: aiohttp.ClientSession() to use
+            url: base url of HmtVar's API
+            dataset: annotation dataset name
         """
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         async with session.get(url, ssl=False) as res:
@@ -644,9 +589,8 @@ class DataDumper:
     async def _looper_download_json(dataset: str):
         """Main async function to download and save annotation datasets.
 
-        :param str dataset: annotation dataset name
-
-        :return:
+        Args:
+            dataset: annotation dataset name
         """
         url = "https://www.hmtvar.uniba.it/hmtnote/{}".format(dataset)
         click.echo("Downloading {} annotations...".format(dataset))
@@ -660,8 +604,6 @@ class DataDumper:
 
         Call the `_looper_download_json()` function to download the data
         and store them in a single pickled dataframe for later use.
-
-        :return:
         """
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
         datasets = ["basic", "crossref", "variab", "predict"]
@@ -716,37 +658,8 @@ class OfflineAnnotator(Annotator):
     will traverse a given input VCF and annotate each variant found,
     then save the annotated VCF.
 
-    :param self.vcf_in: input VCF filename
-
-    :param self.vcf_out: output VCF filename
-
-    :param self.basic: bool flag to enable annotation of basic information
-
-    :param self.crossref: bool flag to enable annotation of cross-reference
-        information
-
-    :param self.variab: bool flag to enable annotation of variability
-        information
-
-    :param self.predict: bool flag to enable annotation of predictions
-        information
-
-    :param self.reader: input VCF reader (provided by cyvcf2.VCF)
-
-    :param self.basic_heads: header to be used for basic information
-
-    :param self.crossref_heads: header to be used for cross-reference
-        information
-
-    :param self.variab_heads: header to be used for variability information
-
-    :param self.predict_heads: header to be used for predictions information
-
-    :param self.writer: output VCF writer (provided by cyvcf2.Writer),
-        instantiated after the header has been updated according to new
-        header to be used
-
-    :param self.db: local annotation database (hmtnote_dump.pkl)
+    Attributes:
+        db: local annotation database (hmtnote_dump.pkl)
     """
 
     def __init__(self, vcf_in, vcf_out, basic, crossref, variab, predict):
@@ -760,8 +673,6 @@ class OfflineAnnotator(Annotator):
         Override the Annotator.annotate() method to provide offline
         annotation according to the flags provided (basic, variability,
         predictions information), and write the output VCF file.
-
-        :return:
         """
         with click.progressbar(self.reader,
                                length=self._n_records,
@@ -791,10 +702,7 @@ class OfflineAnnotator(Annotator):
 
 
 def check_connection() -> bool:
-    """Ensure a functioning internet connection is available.
-
-    :return: bool
-    """
+    """Ensure a functioning internet connection is available."""
 
     url = "https://httpstat.us/200"
     timeout = 5
@@ -807,10 +715,7 @@ def check_connection() -> bool:
 
 
 def check_dump() -> bool:
-    """Check the presence of the local annotation database hmtnote_dump.pkl.
-
-    :return: bool
-    """
+    """Check the presence of the local annotation database hmtnote_dump.pkl."""
 
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     return os.path.isfile(os.path.join(BASE_DIR, "hmtnote_dump.pkl"))
