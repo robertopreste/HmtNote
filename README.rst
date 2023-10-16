@@ -2,6 +2,14 @@
 HmtNote
 =======
 
+PLEASE NOTE
+-----------
+
+Due to HmtVar not being available anymore, this tool is now archived.  
+Apologies for any inconvenience.  
+
+____
+
 
 .. image:: https://img.shields.io/pypi/v/hmtnote.svg
         :target: https://pypi.python.org/pypi/hmtnote
